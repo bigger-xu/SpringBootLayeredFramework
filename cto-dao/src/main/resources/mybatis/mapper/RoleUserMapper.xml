@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cto.freemarker.dao.RoleUserMapper" >
+    <resultMap id="RoleUserResultMap" type="com.cto.freemarker.entity.RoleUser" >
+        <result property="userId" column="user_id" />
+        <result property="roleId" column="role_id" />
+        <result property="updateUserId" column="update_user_id" />
+        <result property="updateTime" column="update_time" />
+        <result property="addUserId" column="add_user_id" />
+        <result property="addTime" column="add_time" />
+        <result property="uuid" column="uuid" />
+        <result property="id" column="id" />
+    </resultMap>
+    <resultMap id="RoleUserVoResultMap" type="com.cto.freemarker.entity.vo.RoleUserVo" extends="RoleUserResultMap">
+
+    </resultMap>
+
+    <sql id="RoleUser_Column_List" >
+        user_id,
+        role_id,
+        update_user_id,
+        update_time,
+        add_user_id,
+        add_time,
+        uuid,
+        id
+    </sql>
+
+    <insert id="insert" parameterType="com.cto.freemarker.entity.RoleUser">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO role_user (
+        <include refid="RoleUser_Column_List" />
+        ) VALUES (
+        #{userId},
+        #{roleId},
+        #{updateUserId},
+        #{updateTime},
+        #{addUserId},
+        #{addTime},
+        #{uuid},
+        #{id}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.cto.freemarker.entity.RoleUser">
+        UPDATE role_user SET
+        user_id = #{userId},
+        role_id = #{roleId},
+        update_user_id = #{updateUserId},
+        update_time = #{updateTime},
+        add_user_id = #{addUserId},
+        add_time = #{addTime}
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateBySelective" parameterType="com.cto.freemarker.entity.RoleUser">
+        UPDATE role_user
+        <set>
+        <if test="userId!=null">
+        user_id=#{userId},
+        </if>
+        <if test="roleId!=null">
+        role_id=#{roleId},
+        </if>
+        <if test="updateUserId!=null">
+        update_user_id=#{updateUserId},
+        </if>
+        <if test="updateTime!=null">
+        update_time=#{updateTime},
+        </if>
+        <if test="addUserId!=null">
+        add_user_id=#{addUserId},
+        </if>
+        <if test="addTime!=null">
+        add_time=#{addTime}
+        </if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="selectEntityById" parameterType="java.lang.Long" resultMap="RoleUserResultMap">
+        select <include refid="RoleUser_Column_List" /> from role_user where id=#{id}
+    </select>
+
+    <select id="selectEntityByUUId" parameterType="string" resultMap="RoleUserResultMap">
+        select  <include refid="RoleUser_Column_List" /> from role_user where uuid=#{uuid}
+    </select>
+
+    <select id="selectListBySearch" parameterType="com.cto.freemarker.entity.vo.RoleUserVo" resultMap="RoleUserResultMap">
+        select <include refid="RoleUser_Column_List" /> from role_user where 1=1
+        <if test="userId!=null">
+        and user_id=#{userId}
+        </if>
+        <if test="roleId!=null">
+        and role_id=#{roleId}
+        </if>
+        <if test="updateUserId!=null">
+        and update_user_id=#{updateUserId}
+        </if>
+        <if test="updateTime!=null">
+        and update_time=#{updateTime}
+        </if>
+        <if test="addUserId!=null">
+        and add_user_id=#{addUserId}
+        </if>
+        <if test="addTime!=null">
+        and add_time=#{addTime}
+        </if>
+        <if test="uuid!=null and uuid!=''">
+        and uuid like CONCAT('%',#{uuid},'%')
+        </if>
+        <if test="id!=null">
+        and id=#{id}
+        </if>
+        <if test="sortStr != null and sortStr != ''">
+            order by  ${sortStr}
+        </if>
+    </select>
+
+    <select id="selectPageList" parameterType="com.cto.freemarker.entity.vo.RoleUserVo" resultMap="RoleUserResultMap">
+        select <include refid="RoleUser_Column_List" /> from role_user where 1=1
+        <if test="userId!=null">
+        and user_id=#{userId}
+        </if>
+        <if test="roleId!=null">
+        and role_id=#{roleId}
+        </if>
+        <if test="updateUserId!=null">
+        and update_user_id=#{updateUserId}
+        </if>
+        <if test="updateTime!=null">
+        and update_time=#{updateTime}
+        </if>
+        <if test="addUserId!=null">
+        and add_user_id=#{addUserId}
+        </if>
+        <if test="addTime!=null">
+        and add_time=#{addTime}
+        </if>
+        <if test="uuid!=null and uuid!=''">
+        and uuid like CONCAT('%',#{uuid},'%')
+        </if>
+        <if test="id!=null">
+        and id=#{id}
+        </if>
+        <if test="sortStr != null and sortStr != ''">
+            order by  ${sortStr}
+        </if>
+        limit #{startIndex},#{pageSize}
+    </select>
+
+    <select id="selectPageCount" parameterType="com.cto.freemarker.entity.vo.RoleUserVo" resultType="java.lang.Integer">
+        select count(1) from role_user where 1=1
+        <if test="userId!=null">
+        and user_id=#{userId}
+        </if>
+        <if test="roleId!=null">
+        and role_id=#{roleId}
+        </if>
+        <if test="updateUserId!=null">
+        and update_user_id=#{updateUserId}
+        </if>
+        <if test="updateTime!=null">
+        and update_time=#{updateTime}
+        </if>
+        <if test="addUserId!=null">
+        and add_user_id=#{addUserId}
+        </if>
+        <if test="addTime!=null">
+        and add_time=#{addTime}
+        </if>
+        <if test="uuid!=null and uuid!=''">
+        and uuid like CONCAT('%',#{uuid},'%')
+        </if>
+        <if test="id!=null">
+        and id=#{id}
+        </if>
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM
+        role_user
+        where id=#{id}
+    </delete>
+
+    <delete id="deleteByUUId" parameterType="string">
+        DELETE FROM
+        role_user
+        where uuid=#{uuid}
+    </delete>
+</mapper>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户角色对应关系</title>
+    <#include "../common/include_css.html">
+</head>
+<body class="fixed-top">
+<!--头部-->
+<#include "../common/header.html">
+<!--主体部分-->
+<div id="container" class="row-fluid">
+    <!--左侧菜单-->
+    <#include "../common/menu.html">
+    <!--右侧主体-->
+    <div id="main-content">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <h4 class="page-title"></h4>
+                    <ul class="breadcrumb">
+                        <li>
+                            <span>首页</span>
+                            <span class="divider">/</span>
+                        </li>
+                        <li>
+                            <span>用户角色对应关系</span>
+                            <span class="divider">/</span>
+                        </li>
+                        <li class="active">
+                            用户角色对应关系
+                        </li>
+                    </ul>
+                </div>
+                <div id="page-wraper">
+                    <div class="row-fluid">
+                        <!--主要编写的页面位置-->
+                        <div class="span12">
+                            <div class="widget blue">
+                                <div class="widget-body">
+                                    <div class="form-inline" id="searchForm">
+                                        <div class="form-group">
+                                            <input type="hidden" name="pageCount" id="pageCountParam" />
+                                            <div class="pull-right">
+                                                <a href="/roleUser/add" class="btn btn-primary" type="button">添加</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table class="table table-striped table-bordered table-advance table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                                    <th>用户ID</th>
+                                                    <th>角色ID</th>
+                                                    <th>更新人ID</th>
+                                                    <th>更新时间</th>
+                                                    <th>添加人ID</th>
+                                                    <th>添加时间</th>
+                                                    <th></th>
+                                                    <th>主键</th>
+                                            <th><i class=" icon-edit"></i> 操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="itemsPanel">
+
+                                        </tbody>
+                                    </table>
+                                    <div class="pagination pagination-centered">
+                                        <ul id="pageModel">
+
+                                        </ul>
+                                        <select id="pageCount" class="input-mini" style="float: right;">
+                                            <option value="10" selected="selected">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                            <option value="1000">1000</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--模型-->
+<table style="display: none;">
+    <tr id="skillModel">
+        <td key="num"></td>
+                <td key="userId" ></td>
+                <td key="roleId" ></td>
+                <td key="updateUserId" ></td>
+                <td key="updateTime" formatDate="yyyy-MM-dd hh:mm:ss"></td>
+                <td key="addUserId" ></td>
+                <td key="addTime" formatDate="yyyy-MM-dd hh:mm:ss"></td>
+                <td key="uuid" ></td>
+                <td key="id" ></td>
+        <td style="width: 20%">
+            <input type="hidden" key="id">
+            <a class="btn btn-primary del  edit" title="修改">修改</a>
+            <a class="btn btn-primary del  delete" title="删除">删除</a>
+        </td>
+    </tr>
+</table>
+<#include "../common/footer.html">
+<#include "../common/include_js.html">
+<script type="text/javascript" src="/static/js/roleUser/index.js"></script>
+</body>
+</html>
