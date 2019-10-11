@@ -16,12 +16,22 @@
     <dependencies>
         <dependency>
             <groupId>com.cto.freemarker</groupId>
+            <artifactId>cto-entity</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cto.freemarker</groupId>
             <artifactId>cto-utils</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.cto.freemarker</groupId>
             <artifactId>cto-service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cto.freemarker</groupId>
+            <artifactId>cto-solr</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
