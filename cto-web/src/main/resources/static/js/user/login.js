@@ -1,3 +1,7 @@
+var localStorage=window.localStorage;
+localStorage.setItem("selectedId", "");
+localStorage.setItem("selectedParentId", "");
+
 function toLogin(){
     var userName = $("#userName").val();
     var password = $("#password").val();
@@ -29,6 +33,7 @@ function toLogin(){
             } else {
                 layer.closeAll('loading');
                 layer.msg(result.msg);
+                reloadCode();
             }
         }
     })

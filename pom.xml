@@ -101,8 +101,8 @@
             <properties>
                 <jdbc.url><![CDATA[jdbc:mysql://localhost:3306/base_freemarker?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true]]></jdbc.url>
                 <jdbc.username>root</jdbc.username>
-<!--                <jdbc.password>root1234</jdbc.password>-->
-                <jdbc.password>admin1234</jdbc.password>
+                <jdbc.password>root1234</jdbc.password>
+<!--                <jdbc.password>admin1234</jdbc.password>-->
                 <jdbc.driver>com.mysql.cj.jdbc.Driver</jdbc.driver>
             </properties>
         </profile>

@@ -46,10 +46,16 @@ $(function(){
     });
 
     var localStorage=window.localStorage;
-    var selectedId=localStorage.getItem("selectedId");
-    var selectedParentId=localStorage.getItem("selectedParentId");
-    $('#'+selectedId+'').attr("class", "active");
-    $('#'+selectedParentId+'').attr("class", "active");
+    var selectedId = localStorage.getItem("selectedId");
+    var selectedParentId = localStorage.getItem("selectedParentId");
+    if ($.isEmptyObject(selectedId) || $.isEmptyObject(selectedParentId)) {
+        $("#homeMenu").addClass("active");
+    } else {
+        $('#'+selectedId+'').attr("class", "active");
+        $('#'+selectedParentId+'').find("ul").addClass("in");
+        $('#'+selectedParentId+'').attr("class", "active");
+    }
+
 });
 
 function resetValue(){

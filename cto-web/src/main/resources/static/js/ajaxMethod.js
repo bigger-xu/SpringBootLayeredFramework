@@ -110,12 +110,12 @@ var hideKey = "hdkey";
                             }
                         }
                         var pageCustomize = new Object() ;
-                        pageCustomize['prev'] = '<li><a href="javaScript:void(0);" class="firstSmSkill">首页</a></li><li><a href="javaScript:void(0);" class="prevSmSkill">上一页</a></li>'; //上一个
-                        pageCustomize['btn'] = '<li><a href="javaScript:void(0);" pageNumPanel="true" class="SmSkill">1</a></li>';//中间按钮
-                        pageCustomize['moreBtn'] = '<li><a pageNumPanel="true">...</a></li>'; //更多
-                        pageCustomize['next'] ='<li><a href="javaScript:void(0);" class="nextSmSkill">下一页</a></li><li><a href="javaScript:void(0);" class="lastSmSkill">末页</a></li>';//下一个
+                        pageCustomize['prev'] = '<li class="paginate_button page-item"><a href="javaScript:void(0);" class="page-link firstSmSkill">首页</a></li><li class="paginate_button page-item"><a href="javaScript:void(0);" class="page-link prevSmSkill">上一页</a></li>'; //上一个
+                        pageCustomize['btn'] = '<li class="paginate_button page-item"><a href="javaScript:void(0);" pageNumPanel="true" class="page-link SmSkill">1</a></li>';//中间按钮
+                        pageCustomize['moreBtn'] = '<li  class="paginate_button page-item"><a pageNumPanel="true" class="page-link">...</a></li>'; //更多
+                        pageCustomize['next'] ='<li class="paginate_button page-item"><a href="javaScript:void(0);" class="page-link nextSmSkill">下一页</a></li><li class="paginate_button page-item"><a href="javaScript:void(0);" class="page-link lastSmSkill">末页</a></li>';//下一个
                         pageCustomize['checkedClass'] = 'active';// 选中class
-                        pageCustomize['orderBtnBefore'] = ['<li><a href="javaScript:void(0);">共<font class="smSkillPageNum">'+result.totalPage+'</font>页</a></li>'];
+                        pageCustomize['orderBtnBefore'] = ['<li class="paginate_button page-item"><a href="javaScript:void(0);">共<font class="smSkillPageNum">'+result.totalPage+'</font>页</a></li>'];
                         var _start = result["page"] ;
                         $(defaultParams.pageModel).customPage(result,_start,6,"reloadPage",pageCustomize);
                         defaultParams.callback(result);
@@ -133,13 +133,13 @@ var hideKey = "hdkey";
          */
         customPage :function(pageResult,checkedNum,maxBtn,callback,pageCustomize){
             var pagePanel = $(this);
-            var pageCount =pageResult["totalPage"] ;
+            var pageSize =pageResult["totalPage"] ;
             var prev = pageCustomize['prev'];
             var btn = pageCustomize['btn'];
             var moreBtn = pageCustomize['moreBtn'];
             var next = pageCustomize['next'];
             var checkedClass = pageCustomize['checkedClass'] ;
-            if(pageCount>1){
+            if(pageSize>1){
                 pagePanel.show() ;
                 checkedNum = parseInt(checkedNum) ;
                 var tempCallback = function(num){
@@ -156,10 +156,10 @@ var hideKey = "hdkey";
                 var endPageNum = 0 ;
                 var halfLength = parseInt(maxBtn/2) ;
 
-                if(maxBtn>pageCount){
-                    endPageNum = pageCount ;
-                }else if((checkedNum+(halfLength))>pageCount){
-                    endPageNum = pageCount ;
+                if(maxBtn>pageSize){
+                    endPageNum = pageSize ;
+                }else if((checkedNum+(halfLength))>pageSize){
+                    endPageNum = pageSize ;
                 }else{
                     endPageNum = (checkedNum+(halfLength)) ;
                 }
@@ -169,8 +169,8 @@ var hideKey = "hdkey";
                     beginPageNum = endPageNum-maxBtn+1 ;
                 }
 
-                if((beginPageNum+maxBtn-1)>pageCount){
-                    endPageNum = pageCount ;
+                if((beginPageNum+maxBtn-1)>pageSize){
+                    endPageNum = pageSize ;
                 }else{
                     endPageNum = beginPageNum+maxBtn-1 ;
                 }
@@ -208,7 +208,8 @@ var hideKey = "hdkey";
 
                     if(i==checkedNum){
                         if(null!=checkedClass){
-                            btnClone.children().eq(0).addClass(checkedClass);
+                            // btnClone.children().eq(0).addClass(checkedClass);
+                            btnClone.addClass(checkedClass);
                         }
                         btnClone.removeAttr("href");
                         btnClone.find("[href]").removeAttr("href");
@@ -220,7 +221,7 @@ var hideKey = "hdkey";
                     }
                     pagePanel.append(btnClone);
                 }
-                if(null!=moreBtn && endPageNum<pageCount){
+                if(null!=moreBtn && endPageNum<pageSize){
                     var nextMore = moreBtn.clone() ;
                     nextMore.click(function(){
                         tempCallback(endPageNum+1);

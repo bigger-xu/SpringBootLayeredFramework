@@ -8,8 +8,7 @@ $(function () {
     loadPage();
 });
 // 选择每页显示多少条
-$("#pageCount").change(function(){
-    $("#pageCountParam").val($(this).val());
+$("#pageSize").change(function(){
     loadPage();
 })
 function loadPage(page) {
@@ -18,7 +17,7 @@ function loadPage(page) {
         url: "/role/page",//提交连接
         model: $("#skillModel"),
         pageModel:$("#pageModel"),
-        data: {"pageCount":$("#pageCount").val()},
+        data: {"pageSize":$("#pageSize").val()},
         pageNum: page,
         callback: function (result) {
             layer.closeAll('loading');
@@ -51,25 +50,33 @@ $(document).on("click", ".edit", function () {
 //删除
 $(document).on("click", ".delete", function () {
     var id = $(this).parent().find("[key=id]").val();
-    layer.confirm('您确定要删除吗？', {
-        btn: ['确定', '关闭'],//按钮
-        title: false,
-        closeBtn: false
-    }, function () {
-        $.ajax({
-            type: 'post',
-            dataType: 'json',
-            url: "/role/delete",
-            data: {"id": id},
-            success: function (result) {
-                if (result.code == 0) {
-                    $("#closeBtnLab").click();
-                    layer.msg("操作成功");
-                    loadPage();
-                } else {
-                    layer.msg("操作失败");
+    swal({
+        title: "您确定要删除吗？",
+        text: "您将无法恢复这个操作！",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#1ab394",
+        confirmButtonText: "确定",
+        cancelButtonText: "取消"
+    },
+    function (isConfirm) {
+        if (isConfirm) {
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: "/role/delete",
+                data: {"id": id},
+                success: function (result) {
+                    layer.closeAll('loading');
+                    if (result.code == 0) {
+                        $("#closeBtnLab").click();
+                        toastr.success('操作成功','系统通知!');
+                        loadPage();
+                    } else {
+                        toastr.error('操作失败','系统通知!');
+                    }
                 }
-            }
-        })
-    })
+            })
+        }
+    });
 });

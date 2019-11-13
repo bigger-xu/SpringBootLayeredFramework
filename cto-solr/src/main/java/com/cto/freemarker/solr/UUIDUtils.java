@@ -1,4 +1,4 @@
-package com.cto.freemarker.utils;
+package com.cto.freemarker.solr;
 
 import org.springframework.util.StringUtils;
 

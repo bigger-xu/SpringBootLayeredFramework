@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 public class SessionUtil {
     
     protected static final Logger LOGGER = LoggerFactory.getLogger(SessionUtil.class);
-    private static final String SESSION_USER = "session_user";
+    private static final String SESSION_USER = "base_session_user";
 
     /**
      * 设置session的值

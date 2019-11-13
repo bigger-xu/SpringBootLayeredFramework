@@ -1,16 +1,86 @@
-<script src="/static/assets/js/jquery-1.11.1.min.js"></script>
+<!-- Mainly scripts -->
+<script src="/static/inspinia/js/jquery-3.1.1.min.js"></script>
+<script src="/static/inspinia/js/popper.min.js"></script>
+<script src="/static/inspinia/js/bootstrap.js"></script>
+<script src="/static/inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<!-- Custom and plugin javascript -->
+<script src="/static/inspinia/js/inspinia.js"></script>
+<script src="/static/inspinia/js/plugins/pace/pace.min.js"></script>
+<!-- iCheck -->
+<script src="/static/inspinia/js/plugins/iCheck/icheck.min.js"></script>
+<!--layer-->
 <script src="/static/layer/layer.js"></script>
 <script src="/static/layer/extendLayer.js"></script>
-<script src="/static/assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="/static/assets/js/jquery.niceScroll.js"></script>
-<script src="/static/assets/js/jquery.scrollTo.min.js"></script>
-<script src="/static/assets/js/common-scripts.js"></script>
-<script src="/static/assets/js/jquery.multi-select.js"></script>
-<script src="/static/assets/js/jquery.ztree.all.min.js"></script>
+<!--zTree-->
+<script src="/static/zTree/jquery.ztree.all.min.js"></script>
+<!--日期控件-->
 <script src="/static/My97DatePicker/WdatePicker.js"></script>
+<!--JQuery validate-->
 <script src="/static/metroWeb/jquery.validate.js"></script>
 <script src="/static/metroWeb/jquery.validate.min.js"></script>
 <script src="/static/metroWeb/messages_zh.js"></script>
+<!-- Toastr script -->
+<script src="/static/inspinia/js/plugins/toastr/toastr.min.js"></script>
+<!-- Sweet alert -->
+<script src="/static/inspinia/js/plugins/sweetalert/sweetalert.min.js"></script>
+<!--self-->
 <script src="/static/js/ajaxMethod.js"></script>
 <script src="/static/js/pageClick.js"></script>
 <script src="/static/js/map.js"></script>
+<script>
+    $(document).ready(function () {
+        //选择框
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+        //弹窗
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "progressBar": true,
+            "preventDuplicates": false,
+            "positionClass": "toast-bottom-right",
+            "onclick": null,
+            "showDuration": "600",
+            "hideDuration": "1000",
+            "timeOut": "2000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+        //菜单隐藏
+        $('#side-menu li > a').click(function () {
+            var eTar = $(this);
+            var paRent = eTar.parent("li");
+            var sibLings = paRent.siblings("li").children("a");
+            var List = paRent.children("ul");
+
+            if (paRent.hasClass("active")) {
+                eTar.attr('aria-expanded', false);
+                hide(List);
+            } else {
+                show(List);
+                eTar.attr('aria-expanded', true);
+
+                if (true) {
+                    sibLings.attr('aria-expanded', false);
+                }
+            }
+        });
+        function hide(element){
+            var elem = $(element);
+            elem.parent("li").removeClass("active");
+            elem.removeClass("in").attr('aria-expanded', false);
+        }
+        function show(element){
+            var elem = $(element);
+            elem.parent("li").addClass("active");
+            hide(elem.parent("li").siblings().children("ul.in").attr('aria-expanded', false));
+            elem.addClass("in").attr('aria-expanded', true);
+        }
+
+    });
+</script>

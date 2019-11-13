@@ -1,4 +1,4 @@
-package com.cto.freemarker.utils.vcode;
+package com.cto.freemarker.solr.vcode;
 
 public class Quant {
     private static final int NETSIZE = 256;

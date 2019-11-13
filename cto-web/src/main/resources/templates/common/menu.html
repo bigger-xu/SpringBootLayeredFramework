@@ -1,22 +1,30 @@
-<div class="sidebar-scroll">
-    <div id="sidebar" class="nav-collapse collapse">
-        <ul class="sidebar-menu">
-            <#list Session.session_user.treeNodeList as menu>
-                <li class="sub-menu" id="${menu.id}">
-                    <a href="javascript:;">
-                        <i class="${menu.icon}"></i>
-                        <span>${menu.name}</span>
-                        <span class="arrow"></span>
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <img alt="image" class="rounded-circle" src="/static/inspinia/images/profile_small.png"/>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
+                        <span class="block m-t-xs font-bold"><#if Session["base_session_user"]?exists> ${Session.base_session_user.nickName!}</#if></span>
+                        <span class="text-muted text-xs block"><#if Session["base_session_user"]?exists> ${Session.base_session_user.roleName!}</#if></span>
                     </a>
+                </div>
+            </li>
+            <li id="homeMenu">
+                <a href="javascript:;" onclick="setSelectMenuId('','','/index')"><i class="fa fa-desktop"></i> <span class="nav-label">欢迎页</span></a>
+            </li>
+            <#list Session.base_session_user.treeNodeList as menu>
+                <li id="${menu.id}">
+                    <a href="javascript:;"><i class="fa ${menu.icon!}"></i> <span class="nav-label">${menu.name}</span><#if (menu.children?size > 0)><span class="fa arrow"></span></#if></a>
                     <#if (menu.children?size > 0)>
-                        <ul class="sub">
-                            <#list menu.children as child>
-                                <li id="${child.id}"><a href="javascript:;" onclick="setSelectMenuId('${child.id}', '${menu.id}','${child.url}')">${child.name}</a></li>
-                            </#list>
-                        </ul>
+                    <ul class="nav nav-second-level collapse">
+                        <#list menu.children as child>
+                            <li id="${child.id}"><a href="javascript:;" onclick="setSelectMenuId('${child.id}', '${menu.id}','${child.url}')">${child.name}</a></li>
+                        </#list>
+                    </ul>
                     </#if>
                 </li>
             </#list>
         </ul>
     </div>
-</div>
+</nav>

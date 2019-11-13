@@ -2,45 +2,91 @@
 <html lang="zh">
 <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>欢迎页</title>
     <#include "common/include_css.html">
 </head>
-<body class="fixed-top">
-<!--头部-->
-<#include "common/header.html">
-<!--主体部分-->
-<div id="container" class="row-fluid">
+
+<body class="pace-done fixed-sidebar">
+<div id="wrapper">
     <!--左侧菜单-->
     <#include "common/menu.html">
-    <!--右侧主体-->
-    <div id="main-content">
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span12">
-                    <h4 class="page-title"></h4>
-                    <ul class="breadcrumb">
-                        <li>
-                            <span>首页</span>
-                            <span class="divider">/</span>
-                        </li>
-                        <li class="active">
-                            欢迎页
-                        </li>
-                    </ul>
+    <div id="page-wrapper" class="gray-bg">
+        <!--头部-->
+        <#include "common/header.html">
+        <div class="wrapper wrapper-content">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <span class="label label-success float-right">本月</span>
+                            <h5>收入</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <h1 class="no-margins">40 886,200</h1>
+                            <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
+                            <small>总收入</small>
+                        </div>
+                    </div>
                 </div>
-                <div id="page-wraper">
-                    <div class="row-fluid">
-                        <!--主要编写的页面位置-->
+                <div class="col-lg-3">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <span class="label label-info float-right">全年</span>
+                            <h5>订单</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <h1 class="no-margins">275,800</h1>
+                            <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
+                            <small>新订单</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <span class="label label-primary float-right">今天</span>
+                            <h5>访客</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <h1 class="no-margins">106,120</h1>
+                            <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
+                            <small>新访客</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <span class="label label-danger float-right">最近一个月</span>
+                            <h5>活跃用户</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <h1 class="no-margins">80,600</h1>
+                            <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i></div>
+                            <small>12月</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>代码生成操作演示</h5>
+                        </div>
+                        <div class="ibox-content">
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <#include "common/footer.html">
     </div>
 </div>
-<#include "common/footer.html">
 <#include "common/include_js.html">
 </body>
 </html>

@@ -4,99 +4,87 @@
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>角色表-添加</title>
+    <title>角色管理-添加</title>
     <#include "../common/include_css.html">
 </head>
-<body class="fixed-top">
-<!--头部-->
-<#include "../common/header.html">
-<!--主体部分-->
-<div id="container" class="row-fluid">
+<body class="pace-done fixed-sidebar">
+<div id="wrapper">
     <!--左侧菜单-->
     <#include "../common/menu.html">
-    <!--右侧主体-->
-    <div id="main-content">
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span12">
-                    <h4 class="page-title"></h4>
-                    <ul class="breadcrumb">
-                        <li>
-                            <span>首页</span>
-                            <span class="divider">/</span>
-                        </li>
-                        <li>
-                            <span>角色表</span>
-                            <span class="divider">/</span>
-                        </li>
-                        <li>
-                            <span>角色表</span>
-                            <span class="divider">/</span>
-                        </li>
-                        <li class="active">
-                            修改
-                        </li>
-                    </ul>
-                </div>
-                <div id="page-wraper">
-                    <div class="row-fluid">
-                        <!--主要编写的页面位置-->
-                        <div class="span12">
-                            <div class="widget blue">
-                                <div class="widget-body">
-                                    <form id="dataForm"  onSubmit="return false" class="form-horizontal">
-                                        <input type="hidden" name="id" value="${role.id}">
-                                        <div class="control-group">
-                                            <label class="control-label"><font style="color: #FF0000;">*</font>角色编码</label>
-                                            <div class="controls">
-                                                <input type="text" name="code" value="${role.code!}" placeholder="请输入角色编码" autocomplete="off" class="input-xxlarge required" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label"><font style="color: #FF0000;">*</font>角色名称</label>
-                                            <div class="controls">
-                                                <input type="text" name="name" value="${role.name!}" placeholder="请输入角色名称" autocomplete="off" class="input-xxlarge required" />
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label"><font style="color: #FF0000;">*</font>状态</label>
-                                            <div class="controls">
-                                                <span class="checked">
-                                                    <input name="status" type="radio" value="0" <#if role.status == '0' >checked="checked"</#if>/>
-                                                </span>禁用
-                                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                                <span class="checked">
-                                                    <input name="status" type="radio" value="1" <#if role.status == '1' >checked="checked"</#if>/>
-                                                </span>启用
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">菜单权限</label>
-                                            <div class="controls">
-                                                <ul id="menu-tree" class="ztree"></ul>
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">注释</label>
-                                            <div class="controls">
-                                                <input type="text" name="remark" value="${role.remark!}" placeholder="请输入注释" autocomplete="off" class="input-xxlarge" />
-                                            </div>
-                                        </div>
-                                        <div class="form-actions">
-                                            <button type="submit" class="btn btn-primary" onclick="saveOrUpdate()"><i class="icon-ok"></i> 提交</button>
-                                            <button type="button" class="btn" onclick="window.history.back(-1)"><i class="icon-remove"></i>取消</button>
-                                        </div>
-                                    </form>
+    <div id="page-wrapper" class="gray-bg">
+        <!--头部-->
+        <#include "../common/header.html">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="javascript:;">系统管理</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="javascript:;">角色管理</a>
+                                </li>
+                                <li class="breadcrumb-item active">
+                                    <strong>添加角色</strong>
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="ibox-content">
+                            <form id="dataForm"  onSubmit="return false">
+                                <input type="hidden" name="id" value="${role.id}">
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">角色编码</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="code" value="${role.code!}" placeholder="请输入角色编码" autocomplete="off" class="form-control required" />
+                                    </div>
                                 </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">角色名称</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="name" value="${role.name!}" placeholder="请输入角色名称" autocomplete="off" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">注释</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="remark" value="${role.remark!}" placeholder="请输入注释" autocomplete="off" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">是否显示</label>
+                                    <div class="col-sm-6">
+                                        <label class="i-checks"> <input type="radio" name="status" value="0" <#if role.status == '0' >checked="checked"</#if>> <i></i>禁用</label>
+                                        <label class="i-checks"> <input type="radio" name="status" value="1" <#if role.status == '1' >checked="checked"</#if>> <i></i>启用</label>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">菜单权限</label>
+                                    <div class="col-sm-6">
+                                        <ul id="menu-tree" class="ztree"></ul>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group row">
+                                    <div class="col-sm-12 col-sm-offset-6 btn-center-al">
+                                        <button class="btn btn-white btn-sm" onclick="window.history.back(-1)" type="button">取消</button>
+                                        <button class="btn btn-primary btn-sm" onclick="saveOrUpdate()" type="button">提交</button>
+                                    </div>
+                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <#include "../common/footer.html">
         </div>
     </div>
-</div>
-<#include "../common/footer.html">
 <#include "../common/include_js.html">
 <script src="/static/js/role/add.js"></script>
 </body>

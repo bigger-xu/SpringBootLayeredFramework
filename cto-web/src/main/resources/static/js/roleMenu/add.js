@@ -13,7 +13,7 @@ function saveOrUpdate() {
                 if (result.code == 0) {
                     window.location.href = "/roleMenu";
                 }else {
-                    layer.msg(result.msg);
+                    toastr.error(result.msg,'系统通知!')
                 }
             }//回调方法
         });
