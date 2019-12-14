@@ -1,4 +1,4 @@
-package com.cto.freemarker.service.redis;
+package com.cto.freemarker.redis;
 
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;

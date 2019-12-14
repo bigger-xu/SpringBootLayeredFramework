@@ -1,4 +1,4 @@
-package com.cto.freemarker.service.redis;
+package com.cto.freemarker.redis;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

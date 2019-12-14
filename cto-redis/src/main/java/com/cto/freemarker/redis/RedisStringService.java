@@ -1,4 +1,4 @@
-package com.cto.freemarker.service.redis;
+package com.cto.freemarker.redis;
 
 /**
  * @author Zhang yongwei

@@ -14,6 +14,7 @@
         <module>cto-api</module>
         <module>cto-entity</module>
         <module>cto-dao</module>
+        <module>cto-redis</module>
         <module>cto-service</module>
         <module>cto-solr</module>
         <module>cto-utils</module>
