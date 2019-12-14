@@ -10,6 +10,7 @@
     <description>Spring Boot基础框架</description>
 
     <modules>
+        <module>cto-aop</module>
         <module>cto-api</module>
         <module>cto-entity</module>
         <module>cto-dao</module>

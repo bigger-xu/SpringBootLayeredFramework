@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cto.freemarker.dao.OperationLogsMapper" >
+    <resultMap id="OperationLogsResultMap" type="com.cto.freemarker.entity.OperationLogs" >
+        <result property="ipAddress" column="ip_address" />
+        <result property="type" column="type" />
+        <result property="returnValue" column="return_value" />
+        <result property="runTime" column="run_time" />
+        <result property="leaves" column="leaves" />
+        <result property="requestParams" column="request_params" />
+        <result property="description" column="description" />
+        <result property="requestType" column="request_type" />
+        <result property="requestUrl" column="request_url" />
+        <result property="updateTime" column="update_time" />
+        <result property="createTime" column="create_time" />
+        <result property="createUserId" column="create_user_id" />
+        <result property="uuid" column="uuid" />
+        <result property="id" column="id" />
+    </resultMap>
+    <resultMap id="OperationLogsVoResultMap" type="com.cto.freemarker.entity.vo.OperationLogsVo" extends="OperationLogsResultMap">
+
+    </resultMap>
+
+    <sql id="OperationLogs_Column_List" >
+        ip_address,
+        type,
+        return_value,
+        run_time,
+        leaves,
+        request_params,
+        description,
+        request_type,
+        request_url,
+        update_time,
+        create_time,
+        create_user_id,
+        uuid,
+        id
+    </sql>
+
+    <insert id="insert" parameterType="com.cto.freemarker.entity.OperationLogs">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO operation_logs (
+        <include refid="OperationLogs_Column_List" />
+        ) VALUES (
+        #{ipAddress},
+        #{type},
+        #{returnValue},
+        #{runTime},
+        #{leaves},
+        #{requestParams},
+        #{description},
+        #{requestType},
+        #{requestUrl},
+        #{updateTime},
+        #{createTime},
+        #{createUserId},
+        #{uuid},
+        #{id}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.cto.freemarker.entity.OperationLogs">
+        UPDATE operation_logs SET
+        ip_address = #{ipAddress},
+        type = #{type},
+        return_value = #{returnValue},
+        run_time = #{runTime},
+        leaves = #{leaves},
+        request_params = #{requestParams},
+        description = #{description},
+        request_type = #{requestType},
+        request_url = #{requestUrl},
+        update_time = #{updateTime},
+        create_time = #{createTime},
+        create_user_id = #{createUserId}
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateBySelective" parameterType="com.cto.freemarker.entity.OperationLogs">
+        UPDATE operation_logs
+        <set>
+        <if test="ipAddress!=null and ipAddress!=''">
+        ip_address=#{ipAddress},
+        </if>
+        <if test="type!=null and type!=''">
+        type=#{type},
+        </if>
+        <if test="returnValue!=null and returnValue!=''">
+        return_value=#{returnValue},
+        </if>
+        <if test="runTime!=null">
+        run_time=#{runTime},
+        </if>
+        <if test="leaves!=null">
+        leaves=#{leaves},
+        </if>
+        <if test="requestParams!=null and requestParams!=''">
+        request_params=#{requestParams},
+        </if>
+        <if test="description!=null and description!=''">
+        description=#{description},
+        </if>
+        <if test="requestType!=null and requestType!=''">
+        request_type=#{requestType},
+        </if>
+        <if test="requestUrl!=null and requestUrl!=''">
+        request_url=#{requestUrl},
+        </if>
+        <if test="updateTime!=null">
+        update_time=#{updateTime},
+        </if>
+        <if test="createTime!=null">
+        create_time=#{createTime},
+        </if>
+        <if test="createUserId!=null">
+        create_user_id=#{createUserId}
+        </if>
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="selectEntityById" parameterType="java.lang.Long" resultMap="OperationLogsResultMap">
+        select <include refid="OperationLogs_Column_List" /> from operation_logs where id=#{id}
+    </select>
+
+    <select id="selectEntityByUUId" parameterType="string" resultMap="OperationLogsResultMap">
+        select  <include refid="OperationLogs_Column_List" /> from operation_logs where uuid=#{uuid}
+    </select>
+
+    <select id="selectListBySearch" parameterType="com.cto.freemarker.entity.vo.OperationLogsVo" resultMap="OperationLogsResultMap">
+        select <include refid="OperationLogs_Column_List" /> from operation_logs where 1=1
+        <if test="ipAddress!=null and ipAddress!=''">
+        and ip_address like CONCAT('%',#{ipAddress},'%')
+        </if>
+        <if test="type!=null and type!=''">
+        and type like CONCAT('%',#{type},'%')
+        </if>
+        <if test="returnValue!=null and returnValue!=''">
+        and return_value like CONCAT('%',#{returnValue},'%')
+        </if>
+        <if test="runTime!=null">
+        and run_time=#{runTime}
+        </if>
+        <if test="leaves!=null">
+        and leaves=#{leaves}
+        </if>
+        <if test="requestParams!=null and requestParams!=''">
+        and request_params like CONCAT('%',#{requestParams},'%')
+        </if>
+        <if test="description!=null and description!=''">
+        and description like CONCAT('%',#{description},'%')
+        </if>
+        <if test="requestType!=null and requestType!=''">
+        and request_type like CONCAT('%',#{requestType},'%')
+        </if>
+        <if test="requestUrl!=null and requestUrl!=''">
+        and request_url like CONCAT('%',#{requestUrl},'%')
+        </if>
+        <if test="updateTime!=null">
+        and update_time=#{updateTime}
+        </if>
+        <if test="createTime!=null">
+        and create_time=#{createTime}
+        </if>
+        <if test="createUserId!=null">
+        and create_user_id=#{createUserId}
+        </if>
+        <if test="uuid!=null and uuid!=''">
+        and uuid like CONCAT('%',#{uuid},'%')
+        </if>
+        <if test="id!=null">
+        and id=#{id}
+        </if>
+        <if test="sortStr != null and sortStr != ''">
+            order by  ${sortStr}
+        </if>
+    </select>
+
+    <select id="selectPageList" parameterType="com.cto.freemarker.entity.vo.OperationLogsVo" resultMap="OperationLogsResultMap">
+        select <include refid="OperationLogs_Column_List" /> from operation_logs where 1=1
+        <if test="ipAddress!=null and ipAddress!=''">
+        and ip_address like CONCAT('%',#{ipAddress},'%')
+        </if>
+        <if test="type!=null and type!=''">
+        and type like CONCAT('%',#{type},'%')
+        </if>
+        <if test="returnValue!=null and returnValue!=''">
+        and return_value like CONCAT('%',#{returnValue},'%')
+        </if>
+        <if test="runTime!=null">
+        and run_time=#{runTime}
+        </if>
+        <if test="leaves!=null">
+        and leaves=#{leaves}
+        </if>
+        <if test="requestParams!=null and requestParams!=''">
+        and request_params like CONCAT('%',#{requestParams},'%')
+        </if>
+        <if test="description!=null and description!=''">
+        and description like CONCAT('%',#{description},'%')
+        </if>
+        <if test="requestType!=null and requestType!=''">
+        and request_type like CONCAT('%',#{requestType},'%')
+        </if>
+        <if test="requestUrl!=null and requestUrl!=''">
+        and request_url like CONCAT('%',#{requestUrl},'%')
+        </if>
+        <if test="updateTime!=null">
+        and update_time=#{updateTime}
+        </if>
+        <if test="createTime!=null">
+        and create_time=#{createTime}
+        </if>
+        <if test="createUserId!=null">
+        and create_user_id=#{createUserId}
+        </if>
+        <if test="uuid!=null and uuid!=''">
+        and uuid like CONCAT('%',#{uuid},'%')
+        </if>
+        <if test="id!=null">
+        and id=#{id}
+        </if>
+        <if test="sortStr != null and sortStr != ''">
+            order by  ${sortStr}
+        </if>
+        limit #{startIndex},#{pageSize}
+    </select>
+
+    <select id="selectPageCount" parameterType="com.cto.freemarker.entity.vo.OperationLogsVo" resultType="java.lang.Integer">
+        select count(1) from operation_logs where 1=1
+        <if test="ipAddress!=null and ipAddress!=''">
+        and ip_address like CONCAT('%',#{ipAddress},'%')
+        </if>
+        <if test="type!=null and type!=''">
+        and type like CONCAT('%',#{type},'%')
+        </if>
+        <if test="returnValue!=null and returnValue!=''">
+        and return_value like CONCAT('%',#{returnValue},'%')
+        </if>
+        <if test="runTime!=null">
+        and run_time=#{runTime}
+        </if>
+        <if test="leaves!=null">
+        and leaves=#{leaves}
+        </if>
+        <if test="requestParams!=null and requestParams!=''">
+        and request_params like CONCAT('%',#{requestParams},'%')
+        </if>
+        <if test="description!=null and description!=''">
+        and description like CONCAT('%',#{description},'%')
+        </if>
+        <if test="requestType!=null and requestType!=''">
+        and request_type like CONCAT('%',#{requestType},'%')
+        </if>
+        <if test="requestUrl!=null and requestUrl!=''">
+        and request_url like CONCAT('%',#{requestUrl},'%')
+        </if>
+        <if test="updateTime!=null">
+        and update_time=#{updateTime}
+        </if>
+        <if test="createTime!=null">
+        and create_time=#{createTime}
+        </if>
+        <if test="createUserId!=null">
+        and create_user_id=#{createUserId}
+        </if>
+        <if test="uuid!=null and uuid!=''">
+        and uuid like CONCAT('%',#{uuid},'%')
+        </if>
+        <if test="id!=null">
+        and id=#{id}
+        </if>
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM
+        operation_logs
+        where id=#{id}
+    </delete>
+
+    <delete id="deleteByUUId" parameterType="string">
+        DELETE FROM
+        operation_logs
+        where uuid=#{uuid}
+    </delete>
+</mapper>
