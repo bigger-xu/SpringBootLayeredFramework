@@ -56,7 +56,7 @@ public class HttpAspect {
      * @throws InterruptedException
      */
     @Before("controllerAspect()")
-    public void doBefore(JoinPoint joinPoint) throws InterruptedException{
+    public void doBefore(JoinPoint joinPoint){
         //线程绑定变量（该数据只有当前请求的线程可见）
         Date beginTime=new Date();
         beginTimeThreadLocal.set(beginTime);
