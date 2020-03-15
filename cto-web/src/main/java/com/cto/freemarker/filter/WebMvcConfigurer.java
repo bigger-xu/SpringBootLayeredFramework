@@ -15,26 +15,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 @Configuration
 public class WebMvcConfigurer extends WebMvcConfigurationSupport {
     /**
-     * 拦截所有请求  过滤首页和登陆页
-     * @param registry
-     */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        //registry.addInterceptor(new MyInterceptor()).addPathPatterns("/user/**").excludePathPatterns("/user/login","/user/logout","/");
-    }
-
-    /**
      * 添加静态资源文件，外部可以直接访问地址
      * @param registry
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/favicon.ico");
-    }
-
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        //registry.addViewController("/error/404").setViewName("/admin/page_error/error_404.html");
+        registry.addResourceHandler("/favicon.ico").addResourceLocations("classpath:/favicon.ico");
     }
 }
