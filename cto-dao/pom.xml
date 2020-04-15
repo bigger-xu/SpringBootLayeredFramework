@@ -6,7 +6,6 @@
     <artifactId>cto-dao</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>cto-dao</name>
-
     <parent>
         <groupId>com.cto.freemarker</groupId>
         <artifactId>root</artifactId>

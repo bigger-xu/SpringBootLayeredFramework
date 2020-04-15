@@ -6,7 +6,6 @@
     <artifactId>cto-aop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>cto-aop</name>
-
     <parent>
         <groupId>com.cto.freemarker</groupId>
         <artifactId>easyCoding</artifactId>

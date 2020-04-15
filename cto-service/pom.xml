@@ -6,7 +6,6 @@
     <artifactId>cto-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>cto-service</name>
-
     <parent>
         <groupId>com.cto.freemarker</groupId>
         <artifactId>root</artifactId>

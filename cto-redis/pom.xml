@@ -6,7 +6,6 @@
     <artifactId>cto-redis</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>cto-redis</name>
-
     <parent>
         <groupId>com.cto.freemarker</groupId>
         <artifactId>easyCoding</artifactId>

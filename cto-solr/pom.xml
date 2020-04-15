@@ -6,7 +6,6 @@
     <artifactId>cto-solr</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>cto-solr</name>
-
     <parent>
         <groupId>com.cto.freemarker</groupId>
         <artifactId>root</artifactId>
