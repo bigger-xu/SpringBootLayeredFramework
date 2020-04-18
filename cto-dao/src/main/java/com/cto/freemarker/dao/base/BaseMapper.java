@@ -6,7 +6,7 @@ import java.util.List;
  * @author zhangyongwei
  * @date 2019-03-02 20:19:53
  */
-public interface BaseDao<T>{
+public interface BaseMapper<T>{
     /**
      * 插入
      * @param obj

@@ -5,7 +5,7 @@
  */
 package com.cto.freemarker.dao;
 
-import com.cto.freemarker.dao.base.BaseDao;
+import com.cto.freemarker.dao.base.BaseMapper;
 import com.cto.freemarker.entity.RoleUser;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  * @date 2019-06-05 10:16:11
  */
 @Repository
-public interface RoleUserMapper extends BaseDao<RoleUser> {
+public interface RoleUserMapper extends BaseMapper<RoleUser> {
 
     /**
      * 根据用户ID删除

@@ -5,7 +5,7 @@
  */
 package com.cto.freemarker.dao;
 
-import com.cto.freemarker.dao.base.BaseDao;
+import com.cto.freemarker.dao.base.BaseMapper;
 import com.cto.freemarker.entity.Role;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +18,7 @@ import java.util.List;
  * @date 2019-06-05 10:16:11
  */
 @Repository
-public interface RoleMapper extends BaseDao<Role> {
+public interface RoleMapper extends BaseMapper<Role> {
 
     /**
      * 根据用户ID获取菜单列表

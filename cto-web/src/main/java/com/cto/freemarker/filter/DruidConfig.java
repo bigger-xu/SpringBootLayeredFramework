@@ -22,8 +22,12 @@ import java.sql.SQLException;
 @Configuration
 @EnableConfigurationProperties({DruidDataSourceProperties.class})
 public class DruidConfig {
+
+    private final DruidDataSourceProperties properties;
     @Autowired
-    private DruidDataSourceProperties properties;
+    public DruidConfig(DruidDataSourceProperties properties) {
+        this.properties = properties;
+    }
 
     @Bean
     @ConditionalOnMissingBean

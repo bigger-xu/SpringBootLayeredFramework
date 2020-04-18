@@ -5,7 +5,7 @@
  */
 package com.cto.freemarker.dao;
 
-import com.cto.freemarker.dao.base.BaseDao;
+import com.cto.freemarker.dao.base.BaseMapper;
 import com.cto.freemarker.entity.AdminUser;
 import com.cto.freemarker.entity.vo.AdminUserVo;
 import org.springframework.stereotype.Repository;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
  * @date 2019-06-05 10:16:11
  */
 @Repository
-public interface AdminUserMapper extends BaseDao<AdminUser> {
+public interface AdminUserMapper extends BaseMapper<AdminUser> {
 
     /**
      * 根据名称获取用户

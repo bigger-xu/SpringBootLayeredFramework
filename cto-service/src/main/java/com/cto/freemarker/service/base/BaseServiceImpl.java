@@ -1,6 +1,6 @@
 package com.cto.freemarker.service.base;
 
-import com.cto.freemarker.dao.base.BaseDao;
+import com.cto.freemarker.dao.base.BaseMapper;
 import com.cto.freemarker.utils.ReflectUtils;
 import com.cto.freemarker.utils.UUIDUtils;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +16,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T>{
      * 获取mapper
      * @return
      */
-    public abstract BaseDao<T> getNameSpace();
+    public abstract BaseMapper<T> getNameSpace();
 
     @Override
     @Transactional(rollbackFor = Exception.class)

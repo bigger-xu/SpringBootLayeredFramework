@@ -14,6 +14,10 @@
     </parent>
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.cto.freemarker</groupId>
             <artifactId>cto-entity</artifactId>
             <version>0.0.1-SNAPSHOT</version>
@@ -40,6 +44,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
             </plugin>
         </plugins>
     </build>

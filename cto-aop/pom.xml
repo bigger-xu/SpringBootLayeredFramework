@@ -6,17 +6,17 @@
     <artifactId>cto-aop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>cto-aop</name>
+    <packaging>jar</packaging>
     <parent>
         <groupId>com.cto.freemarker</groupId>
-        <artifactId>easyCoding</artifactId>
+        <artifactId>root</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <dependencies>
         <dependency>
-            <groupId>com.cto.freemarker</groupId>
-            <artifactId>cto-utils</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -5,6 +5,7 @@
     <groupId>com.cto.freemarker</groupId>
     <artifactId>cto-solr</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>cto-solr</name>
     <parent>
         <groupId>com.cto.freemarker</groupId>

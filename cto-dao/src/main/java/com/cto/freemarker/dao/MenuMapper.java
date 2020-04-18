@@ -5,7 +5,7 @@
  */
 package com.cto.freemarker.dao;
 
-import com.cto.freemarker.dao.base.BaseDao;
+import com.cto.freemarker.dao.base.BaseMapper;
 import com.cto.freemarker.entity.Menu;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +18,7 @@ import java.util.List;
  * @date 2019-06-05 10:16:11
  */
 @Repository
-public interface MenuMapper extends BaseDao<Menu> {
+public interface MenuMapper extends BaseMapper<Menu> {
     /**
      * 根据用户ID获取菜单列表
      * @param id

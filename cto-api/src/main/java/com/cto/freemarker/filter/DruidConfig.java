@@ -22,8 +22,12 @@ import java.sql.SQLException;
 @Configuration
 @EnableConfigurationProperties({DruidDataSourceProperties.class})
 public class DruidConfig {
+    private final DruidDataSourceProperties properties;
+
     @Autowired
-    private DruidDataSourceProperties properties;
+    public DruidConfig(DruidDataSourceProperties properties) {
+        this.properties = properties;
+    }
 
     @Bean
     @ConditionalOnMissingBean
@@ -65,7 +69,6 @@ public class DruidConfig {
     @ConditionalOnMissingBean
     public ServletRegistrationBean druidServlet() {
         ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
-
         //白名单：
         servletRegistrationBean.addInitParameter("allow","127.0.0.1");
         //IP黑名单 (存在共同时，deny优先于allow) : 如果满足deny的话提示:Sorry, you are not permitted to view this page.

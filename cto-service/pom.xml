@@ -5,6 +5,7 @@
     <groupId>com.cto.freemarker</groupId>
     <artifactId>cto-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>cto-service</name>
     <parent>
         <groupId>com.cto.freemarker</groupId>

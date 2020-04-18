@@ -6,7 +6,7 @@
 package com.cto.freemarker.dao;
 
 import com.cto.freemarker.entity.OperationLogs;
-import com.cto.freemarker.dao.base.BaseDao;
+import com.cto.freemarker.dao.base.BaseMapper;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -16,6 +16,6 @@ import org.springframework.stereotype.Repository;
  * @date 2019-11-20 22:41:51
  */
 @Repository
-public interface OperationLogsMapper extends BaseDao<OperationLogs> {
+public interface OperationLogsMapper extends BaseMapper<OperationLogs> {
 
 }
