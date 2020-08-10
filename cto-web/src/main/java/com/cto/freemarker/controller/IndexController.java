@@ -1,8 +1,8 @@
 package com.cto.freemarker.controller;
 
+import com.cto.freemarker.common.SessionUtil;
 import com.cto.freemarker.controller.base.BaseController;
 import com.cto.freemarker.entity.AdminUser;
-import com.cto.freemarker.entity.common.SessionUtil;
 import com.cto.freemarker.utils.Result;
 import com.cto.freemarker.utils.vcode.Captcha;
 import com.cto.freemarker.utils.vcode.GifCaptcha;

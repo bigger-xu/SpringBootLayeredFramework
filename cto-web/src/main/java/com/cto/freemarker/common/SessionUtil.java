@@ -1,4 +1,4 @@
-package com.cto.freemarker.entity.common;
+package com.cto.freemarker.common;
 
 import com.cto.freemarker.entity.AdminUser;
 import org.slf4j.Logger;
