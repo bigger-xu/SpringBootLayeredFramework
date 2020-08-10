@@ -12,6 +12,8 @@
 ##### cto-web 后台管理系统 包含一套简洁UI
 
 
-
-### 使用方式:执行base_freemarker.sql， maven install 执行web.jar即可   输入账号admin 密码123456即可使用
+---
+### 使用方式:
+  1.执行base_freemarker.sql， maven install 执行web.jar
+  2.输入账号admin 密码123456 测试登录即可
 
