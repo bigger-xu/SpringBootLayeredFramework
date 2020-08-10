@@ -14,6 +14,6 @@
 
 ---
 ### 使用方式:
-  1.执行base_freemarker.sql， maven install 执行web.jar
-  2.输入账号admin 密码123456 测试登录即可
+  ###### 1.执行base_freemarker.sql， maven install 执行web.jar
+  ###### 2.输入账号admin 密码123456 测试登录即可
 
