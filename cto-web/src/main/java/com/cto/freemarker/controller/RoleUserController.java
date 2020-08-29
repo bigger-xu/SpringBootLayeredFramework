@@ -52,15 +52,8 @@ public class RoleUserController extends BaseController {
     @RequestMapping("page")
     @ResponseBody
     public Object list(RoleUserVo search) {
-        try {
-            //TODO 设置查询属性
-            return roleUserService.selectPage(search);
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.error("请求错误:{}",e);
-            return Result.error();
-        }
-
+        //TODO 设置查询属性
+        return roleUserService.selectPage(search);
     }
 
 
@@ -94,20 +87,14 @@ public class RoleUserController extends BaseController {
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
     @ResponseBody
     public Object saveOrUpdate(RoleUser roleUser) {
-        try {
-            if (roleUser.getId() == null) {
-                roleUser.setAddTime(new Date());
-                roleUserService.insert(roleUser);
-            } else {
-                roleUser.setUpdateTime(new Date());
-                roleUserService.updateBySelective(roleUser);
-            }
-            return Result.ok();
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.error("请求错误:{}",e);
-            return Result.error();
+        if (roleUser.getId() == null) {
+            roleUser.setAddTime(new Date());
+            roleUserService.insert(roleUser);
+        } else {
+            roleUser.setUpdateTime(new Date());
+            roleUserService.updateBySelective(roleUser);
         }
+        return Result.ok();
     }
 
     /**
@@ -118,13 +105,7 @@ public class RoleUserController extends BaseController {
     @RequestMapping(value = "/delete")
     @ResponseBody
     public Object delete(Long id, Model model) {
-        try {
-            roleUserService.deleteById(id);
-            return Result.ok();
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.error("请求错误:{}",e);
-            return Result.error();
-        }
+        roleUserService.deleteById(id);
+        return Result.ok();
     }
 }

@@ -59,15 +59,7 @@ public class AdminUserController extends BaseController {
     @RequestMapping("page")
     @ResponseBody
     public Object list(AdminUserVo search) {
-        try {
-            //TODO 设置查询属性
-            return adminUserService.selectPage(search);
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.error("请求错误:{}",e);
-            return Result.error();
-        }
-
+        return adminUserService.selectPage(search);
     }
 
 
@@ -109,20 +101,14 @@ public class AdminUserController extends BaseController {
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
     @ResponseBody
     public Object saveOrUpdate(AdminUser adminUser) {
-        try {
-            if (adminUser.getId() == null) {
-                adminUser.setAddTime(new Date());
-                adminUserService.create(adminUser);
-            } else {
-                adminUser.setUpdateTime(new Date());
-                adminUserService.updateDefault(adminUser);
-            }
-            return Result.ok();
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.error("请求错误:{}",e);
-            return Result.error();
+        if (adminUser.getId() == null) {
+            adminUser.setAddTime(new Date());
+            adminUserService.create(adminUser);
+        } else {
+            adminUser.setUpdateTime(new Date());
+            adminUserService.updateDefault(adminUser);
         }
+        return Result.ok();
     }
 
     /**
@@ -133,13 +119,7 @@ public class AdminUserController extends BaseController {
     @RequestMapping(value = "/delete")
     @ResponseBody
     public Object delete(Long id, Model model) {
-        try {
-            adminUserService.deleteById(id);
-            return Result.ok();
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.error("请求错误:{}",e);
-            return Result.error();
-        }
+        adminUserService.deleteById(id);
+        return Result.ok();
     }
 }

@@ -59,15 +59,8 @@ public class RoleController extends BaseController {
     @RequestMapping("page")
     @ResponseBody
     public Object list(RoleVo search) {
-        try {
-            //TODO 设置查询属性
-            return roleService.selectPage(search);
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.error("请求错误:{}",e);
-            return Result.error();
-        }
-
+        //TODO 设置查询属性
+        return roleService.selectPage(search);
     }
 
 
@@ -101,45 +94,39 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
     @ResponseBody
     public Object saveOrUpdate(RoleVo role) {
-        try {
-            Date date = new Date();
-            if (role.getId() == null) {
-                role.setDeleteFlag("0");
-                role.setAddTime(date);
-                roleService.insert(role);
-                if(StringUtils.isNotEmpty(role.getRoleIds())){
-                    String[] roleIdList = role.getRoleIds().split(",");
-                    RoleMenu roleMenu;
-                    for(String s : roleIdList){
-                        roleMenu = new RoleMenu();
-                        roleMenu.setRoleId(role.getId());
-                        roleMenu.setAddTime(date);
-                        roleMenu.setMenuId(Long.valueOf(s));
-                        roleMenuService.insert(roleMenu);
-                    }
-                }
-            } else {
-                role.setUpdateTime(date);
-                roleService.updateBySelective(role);
-                if(StringUtils.isNotEmpty(role.getRoleIds())){
-                    roleMenuService.deleteByRoleId(role.getId());
-                    String[] roleIdList = role.getRoleIds().split(",");
-                    RoleMenu roleMenu;
-                    for(String s : roleIdList){
-                        roleMenu = new RoleMenu();
-                        roleMenu.setRoleId(role.getId());
-                        roleMenu.setAddTime(date);
-                        roleMenu.setMenuId(Long.valueOf(s));
-                        roleMenuService.insert(roleMenu);
-                    }
+        Date date = new Date();
+        if (role.getId() == null) {
+            role.setDeleteFlag("0");
+            role.setAddTime(date);
+            roleService.insert(role);
+            if(StringUtils.isNotEmpty(role.getRoleIds())){
+                String[] roleIdList = role.getRoleIds().split(",");
+                RoleMenu roleMenu;
+                for(String s : roleIdList){
+                    roleMenu = new RoleMenu();
+                    roleMenu.setRoleId(role.getId());
+                    roleMenu.setAddTime(date);
+                    roleMenu.setMenuId(Long.valueOf(s));
+                    roleMenuService.insert(roleMenu);
                 }
             }
-            return Result.ok();
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.error("请求错误:{}",e);
-            return Result.error();
+        } else {
+            role.setUpdateTime(date);
+            roleService.updateBySelective(role);
+            if(StringUtils.isNotEmpty(role.getRoleIds())){
+                roleMenuService.deleteByRoleId(role.getId());
+                String[] roleIdList = role.getRoleIds().split(",");
+                RoleMenu roleMenu;
+                for(String s : roleIdList){
+                    roleMenu = new RoleMenu();
+                    roleMenu.setRoleId(role.getId());
+                    roleMenu.setAddTime(date);
+                    roleMenu.setMenuId(Long.valueOf(s));
+                    roleMenuService.insert(roleMenu);
+                }
+            }
         }
+        return Result.ok();
     }
 
     /**
@@ -150,13 +137,7 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/delete")
     @ResponseBody
     public Object delete(Long id, Model model) {
-        try {
-            roleService.deleteById(id);
-            return Result.ok();
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.error("请求错误:{}",e);
-            return Result.error();
-        }
+        roleService.deleteById(id);
+        return Result.ok();
     }
 }

@@ -62,15 +62,8 @@ public class MenuController extends BaseController {
     @RequestMapping("page")
     @ResponseBody
     public Object list(MenuVo search) {
-        try {
-            //TODO 设置查询属性
-            return menuService.selectPage(search);
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.error("请求错误:{}",e);
-            return Result.error();
-        }
-
+        //TODO 设置查询属性
+        return menuService.selectPage(search);
     }
 
 
@@ -108,21 +101,15 @@ public class MenuController extends BaseController {
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
     @ResponseBody
     public Object saveOrUpdate(Menu menu) {
-        try {
-            if (menu.getId() == null) {
-                menu.setDeleteFlag(0);
-                menu.setAddTime(new Date());
-                menuService.insert(menu);
-            } else {
-                menu.setUpdateTime(new Date());
-                menuService.updateBySelective(menu);
-            }
-            return Result.ok();
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.error("请求错误:{}",e);
-            return Result.error();
+        if (menu.getId() == null) {
+            menu.setDeleteFlag(0);
+            menu.setAddTime(new Date());
+            menuService.insert(menu);
+        } else {
+            menu.setUpdateTime(new Date());
+            menuService.updateBySelective(menu);
         }
+        return Result.ok();
     }
 
     /**
@@ -133,14 +120,8 @@ public class MenuController extends BaseController {
     @RequestMapping(value = "/delete")
     @ResponseBody
     public Object delete(Long id, Model model) {
-        try {
-            menuService.deleteById(id);
-            return Result.ok();
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.error("请求错误:{}",e);
-            return Result.error();
-        }
+        menuService.deleteById(id);
+        return Result.ok();
     }
 
     @RequestMapping(value = "/getMenuTree")

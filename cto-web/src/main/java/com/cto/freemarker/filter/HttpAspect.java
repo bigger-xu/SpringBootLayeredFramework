@@ -43,6 +43,7 @@ public class HttpAspect {
     /**
      * 定义切面，只置入带 @SystemLog 注解的方法或类
      * Controller层切点，注解方式
+     *
      * @Pointcut("execution(* *..controller..*Controller*.*(..))")
      */
     @Pointcut("@annotation(com.cto.freemarker.entity.CustomLogs)")
@@ -52,83 +53,70 @@ public class HttpAspect {
 
     /**
      * 前置通知 (在方法执行之前返回)用于拦截Controller层记录用户的操作的开始时间
+     *
      * @param joinPoint 切点
      * @throws InterruptedException
      */
     @Before("controllerAspect()")
-    public void doBefore(JoinPoint joinPoint){
+    public void doBefore(JoinPoint joinPoint) {
         //线程绑定变量（该数据只有当前请求的线程可见）
-        Date beginTime=new Date();
+        Date beginTime = new Date();
         beginTimeThreadLocal.set(beginTime);
     }
 
 
     /**
      * 后置通知(在方法执行之后并返回数据) 用于拦截Controller层无异常的操作
+     *
      * @param joinPoint 切点
      */
     @AfterReturning("controllerAspect()")
-    public void after(JoinPoint joinPoint){
+    public void after(JoinPoint joinPoint) {
         try {
-            Map<String,Object> map = getControllerMethodInfo(joinPoint);
+            Map<String, Object> map = getControllerMethodInfo(joinPoint);
             Map<String, String[]> logParams = request.getParameterMap();
             AdminUser user = (AdminUser) SecurityUtils.getSubject().getPrincipal();
             OperationLogs log = new OperationLogs();
-			//请求用户
+            //请求用户
             log.setCreateUserId(user.getId());
-			//日志标题
+            //日志标题
             log.setDescription(map.get("description").toString());
-			//日志类型
+            //日志类型
             log.setType(map.get("type").toString());
-			//日志请求url
+            //日志请求url
             log.setRequestUrl(request.getRequestURI());
             //请求参数
             log.setRequestParams(MapUtils.getMapToString(logParams));
-			//请求参数
+            //请求参数
             log.setRequestParams(logParams.toString());
             //请求iP
             log.setIpAddress(request.getRemoteAddr());
-			//请求开始时间
+            //请求开始时间
             long beginTime = beginTimeThreadLocal.get().getTime();
             long endTime = System.currentTimeMillis();
-			//请求耗时
+            //请求耗时
             Long logElapsedTime = endTime - beginTime;
             log.setRunTime(logElapsedTime);
             log.setCreateTime(new Date());
-			//调用线程保存至log表
-            ThreadPoolUtil.getPool().execute(new SaveLogThread(log, operationLogsService));
-
-
+            //调用线程保存至log表
+            ThreadPoolUtil.getPool().execute(() -> {
+                operationLogsService.insert(log);
+            });
         } catch (Exception e) {
             LOGGER.error("AOP后置通知异常", e);
-        }
-    }
-
-
-    /**
-     * 保存日志至数据库
-     */
-    private static class SaveLogThread implements Runnable {
-        private OperationLogs log;
-        private OperationLogsService logService;
-
-        public SaveLogThread(OperationLogs log, OperationLogsService logService) {
-            this.log = log;
-            this.logService = logService;
-        }
-        @Override
-        public void run() {
-            logService.insert(log);
+        } finally {
+            ThreadPoolUtil.getPool().shutdown();
         }
     }
 
     /**
      * 获取注解中对方法的描述信息 用于Controller层注解
+     *
      * @param joinPoint 切点
      * @return 方法描述
      * @throws Exception
      */
-    public static Map<String, Object> getControllerMethodInfo(JoinPoint joinPoint) throws Exception{
+    public static Map<String, Object> getControllerMethodInfo(JoinPoint joinPoint) throws Exception {
 
         Map<String, Object> map = new HashMap<String, Object>(16);
         // 获取目标类名
@@ -145,12 +133,12 @@ public class HttpAspect {
         String description = "";
         String type = "";
 
-        for(Method method : methods) {
-            if(!method.getName().equals(methodName)) {
+        for (Method method : methods) {
+            if (!method.getName().equals(methodName)) {
                 continue;
             }
             Class[] clazzs = method.getParameterTypes();
-            if(clazzs.length != arguments.length) {
+            if (clazzs.length != arguments.length) {
                 // 比较方法中参数个数与从切点中获取的参数个数是否相同，原因是方法可以重载
                 continue;
             }
