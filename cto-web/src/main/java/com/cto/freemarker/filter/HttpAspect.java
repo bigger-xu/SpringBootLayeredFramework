@@ -33,7 +33,7 @@ import java.util.Map;
 @Component
 public class HttpAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpAspect.class);
-    private static final ThreadLocal<Date> beginTimeThreadLocal = new NamedThreadLocal<Date>("ThreadLocal beginTime");
+    private static final ThreadLocal<Date> beginTimeThreadLocal = new ThreadLocal<Date>();
     @Autowired
     private OperationLogsService operationLogsService;
     @Autowired(required = false)
@@ -85,10 +85,12 @@ public class HttpAspect {
             log.setType(map.get("type").toString());
             //日志请求url
             log.setRequestUrl(request.getRequestURI());
+            //日志请求方式
+            log.setRequestType(request.getMethod());
             //请求参数
             log.setRequestParams(MapUtils.getMapToString(logParams));
             //请求参数
-            log.setRequestParams(logParams.toString());
+            //log.setRequestParams(logParams.toString());
             //请求iP
             log.setIpAddress(request.getRemoteAddr());
             //请求开始时间
@@ -98,14 +100,12 @@ public class HttpAspect {
             Long logElapsedTime = endTime - beginTime;
             log.setRunTime(logElapsedTime);
             log.setCreateTime(new Date());
-            //调用线程保存至log表
-            ThreadPoolUtil.getPool().execute(() -> {
-                operationLogsService.insert(log);
-            });
+            //保存至log表
+            operationLogsService.insert(log);
         } catch (Exception e) {
             LOGGER.error("AOP后置通知异常", e);
         } finally {
-            ThreadPoolUtil.getPool().shutdown();
+            beginTimeThreadLocal.remove();
         }
     }
 
@@ -118,7 +118,7 @@ public class HttpAspect {
      */
     public static Map<String, Object> getControllerMethodInfo(JoinPoint joinPoint) throws Exception {
 
-        Map<String, Object> map = new HashMap<String, Object>(16);
+        Map<String, Object> map = new HashMap<String, Object>();
         // 获取目标类名
         String targetName = joinPoint.getTarget().getClass().getName();
         // 获取方法名
@@ -137,8 +137,8 @@ public class HttpAspect {
             if (!method.getName().equals(methodName)) {
                 continue;
             }
-            Class[] clazzs = method.getParameterTypes();
-            if (clazzs.length != arguments.length) {
+            Class[] clazzArr = method.getParameterTypes();
+            if (clazzArr.length != arguments.length) {
                 // 比较方法中参数个数与从切点中获取的参数个数是否相同，原因是方法可以重载
                 continue;
             }

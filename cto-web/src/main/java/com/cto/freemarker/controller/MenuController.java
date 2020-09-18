@@ -6,11 +6,13 @@
 package com.cto.freemarker.controller;
 
 import com.cto.freemarker.controller.base.BaseController;
+import com.cto.freemarker.entity.CustomLogs;
 import com.cto.freemarker.entity.Menu;
 import com.cto.freemarker.entity.RoleMenu;
 import com.cto.freemarker.entity.common.MenuTreeUtil;
 import com.cto.freemarker.entity.common.TreeNode;
 import com.cto.freemarker.entity.vo.MenuVo;
+import com.cto.freemarker.enums.CustomLogsType;
 import com.cto.freemarker.service.MenuService;
 import com.cto.freemarker.service.RoleMenuService;
 import com.cto.freemarker.utils.Result;
@@ -83,6 +85,7 @@ public class MenuController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/edit")
+    @CustomLogs(description = "修改菜单",type = CustomLogsType.UPDATE)
     public String edit(Long id, Model model) {
         List<Menu> parentMenu = menuService.getParentMenuListAll();
         model.addAttribute("parentMenu",parentMenu);
@@ -98,6 +101,7 @@ public class MenuController extends BaseController {
      * @param menu 系统菜单表对象
      * @return
      */
+    @CustomLogs(description = "修改菜单成功",type = CustomLogsType.UPDATE)
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
     @ResponseBody
     public Object saveOrUpdate(Menu menu) {
