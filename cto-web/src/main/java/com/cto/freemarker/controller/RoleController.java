@@ -8,9 +8,10 @@ package com.cto.freemarker.controller;
 import com.cto.freemarker.controller.base.BaseController;
 import com.cto.freemarker.entity.Role;
 import com.cto.freemarker.entity.RoleMenu;
-import com.cto.freemarker.entity.vo.RoleVo;
-import com.cto.freemarker.service.RoleMenuService;
-import com.cto.freemarker.service.RoleService;
+import com.cto.freemarker.entity.dto.RoleDto;
+import com.cto.freemarker.entity.query.RoleQuery;
+import com.cto.freemarker.service.IRoleMenuService;
+import com.cto.freemarker.service.IRoleService;
 import com.cto.freemarker.utils.Result;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -36,9 +37,9 @@ import java.util.Date;
 public class RoleController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(RoleController.class);
     @Autowired
-    private RoleService roleService;
+    private IRoleService roleService;
     @Autowired
-    private RoleMenuService roleMenuService;
+    private IRoleMenuService roleMenuService;
 
     /**
      * 获取角色表列表页
@@ -58,9 +59,9 @@ public class RoleController extends BaseController {
      */
     @RequestMapping("page")
     @ResponseBody
-    public Object list(RoleVo search) {
+    public Object list(RoleQuery search) {
         //TODO 设置查询属性
-        return roleService.selectPage(search);
+        return null; //roleService.selectPage(search);
     }
 
 
@@ -80,7 +81,7 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/edit")
     public String edit(Long id, Model model) {
         if(id != null){
-            Role role = roleService.selectEntityById(id);
+            Role role = roleService.getById(id);
             model.addAttribute("role", role);
         }
         return "role/edit";
@@ -93,12 +94,12 @@ public class RoleController extends BaseController {
      */
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
     @ResponseBody
-    public Object saveOrUpdate(RoleVo role) {
+    public Object saveOrUpdate(RoleDto role) {
         Date date = new Date();
         if (role.getId() == null) {
             role.setDeleteFlag("0");
             role.setAddTime(date);
-            roleService.insert(role);
+            roleService.save(role);
             if(StringUtils.isNotEmpty(role.getRoleIds())){
                 String[] roleIdList = role.getRoleIds().split(",");
                 RoleMenu roleMenu;
@@ -107,14 +108,14 @@ public class RoleController extends BaseController {
                     roleMenu.setRoleId(role.getId());
                     roleMenu.setAddTime(date);
                     roleMenu.setMenuId(Long.valueOf(s));
-                    roleMenuService.insert(roleMenu);
+                    roleMenuService.save(roleMenu);
                 }
             }
         } else {
             role.setUpdateTime(date);
-            roleService.updateBySelective(role);
+            roleService.updateById(role);
             if(StringUtils.isNotEmpty(role.getRoleIds())){
-                roleMenuService.deleteByRoleId(role.getId());
+                roleMenuService.removeById(role.getId());
                 String[] roleIdList = role.getRoleIds().split(",");
                 RoleMenu roleMenu;
                 for(String s : roleIdList){
@@ -122,7 +123,7 @@ public class RoleController extends BaseController {
                     roleMenu.setRoleId(role.getId());
                     roleMenu.setAddTime(date);
                     roleMenu.setMenuId(Long.valueOf(s));
-                    roleMenuService.insert(roleMenu);
+                    roleMenuService.save(roleMenu);
                 }
             }
         }
@@ -137,7 +138,7 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/delete")
     @ResponseBody
     public Object delete(Long id, Model model) {
-        roleService.deleteById(id);
+        roleService.removeById(id);
         return Result.ok();
     }
 }

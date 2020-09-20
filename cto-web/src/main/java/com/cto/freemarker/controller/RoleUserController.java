@@ -7,8 +7,8 @@ package com.cto.freemarker.controller;
 
 import com.cto.freemarker.controller.base.BaseController;
 import com.cto.freemarker.entity.RoleUser;
-import com.cto.freemarker.entity.vo.RoleUserVo;
-import com.cto.freemarker.service.RoleUserService;
+import com.cto.freemarker.entity.query.RoleUserQuery;
+import com.cto.freemarker.service.IRoleUserService;
 import com.cto.freemarker.utils.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ import java.util.Date;
 public class RoleUserController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(RoleUserController.class);
     @Autowired
-    private RoleUserService roleUserService;
+    private IRoleUserService roleUserService;
 
     /**
      * 获取用户角色对应关系列表页
@@ -51,9 +51,9 @@ public class RoleUserController extends BaseController {
      */
     @RequestMapping("page")
     @ResponseBody
-    public Object list(RoleUserVo search) {
+    public Object list(RoleUserQuery search) {
         //TODO 设置查询属性
-        return roleUserService.selectPage(search);
+        return null;//roleUserService.selectPage(search);
     }
 
 
@@ -73,7 +73,7 @@ public class RoleUserController extends BaseController {
     @RequestMapping(value = "/edit")
     public String edit(Long id, Model model) {
         if(id != null){
-            RoleUser roleUser = roleUserService.selectEntityById(id);
+            RoleUser roleUser = roleUserService.getById(id);
             model.addAttribute("roleUser", roleUser);
         }
         return "roleUser/edit";
@@ -89,10 +89,10 @@ public class RoleUserController extends BaseController {
     public Object saveOrUpdate(RoleUser roleUser) {
         if (roleUser.getId() == null) {
             roleUser.setAddTime(new Date());
-            roleUserService.insert(roleUser);
+            roleUserService.save(roleUser);
         } else {
             roleUser.setUpdateTime(new Date());
-            roleUserService.updateBySelective(roleUser);
+            roleUserService.updateById(roleUser);
         }
         return Result.ok();
     }
@@ -105,7 +105,7 @@ public class RoleUserController extends BaseController {
     @RequestMapping(value = "/delete")
     @ResponseBody
     public Object delete(Long id, Model model) {
-        roleUserService.deleteById(id);
+        roleUserService.removeById(id);
         return Result.ok();
     }
 }

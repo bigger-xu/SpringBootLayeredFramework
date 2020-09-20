@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cto.freemarker.mapper.AdminUserMapper">
+
+    <select id="getByUserName" resultType="com.cto.freemarker.entity.query.AdminUserQuery">
+        select * from admin_user where user_name = #{userName}
+    </select>
+    <select id="selectPageVo" resultType="com.cto.freemarker.entity.AdminUser">
+        select * from admin_user where 1=1
+        <if test="search.deleteFlag!=null and search.deleteFlag!=''">
+            and delete_flag like CONCAT('%',#{search.deleteFlag},'%')
+        </if>
+        <if test="search.address!=null and search.address!=''">
+            and address like CONCAT('%',#{search.address},'%')
+        </if>
+        <if test="search.mobile!=null and search.mobile!=''">
+            and mobile like CONCAT('%',#{search.mobile},'%')
+        </if>
+        <if test="search.email!=null and search.email!=''">
+            and email like CONCAT('%',#{search.email},'%')
+        </if>
+        <if test="search.nickName!=null and search.nickName!=''">
+            and nick_name like CONCAT('%',#{search.nickName},'%')
+        </if>
+        <if test="search.userName!=null and search.userName!=''">
+            and user_name like CONCAT('%',#{search.userName},'%')
+        </if>
+    </select>
+</mapper>

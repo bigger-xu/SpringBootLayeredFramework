@@ -7,8 +7,8 @@ package com.cto.freemarker.controller;
 
 import com.cto.freemarker.controller.base.BaseController;
 import com.cto.freemarker.entity.RoleMenu;
-import com.cto.freemarker.entity.vo.RoleMenuVo;
-import com.cto.freemarker.service.RoleMenuService;
+import com.cto.freemarker.entity.query.RoleMenuQuery;
+import com.cto.freemarker.service.IRoleMenuService;
 import com.cto.freemarker.utils.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ import java.util.Date;
 public class RoleMenuController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(RoleMenuController.class);
     @Autowired
-    private RoleMenuService roleMenuService;
+    private IRoleMenuService roleMenuService;
 
     /**
      * 获取菜单角色对应关系列表页
@@ -51,9 +51,9 @@ public class RoleMenuController extends BaseController {
      */
     @RequestMapping("page")
     @ResponseBody
-    public Object list(RoleMenuVo search) {
+    public Object list(RoleMenuQuery search) {
         //TODO 设置查询属性
-        return roleMenuService.selectPage(search);
+        return null;//roleMenuService.selectPage(search);
     }
 
 
@@ -73,7 +73,7 @@ public class RoleMenuController extends BaseController {
     @RequestMapping(value = "/edit")
     public String edit(Long id, Model model) {
         if(id != null){
-            RoleMenu roleMenu = roleMenuService.selectEntityById(id);
+            RoleMenu roleMenu = roleMenuService.getById(id);
             model.addAttribute("roleMenu", roleMenu);
         }
         return "roleMenu/edit";
@@ -89,10 +89,10 @@ public class RoleMenuController extends BaseController {
     public Object saveOrUpdate(RoleMenu roleMenu) {
         if (roleMenu.getId() == null) {
             roleMenu.setAddTime(new Date());
-            roleMenuService.insert(roleMenu);
+            roleMenuService.save(roleMenu);
         } else {
             roleMenu.setUpdateTime(new Date());
-            roleMenuService.updateBySelective(roleMenu);
+            roleMenuService.updateById(roleMenu);
         }
         return Result.ok();
     }
@@ -105,7 +105,7 @@ public class RoleMenuController extends BaseController {
     @RequestMapping(value = "/delete")
     @ResponseBody
     public Object delete(Long id, Model model) {
-        roleMenuService.deleteById(id);
+        roleMenuService.removeById(id);
         return Result.ok();
     }
 }

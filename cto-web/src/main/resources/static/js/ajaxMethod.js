@@ -92,8 +92,8 @@ var hideKey = "hdkey";
                 success: function (result) {
                     thisElem.html("");
                     if(null!=defaultParams.callback){
-                        if (null != result.rows) {
-                            var data = result.rows;
+                        if (null != result.records) {
+                            var data = result.records;
                             for(var item in data){
                                 var modelClone = $(defaultParams.model).eq(0).clone().removeAttr("id");
                                 modelClone.find('[' + key + '],[' + hideKey + ']').each(function () {
@@ -116,7 +116,7 @@ var hideKey = "hdkey";
                         pageCustomize['next'] ='<li class="paginate_button page-item"><a href="javaScript:void(0);" class="page-link nextSmSkill">下一页</a></li><li class="paginate_button page-item"><a href="javaScript:void(0);" class="page-link lastSmSkill">末页</a></li>';//下一个
                         pageCustomize['checkedClass'] = 'active';// 选中class
                         pageCustomize['orderBtnBefore'] = ['<li class="paginate_button page-item"><a href="javaScript:void(0);">共<font class="smSkillPageNum">'+result.totalPage+'</font>页</a></li>'];
-                        var _start = result["page"] ;
+                        var _start = result["current"] ;
                         $(defaultParams.pageModel).customPage(result,_start,6,"reloadPage",pageCustomize);
                         defaultParams.callback(result);
                     }

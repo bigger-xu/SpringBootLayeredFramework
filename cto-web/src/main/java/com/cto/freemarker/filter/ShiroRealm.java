@@ -1,13 +1,15 @@
 package com.cto.freemarker.filter;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cto.freemarker.entity.AdminUser;
 import com.cto.freemarker.entity.Menu;
 import com.cto.freemarker.entity.Role;
 import com.cto.freemarker.entity.common.MenuTreeUtil;
-import com.cto.freemarker.entity.vo.AdminUserVo;
-import com.cto.freemarker.service.AdminUserService;
-import com.cto.freemarker.service.MenuService;
-import com.cto.freemarker.service.RoleService;
+import com.cto.freemarker.entity.dto.AdminUserDto;
+import com.cto.freemarker.entity.query.AdminUserQuery;
+import com.cto.freemarker.service.IAdminUserService;
+import com.cto.freemarker.service.IMenuService;
+import com.cto.freemarker.service.IRoleService;
 import com.cto.freemarker.utils.PasswordUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -30,11 +32,11 @@ import java.util.stream.Collectors;
  */
 public class ShiroRealm extends AuthorizingRealm {
     @Autowired
-    private AdminUserService adminUserService;
+    private IAdminUserService adminUserService;
     @Autowired
-    private MenuService menuService;
+    private IMenuService menuService;
     @Autowired
-    private RoleService roleService;
+    private IRoleService roleService;
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         AdminUser user = (AdminUser) SecurityUtils.getSubject().getPrincipal();
@@ -62,7 +64,7 @@ public class ShiroRealm extends AuthorizingRealm {
         String password = new String((char[]) authenticationToken.getCredentials());
 
         // 通过用户名到数据库查询用户信息
-        AdminUserVo user = adminUserService.getByUserName(userName);
+        AdminUser user = adminUserService.getOne(Wrappers.<AdminUser>lambdaQuery().eq(AdminUser::getUserName,userName),false);
         if (user == null){
             throw new UnknownAccountException("用户不存在！");
         }
@@ -75,13 +77,14 @@ public class ShiroRealm extends AuthorizingRealm {
         //获取用户对应的菜单
         List<Menu> parentList = menuService.getParentMenuListByUserId(user.getId());
         List<Menu> childList = menuService.getChildMenuListByUserId(user.getId());
-        user.setTreeNodeList(MenuTreeUtil.treeMenu(parentList,childList));
+        AdminUserDto voUser = (AdminUserDto) user;
+        voUser.setTreeNodeList(MenuTreeUtil.treeMenu(parentList,childList));
         //更新用户登录信息
         AdminUser tmpUser = new AdminUser();
         tmpUser.setLastLoginTime(new Date());
         tmpUser.setLoginCount(user.getLoginCount() + 1);
         tmpUser.setId(user.getId());
-        adminUserService.updateBySelective(tmpUser);
+        adminUserService.updateById(tmpUser);
         return new SimpleAuthenticationInfo(user, password, getName());
     }
 }

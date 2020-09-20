@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cto.freemarker.mapper.MenuMapper">
+
+    <select id="getMenuListByUserId" resultType="com.cto.freemarker.entity.Menu">
+        SELECT m.* FROM menu m
+        LEFT JOIN role_menu rm ON rm.menu_id = m.id
+        LEFT JOIN role_user ru ON ru.role_id = rm.role_id
+        WHERE ru.user_id = #{id}
+    </select>
+
+    <select id="getParentMenuListByUserId" resultType="com.cto.freemarker.entity.Menu">
+        SELECT m.* FROM menu m
+        LEFT JOIN role_menu rm ON rm.menu_id = m.id
+        LEFT JOIN role_user ru ON ru.role_id = rm.role_id
+        WHERE ru.user_id = #{id} and m.parent_id = 0
+    </select>
+    <select id="getChildMenuListByUserId" resultType="com.cto.freemarker.entity.Menu">
+        SELECT m.* FROM menu m
+        LEFT JOIN role_menu rm ON rm.menu_id = m.id
+        LEFT JOIN role_user ru ON ru.role_id = rm.role_id
+        WHERE ru.user_id = #{id} and m.parent_id != 0
+    </select>
+    <select id="selectPageVo" resultType="com.cto.freemarker.entity.Menu">
+        SELECT m.* FROM menu m
+    </select>
+</mapper>

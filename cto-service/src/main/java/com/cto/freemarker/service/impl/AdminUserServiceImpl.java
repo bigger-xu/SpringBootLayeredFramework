@@ -1,59 +1,45 @@
-/*
- * @(#)  AdminUserVo.java    2019-06-05 10:16:11
- * Project  :Spring boot 代码生产系统
- * Company  :http://www.594cto.com
- */
 package com.cto.freemarker.service.impl;
 
-import com.cto.freemarker.dao.AdminUserMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cto.freemarker.entity.AdminUser;
 import com.cto.freemarker.entity.Role;
 import com.cto.freemarker.entity.RoleUser;
-import com.cto.freemarker.entity.vo.AdminUserVo;
-import com.cto.freemarker.service.AdminUserService;
-import com.cto.freemarker.service.RoleService;
-import com.cto.freemarker.service.RoleUserService;
-import com.cto.freemarker.service.base.BaseServiceImpl;
-import com.cto.freemarker.utils.Page;
+import com.cto.freemarker.entity.query.AdminUserQuery;
+import com.cto.freemarker.mapper.AdminUserMapper;
+import com.cto.freemarker.service.IAdminUserService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cto.freemarker.service.IRoleService;
+import com.cto.freemarker.service.IRoleUserService;
 import com.cto.freemarker.utils.PasswordUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import javax.annotation.Resource;
 import java.util.Date;
-import java.util.List;
 
 /**
- * 文件名 AdminUserServiceImpl.java 
- * 
- * @author 1
- * @date 2019-06-05 10:16:11
+ * <p>
+ * 系统用户表 服务实现类
+ * </p>
+ *
+ * @author Bigger-Xu
+ * @since 2020-09-19
  */
 @Service
-public class AdminUserServiceImpl extends BaseServiceImpl<AdminUser> implements AdminUserService {
-    @Autowired
+public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser> implements IAdminUserService {
+    @Resource
     private AdminUserMapper adminUserMapper;
-    @Override
-    public AdminUserMapper getNameSpace() {
-        return adminUserMapper;
-    }
     @Autowired
-    private RoleService roleService;
+    private IRoleService roleService;
     @Autowired
-    private RoleUserService roleUserService;
+    private IRoleUserService roleUserService;
 
     @Override
-    public Page<AdminUser> selectPage(AdminUser adminUser) {
-        Page<AdminUser> page = new Page<>(adminUserMapper.selectPageCount(adminUser), adminUser.getPageSize(), adminUser.getPageNum());
-        List<AdminUser> result = adminUserMapper.selectPageList(adminUser);
-        page.setRows(result == null ? new ArrayList<>() : result);
-        return page;
-    }
-
-    @Override
-    public AdminUserVo getByUserName(String userName) {
+    public AdminUserQuery getByUserName(String userName) {
         return adminUserMapper.getByUserName(userName);
     }
 
@@ -63,13 +49,13 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUser> implements 
         adminUser.setDeleteFlag("0");
         adminUser.setLoginCount(0);
         adminUser = this.setPassword(adminUser);
-        super.insert(adminUser);
-        Role role = roleService.selectEntityByCode(adminUser.getUserType());
+        super.save(adminUser);
+        Role role = roleService.getOne(Wrappers.<Role>lambdaQuery().eq(Role::getCode,adminUser.getUserType()),false);
         RoleUser roleUser = new RoleUser();
         roleUser.setAddTime(new Date());
         roleUser.setRoleId(role.getId());
         roleUser.setUserId(adminUser.getId());
-        roleUserService.insert(roleUser);
+        roleUserService.save(roleUser);
     }
 
     @Override
@@ -78,15 +64,20 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUser> implements 
         if(StringUtils.isNotEmpty(adminUser.getPassword())){
             adminUser = this.setPassword(adminUser);
         }
-        super.updateBySelective(adminUser);
+        super.updateById(adminUser);
 
-        Role role = roleService.selectEntityByCode(adminUser.getUserType());
-        roleUserService.deleteByUserId(adminUser.getId());
+        Role role = roleService.getOne(Wrappers.<Role>lambdaQuery().eq(Role::getCode,adminUser.getUserType()),false);
+        roleUserService.remove(Wrappers.<RoleUser>lambdaQuery().eq(RoleUser::getUserId,adminUser.getId()));
         RoleUser roleUser = new RoleUser();
         roleUser.setAddTime(new Date());
         roleUser.setRoleId(role.getId());
         roleUser.setUserId(adminUser.getId());
-        roleUserService.insert(roleUser);
+        roleUserService.save(roleUser);
+    }
+
+    @Override
+    public IPage<AdminUser> selectPage(AdminUserQuery search) {
+        return adminUserMapper.selectPageVo(new Page<>(search.getPageNum(),search.getPageSize()),search);
     }
 
     public AdminUser setPassword(AdminUser adminUser) {
@@ -99,6 +90,4 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUser> implements 
     public String encrypt(AdminUser adminUser) {
         return PasswordUtils.entryptPassword(adminUser.getPassword(),adminUser.getSalt());
     }
-
 }
-

@@ -5,16 +5,18 @@
  */
 package com.cto.freemarker.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cto.freemarker.controller.base.BaseController;
 import com.cto.freemarker.entity.CustomLogs;
 import com.cto.freemarker.entity.Menu;
 import com.cto.freemarker.entity.RoleMenu;
 import com.cto.freemarker.entity.common.MenuTreeUtil;
 import com.cto.freemarker.entity.common.TreeNode;
-import com.cto.freemarker.entity.vo.MenuVo;
+import com.cto.freemarker.entity.query.MenuQuery;
 import com.cto.freemarker.enums.CustomLogsType;
-import com.cto.freemarker.service.MenuService;
-import com.cto.freemarker.service.RoleMenuService;
+import com.cto.freemarker.service.IMenuService;
+import com.cto.freemarker.service.IRoleMenuService;
 import com.cto.freemarker.utils.Result;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -41,9 +43,9 @@ import java.util.List;
 public class MenuController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuController.class);
     @Autowired
-    private MenuService menuService;
+    private IMenuService menuService;
     @Autowired
-    private RoleMenuService roleMenuService;
+    private IRoleMenuService roleMenuService;
 
     /**
      * 获取系统菜单表列表页
@@ -63,7 +65,7 @@ public class MenuController extends BaseController {
      */
     @RequestMapping("page")
     @ResponseBody
-    public Object list(MenuVo search) {
+    public Object list(MenuQuery search) {
         //TODO 设置查询属性
         return menuService.selectPage(search);
     }
@@ -75,7 +77,7 @@ public class MenuController extends BaseController {
      */
     @RequestMapping(value = "/add")
     public String add(Model model) {
-        List<Menu> parentMenu = menuService.getParentMenuListAll();
+        List<Menu> parentMenu = menuService.list(Wrappers.<Menu>lambdaQuery().eq(Menu::getParentId,0L).eq(Menu::getDeleteFlag,0));
         model.addAttribute("parentMenu",parentMenu);
         return "menu/add";
     }
@@ -87,10 +89,10 @@ public class MenuController extends BaseController {
     @RequestMapping(value = "/edit")
     @CustomLogs(description = "修改菜单",type = CustomLogsType.UPDATE)
     public String edit(Long id, Model model) {
-        List<Menu> parentMenu = menuService.getParentMenuListAll();
+        List<Menu> parentMenu = menuService.list(Wrappers.<Menu>lambdaQuery().eq(Menu::getParentId,0L).eq(Menu::getDeleteFlag,0));
         model.addAttribute("parentMenu",parentMenu);
         if(id != null){
-            Menu menu = menuService.selectEntityById(id);
+            Menu menu = menuService.getById(id);
             model.addAttribute("menu", menu);
         }
         return "menu/edit";
@@ -108,10 +110,10 @@ public class MenuController extends BaseController {
         if (menu.getId() == null) {
             menu.setDeleteFlag(0);
             menu.setAddTime(new Date());
-            menuService.insert(menu);
+            menuService.save(menu);
         } else {
             menu.setUpdateTime(new Date());
-            menuService.updateBySelective(menu);
+            menuService.updateById(menu);
         }
         return Result.ok();
     }
@@ -124,7 +126,7 @@ public class MenuController extends BaseController {
     @RequestMapping(value = "/delete")
     @ResponseBody
     public Object delete(Long id, Model model) {
-        menuService.deleteById(id);
+        menuService.removeById(id);
         return Result.ok();
     }
 
@@ -136,7 +138,7 @@ public class MenuController extends BaseController {
             //根据角色id查询关联菜单id集合
             RoleMenu roleMenu = new RoleMenu();
             roleMenu.setRoleId(roleId);
-            List<RoleMenu> relList = roleMenuService.selectListBySearch(roleMenu);
+            List<RoleMenu> relList = roleMenuService.list(Wrappers.lambdaQuery(roleMenu));
             setMenuChecked(menuTree, relList);
         }
         return menuTree;
@@ -165,8 +167,8 @@ public class MenuController extends BaseController {
      * @return
      */
     public List<TreeNode> treeMenu() {
-        List<Menu> rootMenus = menuService.getParentMenuListAll();
-        List<Menu> childMenus = menuService.getChildMenuListAll();
+        List<Menu> rootMenus = menuService.list(Wrappers.<Menu>lambdaQuery().eq(Menu::getParentId,0L).eq(Menu::getDeleteFlag,0));
+        List<Menu> childMenus = menuService.list(Wrappers.<Menu>lambdaQuery().ne(Menu::getParentId,0L).eq(Menu::getDeleteFlag,0));
         MenuTreeUtil util = new MenuTreeUtil(rootMenus, childMenus);
         return util.getTreeNode();
     }

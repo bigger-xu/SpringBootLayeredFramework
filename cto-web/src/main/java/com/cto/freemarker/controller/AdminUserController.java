@@ -5,12 +5,13 @@
  */
 package com.cto.freemarker.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cto.freemarker.controller.base.BaseController;
 import com.cto.freemarker.entity.AdminUser;
 import com.cto.freemarker.entity.Role;
-import com.cto.freemarker.entity.vo.AdminUserVo;
-import com.cto.freemarker.service.AdminUserService;
-import com.cto.freemarker.service.RoleService;
+import com.cto.freemarker.entity.query.AdminUserQuery;
+import com.cto.freemarker.service.IAdminUserService;
+import com.cto.freemarker.service.IRoleService;
 import com.cto.freemarker.utils.Result;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -36,9 +37,9 @@ import java.util.List;
 public class AdminUserController extends BaseController {
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminUserController.class);
     @Autowired
-    private AdminUserService adminUserService;
+    private IAdminUserService adminUserService;
     @Autowired
-    private RoleService roleService;
+    private IRoleService roleService;
 
     /**
      * 获取系统用户表列表页
@@ -58,7 +59,7 @@ public class AdminUserController extends BaseController {
      */
     @RequestMapping("page")
     @ResponseBody
-    public Object list(AdminUserVo search) {
+    public Object list(AdminUserQuery search) {
         return adminUserService.selectPage(search);
     }
 
@@ -71,7 +72,8 @@ public class AdminUserController extends BaseController {
     public String add(Model model) {
         Role role = new Role();
         role.setStatus("1");
-        List<Role> roleList = roleService.selectListBySearch(role);
+        //List<Role> roleList = roleService.selectListBySearch(role);
+        List<Role> roleList = roleService.list(Wrappers.lambdaQuery(role));
         model.addAttribute("roleList",roleList);
         return "adminUser/add";
     }
@@ -83,12 +85,12 @@ public class AdminUserController extends BaseController {
     @RequestMapping(value = "/edit")
     public String edit(Long id, Model model) {
         if(id != null){
-            AdminUser adminUser = adminUserService.selectEntityById(id);
+            AdminUser adminUser = adminUserService.getById(id);
             model.addAttribute("adminUser", adminUser);
         }
         Role role = new Role();
         role.setStatus("1");
-        List<Role> roleList = roleService.selectListBySearch(role);
+        List<Role> roleList = roleService.list(Wrappers.lambdaQuery(role));
         model.addAttribute("roleList",roleList);
         return "adminUser/edit";
     }
@@ -119,7 +121,7 @@ public class AdminUserController extends BaseController {
     @RequestMapping(value = "/delete")
     @ResponseBody
     public Object delete(Long id, Model model) {
-        adminUserService.deleteById(id);
+        adminUserService.removeById(id);
         return Result.ok();
     }
 }

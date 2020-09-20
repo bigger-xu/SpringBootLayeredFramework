@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @version v1.0.1
  * @date 2020/8/29 17:11
  */
-@RestControllerAdvice
+//@RestControllerAdvice
 public class GlobalExceptionAdvice {
 
     @ExceptionHandler(value = CustomException.class)

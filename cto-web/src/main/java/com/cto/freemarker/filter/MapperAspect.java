@@ -23,7 +23,7 @@ public class MapperAspect {
     /**
      * 监控com.cto.freemarker.dao..*Mapper包及其子包的所有public方法
      */
-    @Pointcut("execution(* com.cto.freemarker.dao.*.*(..))")
+    @Pointcut("execution(* com.cto.freemarker.mapper.*.*(..))")
     private void pointCutMethod() {
     }
 

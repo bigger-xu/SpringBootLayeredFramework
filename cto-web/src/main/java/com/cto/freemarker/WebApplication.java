@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author Zhang Yongwei
  */
 @SpringBootApplication
-@MapperScan("com.cto.freemarker.dao")
+@MapperScan("com.cto.freemarker.mapper")
 /**
  * 事务配置
  * @author Evan

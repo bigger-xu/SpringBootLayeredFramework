@@ -3,9 +3,8 @@ package com.cto.freemarker.filter;
 import com.cto.freemarker.entity.AdminUser;
 import com.cto.freemarker.entity.CustomLogs;
 import com.cto.freemarker.entity.OperationLogs;
-import com.cto.freemarker.service.OperationLogsService;
+import com.cto.freemarker.service.IOperationLogsService;
 import com.cto.freemarker.utils.MapUtils;
-import com.cto.freemarker.utils.ThreadPoolUtil;
 import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -15,7 +14,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.NamedThreadLocal;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +33,7 @@ public class HttpAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpAspect.class);
     private static final ThreadLocal<Date> beginTimeThreadLocal = new ThreadLocal<Date>();
     @Autowired
-    private OperationLogsService operationLogsService;
+    private IOperationLogsService operationLogsService;
     @Autowired(required = false)
     private HttpServletRequest request;
 
@@ -78,7 +76,7 @@ public class HttpAspect {
             AdminUser user = (AdminUser) SecurityUtils.getSubject().getPrincipal();
             OperationLogs log = new OperationLogs();
             //请求用户
-            log.setCreateUserId(user.getId());
+            log.setAddUserId(user.getId());
             //日志标题
             log.setDescription(map.get("description").toString());
             //日志类型
@@ -99,9 +97,8 @@ public class HttpAspect {
             //请求耗时
             Long logElapsedTime = endTime - beginTime;
             log.setRunTime(logElapsedTime);
-            log.setCreateTime(new Date());
             //保存至log表
-            operationLogsService.insert(log);
+            operationLogsService.save(log);
         } catch (Exception e) {
             LOGGER.error("AOP后置通知异常", e);
         } finally {
