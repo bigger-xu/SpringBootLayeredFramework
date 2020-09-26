@@ -5,7 +5,10 @@
  */
 package com.cto.freemarker.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cto.freemarker.controller.base.BaseController;
+import com.cto.freemarker.entity.AdminUser;
 import com.cto.freemarker.entity.Role;
 import com.cto.freemarker.entity.RoleMenu;
 import com.cto.freemarker.entity.dto.RoleDto;
@@ -61,7 +64,7 @@ public class RoleController extends BaseController {
     @ResponseBody
     public Object list(RoleQuery search) {
         //TODO 设置查询属性
-        return null; //roleService.selectPage(search);
+        return roleService.page(new Page<>(search.getPageNum(),search.getPageNum()), Wrappers.<Role>lambdaQuery().eq(Role::getAddUserId,getCurrentUser().getId()));
     }
 
 
@@ -98,7 +101,7 @@ public class RoleController extends BaseController {
         Date date = new Date();
         if (role.getId() == null) {
             role.setDeleteFlag("0");
-            role.setAddTime(date);
+            role.setAddUserId(getCurrentUser().getId());
             roleService.save(role);
             if(StringUtils.isNotEmpty(role.getRoleIds())){
                 String[] roleIdList = role.getRoleIds().split(",");
@@ -106,13 +109,11 @@ public class RoleController extends BaseController {
                 for(String s : roleIdList){
                     roleMenu = new RoleMenu();
                     roleMenu.setRoleId(role.getId());
-                    roleMenu.setAddTime(date);
                     roleMenu.setMenuId(Long.valueOf(s));
                     roleMenuService.save(roleMenu);
                 }
             }
         } else {
-            role.setUpdateTime(date);
             roleService.updateById(role);
             if(StringUtils.isNotEmpty(role.getRoleIds())){
                 roleMenuService.removeById(role.getId());
@@ -121,7 +122,6 @@ public class RoleController extends BaseController {
                 for(String s : roleIdList){
                     roleMenu = new RoleMenu();
                     roleMenu.setRoleId(role.getId());
-                    roleMenu.setAddTime(date);
                     roleMenu.setMenuId(Long.valueOf(s));
                     roleMenuService.save(roleMenu);
                 }

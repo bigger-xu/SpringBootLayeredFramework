@@ -77,7 +77,11 @@ public class ShiroRealm extends AuthorizingRealm {
         //获取用户对应的菜单
         List<Menu> parentList = menuService.getParentMenuListByUserId(user.getId());
         List<Menu> childList = menuService.getChildMenuListByUserId(user.getId());
-        AdminUserDto voUser = (AdminUserDto) user;
+        AdminUserDto voUser = new AdminUserDto();
+        voUser.setUserName(user.getUserName());
+        voUser.setUserType(user.getUserType());
+        voUser.setId(user.getId());
+        voUser.setNickName(user.getNickName());
         voUser.setTreeNodeList(MenuTreeUtil.treeMenu(parentList,childList));
         //更新用户登录信息
         AdminUser tmpUser = new AdminUser();
@@ -85,6 +89,6 @@ public class ShiroRealm extends AuthorizingRealm {
         tmpUser.setLoginCount(user.getLoginCount() + 1);
         tmpUser.setId(user.getId());
         adminUserService.updateById(tmpUser);
-        return new SimpleAuthenticationInfo(user, password, getName());
+        return new SimpleAuthenticationInfo(voUser, password, getName());
     }
 }

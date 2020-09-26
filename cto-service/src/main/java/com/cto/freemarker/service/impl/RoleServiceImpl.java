@@ -6,6 +6,7 @@ import com.cto.freemarker.service.IRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -19,8 +20,10 @@ import java.util.List;
 @Service
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IRoleService {
 
+    @Resource
+    RoleMapper roleMapper;
     @Override
     public List<Role> selectListByUserId(Long id) {
-        return null;
+        return roleMapper.selectListByUserId(id);
     }
 }

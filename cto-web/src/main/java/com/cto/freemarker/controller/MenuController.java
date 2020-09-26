@@ -8,6 +8,7 @@ package com.cto.freemarker.controller;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cto.freemarker.controller.base.BaseController;
+import com.cto.freemarker.entity.AdminUser;
 import com.cto.freemarker.entity.CustomLogs;
 import com.cto.freemarker.entity.Menu;
 import com.cto.freemarker.entity.RoleMenu;
@@ -67,7 +68,7 @@ public class MenuController extends BaseController {
     @ResponseBody
     public Object list(MenuQuery search) {
         //TODO 设置查询属性
-        return menuService.selectPage(search);
+        return menuService.page(new Page<>(search.getPageNum(),search.getPageNum()),Wrappers.<Menu>lambdaQuery().eq(Menu::getAddUserId,getCurrentUser().getId()));
     }
 
 
@@ -109,10 +110,9 @@ public class MenuController extends BaseController {
     public Object saveOrUpdate(Menu menu) {
         if (menu.getId() == null) {
             menu.setDeleteFlag(0);
-            menu.setAddTime(new Date());
+            menu.setAddUserId(getCurrentUser().getId());
             menuService.save(menu);
         } else {
-            menu.setUpdateTime(new Date());
             menuService.updateById(menu);
         }
         return Result.ok();

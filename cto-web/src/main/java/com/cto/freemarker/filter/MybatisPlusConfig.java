@@ -4,6 +4,7 @@ package com.cto.freemarker.filter;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.springframework.aop.interceptor.PerformanceMonitorInterceptor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.Properties;
 
@@ -12,6 +13,7 @@ import java.util.Properties;
  * @version v1.0.1
  * @date 2020/9/19 16:17
  */
+@Configuration
 public class MybatisPlusConfig {
     /**
      * mybatis-plus分页插件<br>

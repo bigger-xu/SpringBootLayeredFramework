@@ -6,6 +6,7 @@
 package com.cto.freemarker.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cto.freemarker.controller.base.BaseController;
 import com.cto.freemarker.entity.AdminUser;
 import com.cto.freemarker.entity.Role;
@@ -60,7 +61,7 @@ public class AdminUserController extends BaseController {
     @RequestMapping("page")
     @ResponseBody
     public Object list(AdminUserQuery search) {
-        return adminUserService.selectPage(search);
+        return adminUserService.page(new Page<>(search.getPageNum(),search.getPageNum()),Wrappers.<AdminUser>lambdaQuery().eq(AdminUser::getAddUserId,getCurrentUser().getId()));
     }
 
 
@@ -104,10 +105,9 @@ public class AdminUserController extends BaseController {
     @ResponseBody
     public Object saveOrUpdate(AdminUser adminUser) {
         if (adminUser.getId() == null) {
-            adminUser.setAddTime(new Date());
+            adminUser.setAddUserId(getCurrentUser().getId());
             adminUserService.create(adminUser);
         } else {
-            adminUser.setUpdateTime(new Date());
             adminUserService.updateDefault(adminUser);
         }
         return Result.ok();

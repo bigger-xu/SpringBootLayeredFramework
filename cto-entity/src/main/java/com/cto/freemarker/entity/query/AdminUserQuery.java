@@ -6,9 +6,6 @@
 package com.cto.freemarker.entity.query;
 
 import com.cto.freemarker.entity.base.BaseQuery;
-import com.cto.freemarker.entity.common.TreeNode;
-
-import java.util.List;
 
 /**
  * 文件名 AdminUserVo.java

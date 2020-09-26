@@ -15,8 +15,8 @@ import java.util.Arrays;
  * @date 2020/4/18 14:33
  * @version v1.0.1
  */
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class MapperAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(MapperAspect.class);
 
