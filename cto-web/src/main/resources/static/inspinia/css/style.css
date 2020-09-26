@@ -5020,6 +5020,14 @@ table.table-mail tr td {
 .bg-muted {
   background-color: #f3f3f4;
 }
+.flex-center{
+  min-height: 100%;
+  display: flex;
+}
+.flex-center-item{
+  display: flex;
+  align-items: center;
+}
 .white-bg {
   background-color: #ffffff;
 }
@@ -5692,6 +5700,13 @@ body.mini-navbar.fixed-sidebar .logo-element {
   margin: 0 auto;
   padding-top: 40px;
 }
+.middle-box-login {
+  min-width: 400px;
+  max-width: 600px;
+  z-index: 100;
+  margin: 0 auto;
+  padding-bottom: 8%;
+}
 .lockscreen.middle-box {
   width: 200px;
   padding-top: 110px;
@@ -5711,9 +5726,9 @@ body.mini-navbar.fixed-sidebar .logo-element {
 }
 .logo-name {
   color: #e6e6e6;
-  font-size: 180px;
-  font-weight: 800;
-  letter-spacing: -10px;
+  font-size: 40px;
+  font-weight: 40;
+  /*letter-spacing: -10px;*/
   margin-bottom: 0;
 }
 .middle-box h1 {

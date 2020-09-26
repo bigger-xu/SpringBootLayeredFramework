@@ -4,97 +4,42 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>登录</title>
-    <!-- CSS -->
-    <!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500"> -->
-    <link rel="stylesheet" href="/static/assets/bootstrap/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/static/assets/font-awesome/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="/static/assets/css/form-elements.css"/>
-    <link rel="stylesheet" href="/static/assets/css/style.css"/>
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Favicon and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/assets/ico/apple-touch-icon-144-precomposed.png"/>
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/assets/ico/apple-touch-icon-114-precomposed.png"/>
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/assets/ico/apple-touch-icon-72-precomposed.png"/>
-    <link rel="apple-touch-icon-precomposed" href="/static/assets/ico/apple-touch-icon-57-precomposed.png"/>
+    <link href="/static/inspinia/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/inspinia/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/static/inspinia/css/animate.css" rel="stylesheet">
+    <link href="/static/inspinia/css/style.css" rel="stylesheet">
 </head>
 
-<body>
-
-<!-- Top content -->
-<div class="top-content">
-
-    <div class="inner-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-8 col-sm-offset-2 text">
-                    <h1><strong>Spring Boot 代码生成器</strong></h1>
-                </div>
+<body class="gray-bg flex-center">
+<div class="middle-box-login text-center animated fadeInDown flex-center-item">
+    <div style="width: 400px">
+        <div class="logo-name">分层脚手架</div>
+        <p>输入账号密码登录.</p>
+        <form class="m-t">
+            <div class="form-group">
+                <input type="text" class="form-control" autocomplete="off" placeholder="账号" id="userName">
             </div>
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3 form-box">
-                    <div class="form-top">
-                        <div class="form-top-left">
-                            <h3>代码生成器</h3>
-                            <p>输入用户名密码和登录:</p>
-                        </div>
-                        <div class="form-top-right">
-                            <i class="fa fa-key"></i>
-                        </div>
-                    </div>
-                    <div class="form-bottom">
-                        <form role="form" action="" method="post" class="login-form">
-                            <div class="form-group">
-                                <label class="sr-only">用户名</label>
-                                <input type="text" name="userName" placeholder="请输入用户名" autocomplete="off" class="form-username form-control" id="userName"/>
-                            </div>
-                            <div class="form-group">
-                                <label class="sr-only">密码</label>
-                                <input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="form-password form-control" id="password"/>
-                            </div>
-                            <div class="form-group">
-                                <label class="sr-only">验证码</label>
-                                <input type="text" name="code" placeholder="请输入验证码" autocomplete="off" class="form-username form-control" id="code" style="width: 60%;"/>
-                                <img src="/code" id="validateCodeImg" onclick="reloadCode()" style="position: absolute;right: 45px;bottom: 96px;" />
-                            </div>
-                            <button type="button" class="btn" onclick="toLogin()">登录</button>
-                        </form>
-                    </div>
-                </div>
+            <div class="form-group">
+                <input type="password" class="form-control" autocomplete="off"  placeholder="密码" id="password">
             </div>
-            <!--<div class="row">
-                <div class="col-sm-6 col-sm-offset-3 social-login">
-                    <h3>第三方登录:</h3>
-                    <div class="social-login-buttons">
-                        <a class="btn btn-link-1 btn-link-1-google-plus" href="javascript:;">
-                            新浪
-                        </a>
-                        <a class="btn btn-link-1 btn-link-1-twitter" href="javascript:;">
-                            QQ
-                        </a>
-                    </div>
-                </div>
-            </div>-->
-        </div>
+            <div class="form-group" style="position: relative">
+                <input type="text" name="code" placeholder="验证码" autocomplete="off" class="form-username form-control" id="code" style="width: 70%;"/>
+                <img src="/code" id="validateCodeImg" onclick="reloadCode()" style="position: absolute;right: 0px;bottom: 0px;"/>
+            </div>
+            <button type="button" class="btn btn-primary block full-width m-b" onclick="toLogin()">登录</button>
+        </form>
+        <p class="m-t"> <small>基于SpringBoot2.1.6、Bootstrap 3的分层脚手架 &copy; 2018-2020</small> </p>
     </div>
 </div>
 
-<!-- Javascript -->
-<script src="/static/assets/js/jquery-1.11.1.min.js"></script>
-<script src="/static/assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="/static/assets/js/jquery.backstretch.min.js"></script>
-<script src="/static/assets/js/scripts.js"></script>
+<!-- Mainly scripts -->
+<script src="/static/inspinia/js/jquery-3.1.1.min.js"></script>
+<script src="/static/inspinia/js/popper.min.js"></script>
+<script src="/static/inspinia/js/bootstrap.js"></script>
 <script src="/static/layer/layer.js"></script>
 <script src="/static/layer/extendLayer.js"></script>
 <script src="/static/js/user/login.js"></script>
 </body>
-
 </html>

@@ -4,6 +4,7 @@ import com.cto.freemarker.common.SessionUtil;
 import com.cto.freemarker.controller.base.BaseController;
 import com.cto.freemarker.entity.AdminUser;
 import com.cto.freemarker.utils.Result;
+import com.cto.freemarker.utils.sub.SubImg;
 import com.cto.freemarker.utils.vcode.Captcha;
 import com.cto.freemarker.utils.vcode.GifCaptcha;
 import com.cto.freemarker.utils.vcode.ValidateCodeProperties;
@@ -112,16 +113,17 @@ public class IndexController extends BaseController {
             response.setHeader("Pragma", "No-cache");
             response.setHeader("Cache-Control", "no-cache");
             response.setDateHeader("Expires", 0);
-            response.setContentType("image/gif");
+            response.setContentType("image/png");
 
-            Captcha captcha = new GifCaptcha(
+            /*Captcha captcha = new GifCaptcha(
                     ValidateCodeProperties.getWidth(),
                     ValidateCodeProperties.getHeight(),
                     ValidateCodeProperties.getLength());
+            captcha.out(response.getOutputStream());*/
             HttpSession session = request.getSession(true);
-            captcha.out(response.getOutputStream());
             session.removeAttribute(CODE_KEY);
-            session.setAttribute(CODE_KEY, captcha.text().toLowerCase());
+            String code = new SubImg().drawImageVerifyCate(response.getOutputStream());
+            session.setAttribute(CODE_KEY, code);
         } catch (Exception e) {
             logger.error("图形验证码生成失败:{}", e);
         }
