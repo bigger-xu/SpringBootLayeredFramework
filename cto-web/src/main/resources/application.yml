@@ -1,0 +1,95 @@
+server:
+  port: 9089
+logging:
+  level:
+    com:
+      cto:
+        freemarker: DEBUG
+    org:
+      springframework:
+        web: INFO
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/base_freemarker?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: root1234
+      initial-size: 5
+      max-active: 20
+      min-idle: 10
+      max-wait: 60000
+      max-open-prepared-statements: 30
+      validation-query: select 'x'
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 2000
+      max-evictable-idle-time-millis: 1200000
+      min-evictable-idle-time-millis: 600000
+      filters: wall
+      filter:
+        stat:
+          enabled: true
+          log-slow-sql: true
+          slow-sql-millis: 3000
+  freemarker:
+    enabled: true
+    suffix: .html
+    expose-request-attributes: true
+    expose-session-attributes: true
+    request-context-attribute: request
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 1
+    password: root
+    timeout: 5000
+  quartz:
+    #相关属性配置
+    properties:
+      org:
+        quartz:
+          scheduler:
+            #调度标识名 集群中每一个实例都必须使用相同的名称
+            instanceName: LayeredScheduler
+            #ID设置为自动获取 每一个必须不同
+            instanceId: AUTO
+          jobStore:
+            #数据保存方式为数据库持久化
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            #数据库代理类，一般org.quartz.impl.jdbcjobstore.StdJDBCDelegate可以满足大部分数据库
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            #表前缀
+            tablePrefix: QRTZ_
+            #是否加入集群
+            isClustered: true
+            #调度实例失效的检查时间间隔
+            clusterCheckinInterval: 10000
+            #JobDataMaps是否都为String类型
+            useProperties: false
+            #触发失败阈值，未超过触发时间60s则直接触发，若超过则失火，log信息Handling 1 trigger(s) that missed their scheduled fire-time.
+            misfireThreshold: 60000
+            #当设置为“true”时，此属性告诉Quartz 在非托管JDBC连接上调用setTransactionIsolation（Connection.TRANSACTION_READ_COMMITTED）
+            txIsolationLevelReadCommitted: true
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            #指定线程数，至少为1（无默认值）(一般设置为1-100直接的整数合适)
+            threadCount: 10
+            #设置线程的优先级（最大为java.lang.Thread.MAX_PRIORITY 10，最小为Thread.MIN_PRIORITY 1，默认为5）
+            threadPriority: 5
+            threadsInheritContextClassLoaderOfInitializingThread: true
+    #数据库方式
+    job-store-type: jdbc
+    #初始化表结构
+    jdbc:
+      initialize-schema: never
+
+#mybatis-plus配置
+mybatis-plus:
+  configuration:
+    lazy-loading-enabled: true
+    use-generated-keys: true
+  global-config:
+    db-config:
+      id-type: auto
+

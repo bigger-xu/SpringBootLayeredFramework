@@ -1,0 +1,18 @@
+/*
+ * @(#)  TimedTasksVo.java    2020-10-01 23:44:41
+ * Project  :Spring boot 代码生产系统
+ * Company  :http://www.594cto.com
+ */
+package com.cto.freemarker.entity.query;
+
+import com.cto.freemarker.entity.base.BaseQuery;
+
+/**
+ * 文件名 TimedTasksVo.java
+ * 
+ * @author 594cto版权所有
+ * @date 2020-10-01 23:44:41
+ */
+public class TimedTasksQuery extends BaseQuery {
+
+}
