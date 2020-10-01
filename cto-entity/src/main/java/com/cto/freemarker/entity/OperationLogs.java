@@ -1,5 +1,7 @@
 package com.cto.freemarker.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.cto.freemarker.entity.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,11 +25,13 @@ public class OperationLogs extends BaseEntity {
     /**
      * UUID
      */
+    @TableField(fill = FieldFill.INSERT)
     private String uuid;
 
     /**
      * 添加时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private Date addTime;
 
     /**
@@ -38,6 +42,7 @@ public class OperationLogs extends BaseEntity {
     /**
      * 更新时间
      */
+    @TableField(fill = FieldFill.UPDATE)
     private Date updateTime;
 
     /**

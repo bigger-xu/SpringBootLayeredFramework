@@ -1,4 +1,4 @@
-package com.cto.freemarker.quartz.jobs;
+package com.cto.freemarker.scheduled;
 
 import com.cto.freemarker.entity.TimedTasks;
 import com.cto.freemarker.service.ITimedTasksService;

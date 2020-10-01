@@ -1,4 +1,4 @@
-package com.cto.freemarker.quartz.config;
+package com.cto.freemarker.config.quartz;
 
 import com.cto.freemarker.entity.TimedTasks;
 import com.cto.freemarker.service.IQuartzService;

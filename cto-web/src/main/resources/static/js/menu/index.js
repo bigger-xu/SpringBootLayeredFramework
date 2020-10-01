@@ -22,7 +22,7 @@ function loadPage(page) {
         callback: function (result) {
             layer.closeAll('loading');
             var num = result.startIndex;
-            if (result != null && result.rows != null && result.rows.length > 0) {
+            if (result != null && result.records != null && result.records.length > 0) {
                 $("#itemsPanel tr").each(function () {
                     //渲染自动排课
                     var state = $(this).find("[key=state]").html();

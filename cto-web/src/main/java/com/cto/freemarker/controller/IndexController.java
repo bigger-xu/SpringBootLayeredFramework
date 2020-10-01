@@ -85,7 +85,7 @@ public class IndexController extends BaseController {
      * @param model
      * @return
      */
-    @RequestMapping("/index")
+    @RequestMapping
 //    @RequiresPermissions("article:list")
     public String index(Model model) {
         // 登录成后，即可通过 Subject 获取登录的用户信息

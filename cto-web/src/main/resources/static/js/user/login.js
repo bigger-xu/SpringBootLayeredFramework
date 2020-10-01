@@ -28,7 +28,7 @@ function toLogin(){
             if (result.code == 0) {
                 setTimeout(function(){
                     layer.closeAll('loading');
-                    window.location.href="/index";
+                    window.location.href="/";
                 },1000)
             } else {
                 layer.closeAll('loading');

@@ -14,12 +14,14 @@
         LEFT JOIN role_menu rm ON rm.menu_id = m.id
         LEFT JOIN role_user ru ON ru.role_id = rm.role_id
         WHERE ru.user_id = #{id} and m.parent_id = 0
+        GROUP BY m.id
     </select>
     <select id="getChildMenuListByUserId" resultType="com.cto.freemarker.entity.Menu">
         SELECT m.* FROM menu m
         LEFT JOIN role_menu rm ON rm.menu_id = m.id
         LEFT JOIN role_user ru ON ru.role_id = rm.role_id
         WHERE ru.user_id = #{id} and m.parent_id != 0
+        GROUP BY m.id
     </select>
     <select id="selectPageVo" resultType="com.cto.freemarker.entity.Menu">
         SELECT m.* FROM menu m

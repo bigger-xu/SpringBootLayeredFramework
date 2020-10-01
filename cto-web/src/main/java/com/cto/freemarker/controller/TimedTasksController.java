@@ -5,13 +5,14 @@
  */
 package com.cto.freemarker.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.cto.freemarker.controller.base.BaseController;
 import com.cto.freemarker.entity.TimedTasks;
 import com.cto.freemarker.entity.query.TimedTasksQuery;
 import com.cto.freemarker.service.ITimedTasksService;
 import com.cto.freemarker.utils.Result;
-import com.cto.freemarker.controller.base.BaseController;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,10 +20,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import lombok.extern.slf4j.Slf4j;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 /**
  * 系统菜单表 TimedTasksController.java 控制层
@@ -98,7 +95,12 @@ public class TimedTasksController extends BaseController {
     @ResponseBody
     public Object saveOrUpdate(TimedTasks timedTasks) {
         try {
-            itimedTasksService.saveOrUpdate(timedTasks);
+            if (timedTasks.getId() == null) {
+                timedTasks.setAddUserId(getCurrentUser().getId());
+                itimedTasksService.save(timedTasks);
+            } else {
+                itimedTasksService.updateById(timedTasks);
+            }
             return Result.ok();
         } catch (Exception e) {
             e.printStackTrace();

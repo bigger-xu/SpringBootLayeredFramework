@@ -1,4 +1,4 @@
-package com.cto.freemarker.filter;
+package com.cto.freemarker.config.shiro;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cto.freemarker.entity.AdminUser;

@@ -1,4 +1,4 @@
-package com.cto.freemarker.filter;
+package com.cto.freemarker.config.shiro;
 
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -37,7 +37,7 @@ public class ShiroConfig {
         // 指定要求登录时的链接
         shiroFilterFactoryBean.setLoginUrl("/login");
         // 登录成功后要跳转的链接
-        shiroFilterFactoryBean.setSuccessUrl("/index");
+        shiroFilterFactoryBean.setSuccessUrl("/");
         // 未授权时跳转的界面;
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 

@@ -23,7 +23,7 @@ function loadPage(page) {
         callback: function (result) {
             layer.closeAll('loading');
             var num = result.startIndex;
-            if (result != null && result.rows != null && result.rows.length > 0) {
+            if (result != null && result.records != null && result.records.length > 0) {
                 $("#itemsPanel tr").each(function () {
                     //为序号赋值
                     $(this).find("[key=num]").append(num);

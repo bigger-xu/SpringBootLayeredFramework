@@ -52,7 +52,6 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
         super.save(adminUser);
         Role role = roleService.getOne(Wrappers.<Role>lambdaQuery().eq(Role::getCode,adminUser.getUserType()),false);
         RoleUser roleUser = new RoleUser();
-        roleUser.setAddTime(new Date());
         roleUser.setRoleId(role.getId());
         roleUser.setUserId(adminUser.getId());
         roleUserService.save(roleUser);
@@ -69,7 +68,6 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
         Role role = roleService.getOne(Wrappers.<Role>lambdaQuery().eq(Role::getCode,adminUser.getUserType()),false);
         roleUserService.remove(Wrappers.<RoleUser>lambdaQuery().eq(RoleUser::getUserId,adminUser.getId()));
         RoleUser roleUser = new RoleUser();
-        roleUser.setAddTime(new Date());
         roleUser.setRoleId(role.getId());
         roleUser.setUserId(adminUser.getId());
         roleUserService.save(roleUser);

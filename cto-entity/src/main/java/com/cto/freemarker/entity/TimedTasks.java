@@ -5,9 +5,13 @@
  */
 package com.cto.freemarker.entity;
 
-import java.util.Date;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.cto.freemarker.entity.base.BaseEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.util.Date;
 
 /**
  * 系统菜单表 TimedTasks.java
@@ -16,21 +20,19 @@ import lombok.Data;
  *  
  */
 @Data
-public class TimedTasks implements Serializable {
-
+@EqualsAndHashCode(callSuper = true)
+public class TimedTasks extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 主键
-	 */
-	private Long id;
-	/**
 	 * UUID
 	 */
+	@TableField(fill = FieldFill.INSERT)
 	private String uuid;
 	/**
 	 * 添加时间
 	 */
+	@TableField(fill = FieldFill.INSERT)
 	private Date addTime;
 	/**
 	 * 添加人ID
@@ -39,6 +41,7 @@ public class TimedTasks implements Serializable {
 	/**
 	 * 更新时间
 	 */
+	@TableField(fill = FieldFill.UPDATE)
 	private Date updateTime;
 	/**
 	 * 更新人ID

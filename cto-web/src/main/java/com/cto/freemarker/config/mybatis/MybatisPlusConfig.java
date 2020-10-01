@@ -1,4 +1,4 @@
-package com.cto.freemarker.filter;
+package com.cto.freemarker.config.mybatis;
 
 
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
