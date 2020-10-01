@@ -1,39 +1,42 @@
 /*
- * @(#)  TimedTasksController.java    2020-10-01 23:44:41
+ * @(#)  TimedTasksController.java    2020-10-02 01:40:37
  * Project  :Spring boot 代码生产系统
  * Company  :http://www.594cto.com
  */
 package com.cto.freemarker.controller;
 
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.cto.freemarker.controller.base.BaseController;
 import com.cto.freemarker.entity.TimedTasks;
 import com.cto.freemarker.entity.query.TimedTasksQuery;
 import com.cto.freemarker.service.ITimedTasksService;
 import com.cto.freemarker.utils.Result;
+import com.cto.freemarker.controller.base.BaseController;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import lombok.extern.slf4j.Slf4j;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
- * 文件名TimedTasksController.java
+ * 系统菜单表 TimedTasksController.java 控制层
  *
  * @author 594cto版权所有
- * @date 2020-10-01 23:44:41
+ * @date 2020-10-02 01:40:37
  */
 @Controller
 @RequestMapping("timedTasks")
+@Slf4j
 public class TimedTasksController extends BaseController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TimedTasksController.class);
+
     @Autowired
-    private ITimedTasksService iTimedTasksService;
+    private ITimedTasksService itimedTasksService;
 
     /**
      * 获取系统菜单表列表页
@@ -47,19 +50,22 @@ public class TimedTasksController extends BaseController {
     /**
      * 获取系统菜单表分页数据
      *
-     * @param search 查询条件
+     * @param query 查询条件
+     * @return IPage
      */
     @RequestMapping("page")
     @ResponseBody
-    public Object list(TimedTasksQuery search) {
+    public Object list(TimedTasksQuery query) {
         try {
             //TODO 设置查询属性
-            return iTimedTasksService.page(new Page<>(search.getPageNum(),search.getPageSize()), Wrappers.<TimedTasks>lambdaQuery().eq(TimedTasks::getAddUserId,getCurrentUser().getId()));
+            query.setAddUserId(getCurrentUser().getId());
+            return itimedTasksService.customPage(query);
         } catch (Exception e) {
             e.printStackTrace();
-            LOGGER.error("请求错误:{}",e);
+            log.error("请求错误:{}",e.getMessage());
             return Result.error();
         }
+
     }
 
 
@@ -75,9 +81,9 @@ public class TimedTasksController extends BaseController {
      * 获取系统菜单表编辑页
      */
     @RequestMapping(value = "/edit")
-    public String edit(Long id,Model model) {
-        if(id != null){
-            TimedTasks timedTasks = iTimedTasksService.getById(id);
+    public String edit(String uuid,Model model) {
+        if(StringUtils.isNotBlank(uuid)){
+            TimedTasks timedTasks = itimedTasksService.getOne(Wrappers.<TimedTasks>lambdaQuery().eq(TimedTasks::getUuid,uuid),false);
             model.addAttribute("timedTasks", timedTasks);
         }
         return "timedTasks/edit";
@@ -86,35 +92,35 @@ public class TimedTasksController extends BaseController {
     /**
      * 创建或者更新系统菜单表
      * @param timedTasks 系统菜单表对象
-     * @return
+     * @return Boolean
      */
     @RequestMapping(value = "saveOrUpdate", method = RequestMethod.POST)
     @ResponseBody
     public Object saveOrUpdate(TimedTasks timedTasks) {
         try {
-            iTimedTasksService.saveOrUpdate(timedTasks);
+            itimedTasksService.saveOrUpdate(timedTasks);
             return Result.ok();
         } catch (Exception e) {
             e.printStackTrace();
-            LOGGER.error("请求错误:{}",e);
+            log.error("请求错误:{}",e.getMessage());
             return Result.error();
         }
     }
 
     /**
      * 删除指定ID的系统菜单表信息
-     * @param uuid
-     * @return
+     * @param uuid UUID
+     * @return Boolean
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
     public Object delete(String uuid, Model model) {
         try {
-            iTimedTasksService.deleteByUUId(uuid);
+            itimedTasksService.remove(Wrappers.<TimedTasks>lambdaQuery().eq(TimedTasks::getUuid,uuid));
             return Result.ok();
         } catch (Exception e) {
             e.printStackTrace();
-            LOGGER.error("请求错误:{}",e);
+            log.error("请求错误:{}",e.getMessage());
             return Result.error();
         }
     }
