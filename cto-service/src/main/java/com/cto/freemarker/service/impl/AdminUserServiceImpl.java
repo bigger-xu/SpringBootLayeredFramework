@@ -62,6 +62,8 @@ public class AdminUserServiceImpl extends ServiceImpl<AdminUserMapper, AdminUser
     public void updateDefault(AdminUser adminUser) {
         if(StringUtils.isNotEmpty(adminUser.getPassword())){
             adminUser = this.setPassword(adminUser);
+        }else{
+            adminUser.setPassword(null);
         }
         super.updateById(adminUser);
 
