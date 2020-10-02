@@ -1,4 +1,4 @@
-package com.cto.freemarker.scheduled;
+package com.cto.freemarker.job;
 
 import com.cto.freemarker.entity.TimedTasks;
 import com.cto.freemarker.service.ITimedTasksService;
@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class ScheduledTask03 implements Job {
-
+    @Autowired
     private ITimedTasksService iTimedTasksService;
 
     private Integer id;

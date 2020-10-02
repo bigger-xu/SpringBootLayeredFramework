@@ -29,47 +29,6 @@
                         </div>
                         <div class="ibox-content">
                             <form id="dataForm"  onSubmit="return false">
-                                <div class="form-group  row">
-                                    <label class="col-sm-2 col-form-label">主键</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="id" value="" placeholder="请输入主键" autocomplete="off" class="form-control required" />
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group  row">
-                                    <label class="col-sm-2 col-form-label">UUID</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="uuid" value="" placeholder="请输入UUID" autocomplete="off" class="form-control required" />
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group  row">
-                                    <label class="col-sm-2 col-form-label">添加时间</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="addTime" value="" placeholder="请输入添加时间" autocomplete="off" class="form-control required" />
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group  row">
-                                    <label class="col-sm-2 col-form-label">添加人ID</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="addUserId" value="" placeholder="请输入添加人ID" autocomplete="off" class="form-control required" />
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group  row">
-                                    <label class="col-sm-2 col-form-label">更新时间</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="updateTime" value="" placeholder="请输入更新时间" autocomplete="off" class="form-control required" />
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group  row">
-                                    <label class="col-sm-2 col-form-label">更新人ID</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="updateUserId" value="" placeholder="请输入更新人ID" autocomplete="off" class="form-control required" />
-                                    </div>
-                                </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group  row">
                                     <label class="col-sm-2 col-form-label">任务名称</label>
@@ -85,10 +44,11 @@
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
-                                <div class="form-group  row">
-                                    <label class="col-sm-2 col-form-label">是否显示（0：是 1：否）</label>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">是否启用</label>
                                     <div class="col-sm-6">
-                                        <input type="text" name="status" value="" placeholder="请输入是否显示（0：是 1：否）" autocomplete="off" class="form-control required" />
+                                        <label class="i-checks"> <input type="radio" name="status" value="0"> <i></i>否</label>
+                                        <label class="i-checks"> <input type="radio" name="status" checked="checked" value="1"> <i></i>是</label>
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>

@@ -31,49 +31,6 @@
                         <div class="ibox-content">
                             <form id="dataForm"  onSubmit="return false">
                                 <input type="hidden" name="id" value="${timedTasks.id}">
-
-                                <div class="form-group  row">
-                                    <label class="col-sm-2 col-form-label">主键</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="id" value="${timedTasks.id!}" placeholder="请输入主键" autocomplete="off" class="form-control required" />
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group  row">
-                                    <label class="col-sm-2 col-form-label">UUID</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="uuid" value="${timedTasks.uuid!}" placeholder="请输入UUID" autocomplete="off" class="form-control required" />
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group  row">
-                                    <label class="col-sm-2 col-form-label">添加时间</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="addTime" value="${(timedTasks.addTime?string('yyyy-MM-dd hh:mm:ss'))!}" placeholder="请输入添加时间" autocomplete="off" class="form-control required" />
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group  row">
-                                    <label class="col-sm-2 col-form-label">添加人ID</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="addUserId" value="${timedTasks.addUserId!}" placeholder="请输入添加人ID" autocomplete="off" class="form-control required" />
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group  row">
-                                    <label class="col-sm-2 col-form-label">更新时间</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="updateTime" value="${(timedTasks.updateTime?string('yyyy-MM-dd hh:mm:ss'))!}" placeholder="请输入更新时间" autocomplete="off" class="form-control required" />
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
-                                <div class="form-group  row">
-                                    <label class="col-sm-2 col-form-label">更新人ID</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="updateUserId" value="${timedTasks.updateUserId!}" placeholder="请输入更新人ID" autocomplete="off" class="form-control required" />
-                                    </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
                                 <div class="form-group  row">
                                     <label class="col-sm-2 col-form-label">任务名称</label>
                                     <div class="col-sm-6">
@@ -88,10 +45,11 @@
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
-                                <div class="form-group  row">
-                                    <label class="col-sm-2 col-form-label">是否显示（0：是 1：否）</label>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">是否显示</label>
                                     <div class="col-sm-6">
-                                        <input type="text" name="status" value="${timedTasks.status!}" placeholder="请输入是否显示（0：是 1：否）" autocomplete="off" class="form-control required" />
+                                        <label class="i-checks"> <input type="radio" name="status" value="0" <#if timedTasks.status == 0 >checked="checked"</#if>> <i></i>否</label>
+                                        <label class="i-checks"> <input type="radio" name="status" value="1" <#if timedTasks.status == 1 >checked="checked"</#if>> <i></i>是</label>
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>

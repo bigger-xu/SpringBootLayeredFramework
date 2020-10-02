@@ -10,10 +10,12 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cto.freemarker.controller.base.BaseController;
 import com.cto.freemarker.entity.TimedTasks;
 import com.cto.freemarker.entity.query.TimedTasksQuery;
+import com.cto.freemarker.service.IQuartzService;
 import com.cto.freemarker.service.ITimedTasksService;
 import com.cto.freemarker.utils.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.quartz.ee.jmx.jboss.QuartzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +36,8 @@ public class TimedTasksController extends BaseController {
 
     @Autowired
     private ITimedTasksService itimedTasksService;
+    @Autowired
+    private IQuartzService quartzService;
 
     /**
      * 获取系统菜单表列表页
@@ -98,8 +102,12 @@ public class TimedTasksController extends BaseController {
             if (timedTasks.getId() == null) {
                 timedTasks.setAddUserId(getCurrentUser().getId());
                 itimedTasksService.save(timedTasks);
+                quartzService.addJob(timedTasks);
             } else {
-                itimedTasksService.updateById(timedTasks);
+                boolean flag = itimedTasksService.updateById(timedTasks);
+                if(flag && timedTasks.getStatus() == 1){
+                    quartzService.updateJob(timedTasks);
+                }
             }
             return Result.ok();
         } catch (Exception e) {
@@ -116,9 +124,39 @@ public class TimedTasksController extends BaseController {
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
-    public Object delete(String uuid, Model model) {
+    public Object delete(String uuid) {
         try {
-            itimedTasksService.remove(Wrappers.<TimedTasks>lambdaQuery().eq(TimedTasks::getUuid,uuid));
+            TimedTasks timedTasks = itimedTasksService.getOne(Wrappers.<TimedTasks>lambdaQuery().eq(TimedTasks::getUuid,uuid),false);
+            if(timedTasks != null){
+                quartzService.deleteJob(timedTasks);
+                itimedTasksService.remove(Wrappers.<TimedTasks>lambdaQuery().eq(TimedTasks::getUuid,uuid));
+            }
+            return Result.ok();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("请求错误:{}",e.getMessage());
+            return Result.error();
+        }
+    }
+
+    /**
+     * 修改任务状态
+     * @param uuid UUID
+     * @return Boolean
+     */
+    @RequestMapping(value = "/editStatus")
+    @ResponseBody
+    public Object delete(String uuid, Integer status) {
+        try {
+            TimedTasks timedTasks = itimedTasksService.getOne(Wrappers.<TimedTasks>lambdaQuery().eq(TimedTasks::getUuid,uuid),false);
+            timedTasks.setStatus(status);
+            boolean flag = itimedTasksService.updateById(timedTasks);
+            //根据status判断是新增job还是删除job
+            if (flag && status == 1) {
+                quartzService.addJob(timedTasks);
+            } else {
+                quartzService.deleteJob(timedTasks);
+            }
             return Result.ok();
         } catch (Exception e) {
             e.printStackTrace();
