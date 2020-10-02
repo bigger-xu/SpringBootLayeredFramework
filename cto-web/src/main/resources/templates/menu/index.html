@@ -40,7 +40,6 @@
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
-                                                <th>序号</th>
                                                 <th>菜单名称</th>
                                                 <th>系统url</th>
                                                 <th>是否显示</th>
@@ -54,11 +53,11 @@
 
                                         </tbody>
                                     </table>
-                                    <div>
+                                    <div class="pagination-parent">
                                         <ul id="pageModel" class="pagination pagination-block">
 
                                         </ul>
-                                        <div style="float: right;">
+                                        <div class="pagination-select">
                                             <span>每页展示条数:</span>
                                             <select id="pageSize" class="input-mini" >
                                                 <option value="10">10</option>
@@ -82,7 +81,6 @@
     <!--模型-->
     <table style="display: none;">
         <tr id="skillModel">
-            <td key="num"></td>
             <td key="name" ></td>
             <td key="url" ></td>
             <td key="state" ></td>

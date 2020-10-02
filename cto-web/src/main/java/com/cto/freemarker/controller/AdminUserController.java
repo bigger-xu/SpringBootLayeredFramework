@@ -5,6 +5,7 @@
  */
 package com.cto.freemarker.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cto.freemarker.controller.base.BaseController;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,7 +61,8 @@ public class AdminUserController extends BaseController {
     @RequestMapping("page")
     @ResponseBody
     public Object list(AdminUserQuery search) {
-        return adminUserService.page(new Page<>(search.getPageNum(),search.getPageNum()),Wrappers.<AdminUser>lambdaQuery().eq(AdminUser::getAddUserId,getCurrentUser().getId()));
+        IPage<AdminUser> page = adminUserService.page(new Page<>(search.getPageNum(), search.getPageSize()), Wrappers.<AdminUser>lambdaQuery().eq(AdminUser::getAddUserId, getCurrentUser().getId()));
+        return page;
     }
 
 

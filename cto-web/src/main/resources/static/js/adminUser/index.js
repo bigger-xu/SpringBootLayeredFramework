@@ -21,7 +21,6 @@ function loadPage(page) {
         pageNum: page,
         callback: function (result) {
             layer.closeAll('loading');
-            var num = result.startIndex;
             if (result != null && result.records != null && result.records.length > 0) {
                 $("#itemsPanel tr").each(function () {
                     //渲染自动排课
@@ -40,9 +39,6 @@ function loadPage(page) {
                     } else if (userType == 3) {
                         $(this).find("[key=userType]").html("经销商");
                     }
-                    //为序号赋值
-                    $(this).find("[key=num]").append(num);
-                    num ++ ;
                 });
             } else {
                 $("#itemsPanel").html("<tr><td style='text-align: center' colspan='8'>暂无数据</td>></tr>")

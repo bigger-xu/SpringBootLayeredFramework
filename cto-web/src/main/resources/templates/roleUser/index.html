@@ -51,15 +51,14 @@
                                     <table class="table table-striped table-bordered table-advance table-hover">
                                         <thead>
                                         <tr>
-                                            <th>序号</th>
-                                                    <th>用户ID</th>
-                                                    <th>角色ID</th>
-                                                    <th>更新人ID</th>
-                                                    <th>更新时间</th>
-                                                    <th>添加人ID</th>
-                                                    <th>添加时间</th>
-                                                    <th></th>
-                                                    <th>主键</th>
+                                            <th>用户ID</th>
+                                            <th>角色ID</th>
+                                            <th>更新人ID</th>
+                                            <th>更新时间</th>
+                                            <th>添加人ID</th>
+                                            <th>添加时间</th>
+                                            <th></th>
+                                            <th>主键</th>
                                             <th><i class=" icon-edit"></i> 操作</th>
                                         </tr>
                                         </thead>
@@ -67,17 +66,19 @@
 
                                         </tbody>
                                     </table>
-                                    <div class="pagination pagination-centered">
-                                        <ul id="pageModel">
+                                    <div class="pagination-parent">
+                                        <ul id="pageModel" class="pagination pagination-block">
 
                                         </ul>
-                                        <select id="pageSize" class="input-mini" style="float: right;">
-                                            <option value="10" selected="selected">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                            <option value="1000">1000</option>
-                                        </select>
+                                        <div class="pagination-select">
+                                            <span>每页展示条数:</span>
+                                            <select id="pageSize" class="input-mini" >
+                                                <option value="10">10</option>
+                                                <option value="25" selected="selected">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -91,15 +92,14 @@
 <!--模型-->
 <table style="display: none;">
     <tr id="skillModel">
-        <td key="num"></td>
-                <td key="userId" ></td>
-                <td key="roleId" ></td>
-                <td key="updateUserId" ></td>
-                <td key="updateTime" formatDate="yyyy-MM-dd hh:mm:ss"></td>
-                <td key="addUserId" ></td>
-                <td key="addTime" formatDate="yyyy-MM-dd hh:mm:ss"></td>
-                <td key="uuid" ></td>
-                <td key="id" ></td>
+        <td key="userId" ></td>
+        <td key="roleId" ></td>
+        <td key="updateUserId" ></td>
+        <td key="updateTime" formatDate="yyyy-MM-dd hh:mm:ss"></td>
+        <td key="addUserId" ></td>
+        <td key="addTime" formatDate="yyyy-MM-dd hh:mm:ss"></td>
+        <td key="uuid" ></td>
+        <td key="id" ></td>
         <td style="width: 20%">
             <input type="hidden" key="id">
             <a class="btn btn-primary del  edit" title="修改">修改</a>

@@ -21,12 +21,8 @@ function loadPage(page) {
         pageNum: page,
         callback: function (result) {
             layer.closeAll('loading');
-            var num = result.page.startIndex;
             if (result != null && result.page != null && result.rows.length > 0) {
                 $("#itemsPanel tr").each(function () {
-                    //为序号赋值
-                    $(this).find("[key=num]").append(num);
-                    num ++ ;
                 });
             } else {
                 $("#itemsPanel").html("<tr><td style='text-align: center' colspan='8'>暂无数据</td>></tr>")

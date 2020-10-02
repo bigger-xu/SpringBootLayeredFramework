@@ -9488,7 +9488,18 @@ body.md-skin {
   text-align: center;
 }
 .pagination-block{
-  display: block;
+  display: inline-flex;
+}
+.pagination-parent{
+  text-align: center;
+  width: auto;
+  position: relative;
+}
+.pagination-select{
+  display: inline-flex;
+  padding-left: 10px;
+  position: absolute;
+  top: 5px;
 }
 @media (min-width: 768px) {
   #page-wrapper {

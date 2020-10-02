@@ -39,7 +39,6 @@
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>序号</th>
                                         <th>角色编码</th>
                                         <th>角色名称</th>
                                         <th>状态</th>
@@ -51,11 +50,11 @@
 
                                     </tbody>
                                 </table>
-                                <div>
+                                <div class="pagination-parent">
                                     <ul id="pageModel" class="pagination pagination-block">
 
                                     </ul>
-                                    <div style="float: right;">
+                                    <div class="pagination-select">
                                         <span>每页展示条数:</span>
                                         <select id="pageSize" class="input-mini" >
                                             <option value="10">10</option>
@@ -64,7 +63,6 @@
                                             <option value="100">100</option>
                                         </select>
                                     </div>
-
                                 </div>
                             </div>
 
@@ -80,7 +78,6 @@
 <!--模型-->
 <table style="display: none;">
     <tr id="skillModel">
-        <td key="num"></td>
         <td key="code" ></td>
         <td key="name" ></td>
         <td key="status" ></td>

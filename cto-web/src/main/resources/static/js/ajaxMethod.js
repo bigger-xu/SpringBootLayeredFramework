@@ -115,7 +115,7 @@ var hideKey = "hdkey";
                         pageCustomize['moreBtn'] = '<li  class="paginate_button page-item"><a pageNumPanel="true" class="page-link">...</a></li>'; //更多
                         pageCustomize['next'] ='<li class="paginate_button page-item"><a href="javaScript:void(0);" class="page-link nextSmSkill">下一页</a></li><li class="paginate_button page-item"><a href="javaScript:void(0);" class="page-link lastSmSkill">末页</a></li>';//下一个
                         pageCustomize['checkedClass'] = 'active';// 选中class
-                        pageCustomize['orderBtnBefore'] = ['<li class="paginate_button page-item"><a href="javaScript:void(0);">共<font class="smSkillPageNum">'+result.totalPage+'</font>页</a></li>'];
+                        pageCustomize['orderBtnBefore'] = ['<li class="paginate_button page-item"><a href="javaScript:void(0);">共<font class="smSkillPageNum">'+result.pages+'</font>页</a></li>'];
                         var _start = result["current"] ;
                         $(defaultParams.pageModel).customPage(result,_start,6,"reloadPage",pageCustomize);
                         defaultParams.callback(result);
@@ -133,7 +133,7 @@ var hideKey = "hdkey";
          */
         customPage :function(pageResult,checkedNum,maxBtn,callback,pageCustomize){
             var pagePanel = $(this);
-            var pageSize =pageResult["totalPage"] ;
+            var pageSize =pageResult["pages"] ;
             var prev = pageCustomize['prev'];
             var btn = pageCustomize['btn'];
             var moreBtn = pageCustomize['moreBtn'];

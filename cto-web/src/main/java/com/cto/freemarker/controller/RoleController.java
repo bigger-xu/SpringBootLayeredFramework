@@ -64,7 +64,7 @@ public class RoleController extends BaseController {
     @ResponseBody
     public Object list(RoleQuery search) {
         //TODO 设置查询属性
-        return roleService.page(new Page<>(search.getPageNum(),search.getPageNum()), Wrappers.<Role>lambdaQuery().eq(Role::getAddUserId,getCurrentUser().getId()));
+        return roleService.page(new Page<>(search.getPageNum(),search.getPageSize()), Wrappers.<Role>lambdaQuery().eq(Role::getAddUserId,getCurrentUser().getId()));
     }
 
 

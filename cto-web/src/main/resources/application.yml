@@ -87,8 +87,8 @@ spring:
 #mybatis-plus配置
 mybatis-plus:
   configuration:
-    lazy-loading-enabled: true
-    use-generated-keys: true
+    #二级缓存关闭
+    cache-enabled: false
   global-config:
     db-config:
       id-type: auto

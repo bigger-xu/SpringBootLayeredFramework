@@ -68,7 +68,7 @@ public class MenuController extends BaseController {
     @ResponseBody
     public Object list(MenuQuery search) {
         //TODO 设置查询属性
-        return menuService.page(new Page<>(search.getPageNum(),search.getPageNum()),Wrappers.<Menu>lambdaQuery().eq(Menu::getAddUserId,getCurrentUser().getId()));
+        return menuService.page(new Page<>(search.getPageNum(),search.getPageSize()),Wrappers.<Menu>lambdaQuery().eq(Menu::getAddUserId,getCurrentUser().getId()));
     }
 
 
