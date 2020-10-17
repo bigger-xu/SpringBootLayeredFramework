@@ -115,8 +115,8 @@ public class RoleController extends BaseController {
             }
         } else {
             roleService.updateById(role);
+            roleMenuService.remove(Wrappers.<RoleMenu>lambdaQuery().eq(RoleMenu::getRoleId,role.getId()));
             if(StringUtils.isNotEmpty(role.getRoleIds())){
-                roleMenuService.removeById(role.getId());
                 String[] roleIdList = role.getRoleIds().split(",");
                 RoleMenu roleMenu;
                 for(String s : roleIdList){
