@@ -13,7 +13,8 @@ public enum CustomLogsType {
     DELETE("delete"),
     SELECT("select"),
     UPDATE("update"),
-    INSERT("insert");
+    INSERT("insert"),
+    INSERT_UPDATE("insertOrUpdate");
 
     private String value;
 

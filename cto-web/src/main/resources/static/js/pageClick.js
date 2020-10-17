@@ -8,7 +8,7 @@ $(function(){
     });
     $(document).on("click",".prevSmSkill",function(){
         var id = $(this).parent().parent().attr("id");
-        var page = $(this).parent().parent().find(".active").html();
+        var page = $(this).parent().parent().find(".active").text();
         page = parseInt(page);
         if(page != null && page != '' && page != undefined && page !=1){
             var num = page - 1;
@@ -28,7 +28,7 @@ $(function(){
     });
     $(document).on("click",".nextSmSkill",function(){
         var id = $(this).parent().parent().attr("id");
-        var page = $(this).parent().parent().find(".active").html();
+        var page = $(this).parent().parent().find(".active").text();
         page = parseInt(page);
         var lastNum = $(this).parent().parent().find(".smSkillPageNum").html();
         lastNum = parseInt(lastNum);
@@ -57,6 +57,10 @@ $(function(){
     }
 
 });
+// 选择每页显示多少条
+$("#pageSize").change(function(){
+    loadPage();
+})
 
 function resetValue(){
     $("#searchForm").clearVal();

@@ -1,5 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cto.freemarker.mapper.OperationLogsMapper">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cto.mapper.OperationLogsMapper" >
 
+    <select id="customPage" resultType="cto.entity.dto.OperationLogsDTO">
+        SELECT ol.*,au.nick_name AS userName FROM operation_logs ol
+        LEFT JOIN admin_user au ON au.id = ol.add_user_id
+        WHERE 1=1
+        <if test="search.description != null and search.description != ''">
+            AND ol.description LIKE CONCAT('%',#{search.description},'%')
+        </if>
+        <if test="search.type != null and search.type != ''">
+            AND ol.type = #{search.type}
+        </if>
+        <if test="search.userName != null and search.userName != ''">
+            AND au.nick_name LIKE CONCAT('%',#{search.userName},'%')
+        </if>
+        <if test="search.ipAddress != null and search.ipAddress != ''">
+            AND ol.ip_address LIKE CONCAT('%',#{search.ipAddress},'%')
+        </if>
+        ORDER BY ol.id DESC
+    </select>
 </mapper>

@@ -1,0 +1,150 @@
+<!DOCTYPE>
+<html lang="zh">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户操作日志表-添加</title>
+    <#include "../common/include_css.html">
+</head>
+<body class="pace-done fixed-sidebar">
+<div id="wrapper">
+    <!--左侧菜单-->
+    <#include "../common/menu.html">
+    <div id="page-wrapper" class="gray-bg">
+        <!--头部-->
+        <#include "../common/header.html">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="javascript:;">用户操作日志表</a>
+                                </li>
+                                <li class="breadcrumb-item active">
+                                    <strong>添加</strong>
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="ibox-content">
+                            <form id="dataForm"  onSubmit="return false">
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">添加时间</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="addTime" value="" placeholder="请输入添加时间" autocomplete="off" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">添加人ID</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="id" value="" placeholder="请输入添加人ID" autocomplete="off" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">日志描述</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="description" value="" placeholder="请输入日志描述" autocomplete="off" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">IP地址</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="ipAddress" value="" placeholder="请输入IP地址" autocomplete="off" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">日志级别</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="leaves" value="" placeholder="请输入日志级别" autocomplete="off" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">请求参数</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="requestParams" value="" placeholder="请输入请求参数" autocomplete="off" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">日志类型</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="type" value="" placeholder="请输入日志类型" autocomplete="off" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">请求URL</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="requestUrl" value="" placeholder="请输入请求URL" autocomplete="off" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">返回数据</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="returnValue" value="" placeholder="请输入返回数据" autocomplete="off" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">运行时长</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="runTime" value="" placeholder="请输入运行时长" autocomplete="off" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">更新时间</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="updateTime" value="" placeholder="请输入更新时间" autocomplete="off" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">UUID</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="uuid" value="" placeholder="请输入UUID" autocomplete="off" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">添加人ID</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="addUserId" value="" placeholder="请输入添加人ID" autocomplete="off" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group  row">
+                                    <label class="col-sm-2 col-form-label">请求方式</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="requestType" value="" placeholder="请输入请求方式" autocomplete="off" class="form-control required" />
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group row">
+                                    <div class="col-sm-12 col-sm-offset-6 btn-center-al">
+                                        <button class="btn btn-white btn-sm" onclick="window.history.back(-1)" type="button">取消</button>
+                                        <button class="btn btn-primary btn-sm" onclick="saveOrUpdate()" type="button">提交</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <#include "../common/footer.html">
+    </div>
+</div>
+<#include "../common/include_js.html">
+<script src="/static/js/operationLogs/add.js"></script>
+</body>
+</html>
+
+

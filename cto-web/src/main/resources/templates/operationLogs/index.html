@@ -1,0 +1,142 @@
+<!DOCTYPE>
+<html lang="zh">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户操作日志表</title>
+    <#include "../common/include_css.html">
+</head>
+<body class="pace-done fixed-sidebar">
+<div id="wrapper">
+    <!--左侧菜单-->
+    <#include "../common/menu.html">
+    <div id="page-wrapper" class="gray-bg">
+        <!--头部-->
+        <#include "../common/header.html">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="javascript:;">日志管理</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <strong>日志管理</strong>
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="ibox-content">
+                            <div id="searchForm">
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label class="col-form-label custom-label">操作人:</label>
+                                                    <input type="text" id="userName" name="userName" value="" placeholder="" class="customSearch">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label class="col-form-label custom-label">日志描述:</label>
+                                                    <input type="text" id="description" name="description" value="" placeholder="" class="customSearch">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label class="col-form-label custom-label">IP地址:</label>
+                                                    <input type="text" id="ipAddress" name="ipAddress" value="" placeholder="" class="customSearch">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label class="col-form-label custom-label">日志类型:</label>
+                                                    <select name="type" id="type" class="customSearch">
+                                                        <option value="">全部</option>
+                                                        <option value="insertOrUpdate">添加或者修改</option>
+                                                        <option value="select">查询</option>
+                                                        <option value="delete">删除</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <div style="float: left;">
+                                                <button class="btn btn-primary btn-sm" type="button" onclick="loadPage()" >搜索</button>
+                                                <button class="btn btn-default btn-sm" type="button" onclick="resetValue()">重置</button>
+                                            </div>
+                                            <div style="float: right;">
+                                                <button type="button" class="btn btn-sm btn-primary" onclick="window.location.href='/operationLogs/add'">添加</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>操作人</th>
+                                        <th>操作时间</th>
+                                        <th>日志描述</th>
+                                        <th>IP地址</th>
+                                        <th>请求参数</th>
+                                        <th>日志类型</th>
+                                        <th>运行时长</th>
+                                        <!--<th><i class=" icon-edit"></i> 操作</th>-->
+                                    </tr>
+                                    </thead>
+                                    <tbody id="itemsPanel">
+
+                                    </tbody>
+                                </table>
+                                <div class="pagination-parent">
+                                    <ul id="pageModel" class="pagination pagination-block">
+
+                                    </ul>
+                                    <div class="pagination-select">
+                                        <span>每页展示条数:</span>
+                                        <select id="pageSize" class="input-mini" >
+                                            <option value="10">10</option>
+                                            <option value="25" selected="selected">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <#include "../common/footer.html">
+    </div>
+</div>
+<!--模型-->
+<table style="display: none;">
+    <tr id="skillModel">
+        <td key="userName" ></td>
+        <td key="addTime" formatDate="yyyy-MM-dd hh:mm:ss"></td>
+        <td key="description" ></td>
+        <td key="ipAddress" ></td>
+        <td key="requestParams" ></td>
+        <td key="type" ></td>
+        <td key="runTime" ></td>
+        <!--<td style="width: 20%">
+            <input type="hidden" key="uuid">
+            <button class="btn btn-sm btn-primary edit" title="修改">修改</button>
+            <button class="btn btn-sm btn-default delete" title="删除">删除</button>
+        </td>-->
+    </tr>
+</table>
+<#include "../common/include_js.html">
+<script type="text/javascript" src="/static/js/operationLogs/index.js"></script>
+</body>
+</html>

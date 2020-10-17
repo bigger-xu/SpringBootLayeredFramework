@@ -1,71 +1,59 @@
+/*
+ * @(#)  OperationLogs.java    2020-10-17 14:39:34
+ * Project  :Spring boot 代码生产系统
+ * Company  :http://www.594cto.com
+ */
 package com.cto.freemarker.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.cto.freemarker.entity.base.BaseEntity;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-import java.util.Date;
 
 /**
- * <p>
- * 用户操作日志表
- * </p>
- *
- * @author Bigger-Xu
- * @since 2020-09-19
+ * 用户操作日志表 OperationLogs.java
+ * @author 594cto版权所有
+ * @date 2020-10-17 14:39:34
+ *  
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
 public class OperationLogs extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * 请求URL
-     */
-    private String requestUrl;
-
-    /**
-     * 请求方式
-     */
-    private String requestType;
-
-    /**
-     * 请求参数
-     */
-    private String requestParams;
-
-    /**
-     * 日志描述
-     */
-    private String description;
-
-    /**
-     * 日志级别
-     */
-    private Integer leaves;
-
-    /**
-     * 运行时长
-     */
-    private Long runTime;
-
-    /**
-     * 日志类型
-     */
-    private String type;
-
-    /**
-     * 返回数据
-     */
-    private String returnValue;
-
-    /**
-     * IP地址
-     */
-    private String ipAddress;
-
+	/**
+	 * 日志描述
+	 */
+	private String description;
+	/**
+	 * IP地址
+	 */
+	private String ipAddress;
+	/**
+	 * 日志级别
+	 */
+	private Integer leaves;
+	/**
+	 * 请求参数
+	 */
+	private String requestParams;
+	/**
+	 * 日志类型
+	 */
+	private String type;
+	/**
+	 * 请求URL
+	 */
+	private String requestUrl;
+	/**
+	 * 返回数据
+	 */
+	private String returnValue;
+	/**
+	 * 运行时长
+	 */
+	private Long runTime;
+	/**
+	 * 请求方式
+	 */
+	private String requestType;
 
 }
