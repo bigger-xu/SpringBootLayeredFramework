@@ -20,6 +20,4 @@ public interface AdminUserMapper extends BaseMapper<AdminUser> {
     AdminUserQuery getByUserName(String userName);
 
     IPage<AdminUser> selectPageVo(IPage<AdminUserQuery> page, @Param("search") AdminUserQuery search);
-
-    //IPage<AdminUserVo> selectPageVo(Page<AdminUserVo> page, AdminUserVo search);
 }
