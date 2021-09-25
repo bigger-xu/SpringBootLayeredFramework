@@ -7,8 +7,8 @@ import java.util.List;
 
 /**
  * 菜单构建
- * @author Devil
- * @mail 562157205@qq.com
+ * @author Bigger-Xu
+ * @mail 562123314@qq.com
  * @date 2017年5月5日 上午10:20:13
  */
 public class MenuTreeUtil {
