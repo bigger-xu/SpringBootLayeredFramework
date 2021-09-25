@@ -1,11 +1,11 @@
 package com.cto.freemarker.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.cto.freemarker.entity.Menu;
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.cto.freemarker.entity.query.MenuQuery;
-
 import java.util.List;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.cto.freemarker.entity.Menu;
+import com.cto.freemarker.entity.query.MenuQuery;
 
 /**
  * <p>

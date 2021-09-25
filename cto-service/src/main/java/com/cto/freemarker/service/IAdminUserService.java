@@ -1,8 +1,8 @@
 package com.cto.freemarker.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.cto.freemarker.entity.AdminUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.cto.freemarker.entity.AdminUser;
 import com.cto.freemarker.entity.query.AdminUserQuery;
 
 /**

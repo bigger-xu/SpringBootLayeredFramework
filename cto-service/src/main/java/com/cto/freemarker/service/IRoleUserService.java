@@ -1,7 +1,7 @@
 package com.cto.freemarker.service;
 
-import com.cto.freemarker.entity.RoleUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.cto.freemarker.entity.RoleUser;
 
 /**
  * <p>

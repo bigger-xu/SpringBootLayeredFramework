@@ -1,9 +1,10 @@
 package com.cto.freemarker.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cto.freemarker.entity.RoleMenu;
 import com.cto.freemarker.mapper.RoleMenuMapper;
 import com.cto.freemarker.service.IRoleMenuService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
 import org.springframework.stereotype.Service;
 
 /**

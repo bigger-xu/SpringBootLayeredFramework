@@ -1,8 +1,8 @@
 package com.cto.freemarker.service;
 
-import com.cto.freemarker.entity.TimedTasks;
-
 import java.util.List;
+
+import com.cto.freemarker.entity.TimedTasks;
 
 /**
  * <p>

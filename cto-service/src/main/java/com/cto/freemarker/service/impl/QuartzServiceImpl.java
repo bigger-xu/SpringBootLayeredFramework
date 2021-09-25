@@ -1,17 +1,27 @@
 package com.cto.freemarker.service.impl;
 
 
-import com.cto.freemarker.entity.TimedTasks;
-import com.cto.freemarker.service.IQuartzService;
-import lombok.extern.slf4j.Slf4j;
-import org.quartz.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.cto.freemarker.entity.TimedTasks;
+import com.cto.freemarker.service.IQuartzService;
+import lombok.extern.slf4j.Slf4j;
+import org.quartz.CronScheduleBuilder;
+import org.quartz.CronTrigger;
+import org.quartz.Job;
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.JobKey;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.TriggerBuilder;
+import org.quartz.TriggerKey;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 
 /**

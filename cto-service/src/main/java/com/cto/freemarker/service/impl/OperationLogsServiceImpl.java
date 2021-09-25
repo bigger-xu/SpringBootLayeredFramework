@@ -5,6 +5,8 @@
  */
 package com.cto.freemarker.service.impl;
 
+import javax.annotation.Resource;
+
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -14,9 +16,8 @@ import com.cto.freemarker.entity.query.OperationLogsQuery;
 import com.cto.freemarker.mapper.OperationLogsMapper;
 import com.cto.freemarker.service.IOperationLogsService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
 
 /**
  * 用户操作日志表 OperationLogsServiceImpl.java 服务实现类

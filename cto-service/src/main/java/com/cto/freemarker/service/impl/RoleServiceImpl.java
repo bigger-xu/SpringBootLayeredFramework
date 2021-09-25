@@ -1,13 +1,15 @@
 package com.cto.freemarker.service.impl;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cto.freemarker.entity.Role;
 import com.cto.freemarker.mapper.RoleMapper;
 import com.cto.freemarker.service.IRoleService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>
