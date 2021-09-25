@@ -1,8 +1,8 @@
 package com.cto.freemarker.solr;
 
-import org.springframework.util.StringUtils;
-
 import java.util.UUID;
+
+import org.springframework.util.StringUtils;
 
 /**
  * @author Zhang Yongwei

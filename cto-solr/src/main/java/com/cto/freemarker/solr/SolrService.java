@@ -1,6 +1,7 @@
 package com.cto.freemarker.solr;
 
 import org.apache.solr.client.solrj.SolrQuery;
+
 import org.springframework.stereotype.Service;
 
 /**
