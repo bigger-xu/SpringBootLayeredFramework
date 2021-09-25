@@ -30,7 +30,7 @@
         <mysql.dirver.version>5.1.30</mysql.dirver.version>
         <alibaba.druid.version>1.1.10</alibaba.druid.version>
         <log.4j.version>1.2.16</log.4j.version>
-        <shiro.version>1.4.0</shiro.version>
+        <shiro.version>1.8.0</shiro.version>
         <commons.version>2.6</commons.version>
         <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
     </properties>
