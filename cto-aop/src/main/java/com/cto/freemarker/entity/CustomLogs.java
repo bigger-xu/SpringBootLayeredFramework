@@ -17,13 +17,13 @@ import java.lang.annotation.Target;
 public @interface CustomLogs {
     /**
      * 日志名称
-     * @return
+     * @return String
      */
     String description() default "";
 
     /**
      * 日志类型
-     * @return
+     * @return String
      */
     CustomLogsType type() default CustomLogsType.UNKNOWN;
 }

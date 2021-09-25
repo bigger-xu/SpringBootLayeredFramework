@@ -1,5 +1,6 @@
 package com.cto.freemarker.config.shiro;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -19,8 +20,8 @@ import java.util.Map;
  * @date 2019-06-05
  */
 @Configuration
+@Slf4j
 public class ShiroConfig {
-    private static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
     /**
      * ShiroFilterFactoryBean 处理拦截资源文件过滤器
      *  </br>1,配置shiro安全管理器接口securityManage;
@@ -56,7 +57,7 @@ public class ShiroConfig {
         // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问【放行】-->
         filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-        logger.debug("Shiro拦截器工厂类注入成功");
+        log.debug("Shiro拦截器工厂类注入成功");
         return shiroFilterFactoryBean;
     }
 
@@ -105,7 +106,6 @@ public class ShiroConfig {
      */
     @Bean
     public ShiroRealm shiroRealm() {
-        ShiroRealm shiroRealm = new ShiroRealm();
-        return shiroRealm;
+        return new ShiroRealm();
     }
 }

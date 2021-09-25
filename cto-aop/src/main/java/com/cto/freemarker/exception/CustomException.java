@@ -7,8 +7,8 @@ package com.cto.freemarker.exception;
  * @date 2020/8/29 17:06
  */
 public class CustomException extends Exception{
-    private Integer code;
-    private String customMessage;
+    private final Integer code;
+    private final String customMessage;
 
     public CustomException(String customMessage){
         super(customMessage);

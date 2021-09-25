@@ -1,5 +1,6 @@
 package com.cto.freemarker.filter;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -17,8 +18,8 @@ import java.util.Arrays;
  */
 //@Aspect
 //@Component
+@Slf4j
 public class MapperAspect {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MapperAspect.class);
 
     /**
      * 监控com.cto.freemarker.dao..*Mapper包及其子包的所有public方法
@@ -36,7 +37,7 @@ public class MapperAspect {
     public void beforeMethod(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();
         Object[] args = joinPoint.getArgs();
-        LOGGER.info("切面开始打印,方法: {},参数: {}",methodName,Arrays.asList(args));
+        log.info("切面开始打印,方法: {},参数: {}",methodName,Arrays.asList(args));
     }
 
     /**
@@ -47,7 +48,7 @@ public class MapperAspect {
     @After("pointCutMethod()")
     public void afterMethod(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();
-        LOGGER.info("切面结束打印,方法: {}",methodName);
+        log.info("切面结束打印,方法: {}",methodName);
     }
 
 
@@ -60,7 +61,7 @@ public class MapperAspect {
     @AfterReturning(value = "pointCutMethod()",returning = "result")
     public void afterReturning(JoinPoint joinPoint, Object result) {
         String methodName = joinPoint.getSignature().getName();
-        LOGGER.info("切面结束返回打印,方法: {},返回: {}",methodName,result);
+        log.info("切面结束返回打印,方法: {},返回: {}",methodName,result);
     }
 
     /**
@@ -85,7 +86,7 @@ public class MapperAspect {
         long begin = System.nanoTime();
         Object obj = pjp.proceed();
         long end = System.nanoTime();
-        LOGGER.info("调用Mapper方法：{}，执行耗时：{}纳秒，耗时：{}毫秒",pjp.getSignature().toString(),(end - begin), (end - begin) / 1000000);
+        log.info("调用Mapper方法：{}，执行耗时：{}纳秒，耗时：{}毫秒",pjp.getSignature().toString(),(end - begin), (end - begin) / 1000000);
         return obj;
     }
 

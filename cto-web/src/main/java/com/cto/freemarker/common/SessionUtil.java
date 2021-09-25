@@ -1,6 +1,7 @@
 package com.cto.freemarker.common;
 
 import com.cto.freemarker.entity.AdminUser;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
  * session，cookie工具类
  * @author zhangyongwei
  */
+@Slf4j
 public class SessionUtil {
     
-    protected static final Logger LOGGER = LoggerFactory.getLogger(SessionUtil.class);
     private static final String SESSION_USER = "base_session_user";
 
     /**
