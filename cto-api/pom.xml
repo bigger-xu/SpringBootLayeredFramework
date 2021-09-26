@@ -36,6 +36,31 @@
             <artifactId>cto-solr</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+		<!--swagger 开始-->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>io.swagger</groupId>
+					<artifactId>swagger-models</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!--解决swagger注解中example为空报错的情况 NumberFormatException-->
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-models</artifactId>
+			<version>1.5.22</version>
+		</dependency>
+		<!--swagger样式-->
+		<dependency>
+			<groupId>com.github.xiaoymin</groupId>
+			<artifactId>swagger-bootstrap-ui</artifactId>
+			<version>1.9.6</version>
+		</dependency>
+		<!--swagger 结束-->
     </dependencies>
     <build>
         <plugins>
