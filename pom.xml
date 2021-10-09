@@ -19,7 +19,8 @@
         <module>cto-solr</module>
         <module>cto-utils</module>
         <module>cto-web</module>
-    </modules>
+		<module>cto-eureka</module>
+	</modules>
 
     <properties>
         <java.version>1.8</java.version>
@@ -32,8 +33,9 @@
         <log.4j.version>1.2.16</log.4j.version>
         <shiro.version>1.8.0</shiro.version>
         <commons.version>2.6</commons.version>
-        <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
-    </properties>
+        <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
+		<spring-cloud.version>Hoxton.SR1</spring-cloud.version>
+	</properties>
 
     <dependencyManagement>
         <dependencies>
@@ -45,6 +47,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
         </dependencies>
     </dependencyManagement>
 

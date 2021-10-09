@@ -1,0 +1,26 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: cloud-eureka
+eureka:
+  instance:
+    #eureka服务端的实例名称
+    hostname: localhost
+  client:
+    #false表示不往注册中心注册自己
+    register-with-eureka: false
+    #false表示自己就是注册中心,指示此客户端是否应从eureka服务器获取eureka注册表信息
+    fetch-registry: false
+    service-url:
+      #设置与Eureka服务交互的地址,查询服务\注册服务都需要依赖于这个地址,此处可逗号分隔配置多个来配置集群
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+#日志
+logging:
+  level:
+    com:
+      tj:
+        cloud: debug
+    org:
+      springframework:
+        web: info
