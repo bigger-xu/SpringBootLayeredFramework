@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: auth
+  datasource:
+    url: jdbc:mysql://localhost:3306/spring_cloud_study?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: root1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  freemarker:
+    enabled: true
+    suffix: .html
+    cache: false
+    charset: UTF-8
+    template-loader-path: classpath:/templates/
+    expose-request-attributes: true
+    expose-session-attributes: true
+    request-context-attribute: request
+  mvc:
+    static-path-pattern: /static/**
+
+server:
+  port: 9090
+  servlet:
+    session:
+      timeout: 3600
+        

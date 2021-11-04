@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>我就是CTO-程序交流-程序员-学习-https://www.594cto.com</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <meta name="keywords" content="https://www.594cto.com,代码生成器,程序员学习平台,我就是CTO,CTO,编程"/>
+    <meta name="description" content="我就是CTO，是专门为开发者学习交流的网站。收集了大量权威的最新技术，例如：Spring、SpringMVC、Struts、Hibernate、MyBatis、Redis、MongoDB、CSS、JS、UI设计、Linux等，是你学习和经验分享交流的理想网站。"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="/static/css/dashboard.css"/>
+</head>
+<body>
+<div class="page">
+    <div class="page-single">
+        <div class="container">
+            <div class="row">
+                <div class="col col-login mx-auto">
+                    <form class="card" id="dataForm" method="post" action="/login">
+                        <div class="card-body p-6">
+                            <div class="card-title">登录</div>
+                            <div class="form-group">
+                                <label class="form-label">邮箱</label>
+                                <input type="text" id="username" name="username" class="form-control" placeholder="请输入正确的电子邮件"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    密码
+                                    <a href="/forgot" class="float-right small">忘记密码</a>
+                                </label>
+                                <input type="password" id="password" name="password" class="form-control" placeholder="请输入密码"/>
+                            </div>
+                            <div class="form-group">
+
+                            </div>
+                            <div class="form-footer">
+                                <button type="submit" class="btn btn-primary btn-block">登录</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="text-center text-muted small">
+                        没有账号? <a href="/register">点击注册</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<#include "../common/include_js.html">
+</html>
