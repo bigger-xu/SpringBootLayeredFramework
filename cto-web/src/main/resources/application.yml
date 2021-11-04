@@ -83,7 +83,11 @@ spring:
     #初始化表结构
     jdbc:
       initialize-schema: never
-
+  elasticsearch:
+    rest:
+      uris: 127.0.0.1:7001
+      username: elastic
+      password: 1234566
 #mybatis-plus配置
 mybatis-plus:
   configuration:
@@ -92,4 +96,3 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
-
