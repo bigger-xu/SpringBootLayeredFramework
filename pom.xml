@@ -20,6 +20,7 @@
         <module>cto-utils</module>
         <module>cto-web</module>
 		<module>cto-eureka</module>
+		<module>cto-elasticsearch</module>
 	</modules>
 
     <properties>
