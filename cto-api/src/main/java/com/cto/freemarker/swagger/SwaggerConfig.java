@@ -10,6 +10,7 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,24 +21,43 @@ import org.springframework.context.annotation.Configuration;
  */
 @EnableOpenApi
 @Configuration
+//@EnableKnife4j
 public class SwaggerConfig {
-	@Bean
+
+	@Value("${swagger.enable:false}")
+	private Boolean swaggerEnable;
+
+    /*@Bean
 	public Docket createUser() {
-		return new Docket(DocumentationType.SWAGGER_2)
+		return new Docket(DocumentationType.OAS_30)
+				.enable(swaggerEnable)
 				.apiInfo(apiInfo())
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("net.dpt.toctou.app.controller.app"))
+				.apis(RequestHandlerSelectors.basePackage("net.dpt.toctou.app.controller.app.v0"))
 				//.apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
 				.paths(PathSelectors.any())
-				.build().groupName("APP接口API");
+				.build().groupName("APP接口API(最初迭代版本)");
+	}*/
+
+	@Bean
+	public Docket createUserV1() {
+		return new Docket(DocumentationType.OAS_30)
+				.enable(swaggerEnable)
+				.apiInfo(apiInfo())
+				.select()
+				.apis(RequestHandlerSelectors.basePackage("com.cto.freemarker.controller.app.v1"))
+				//.apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+				.paths(PathSelectors.any())
+				.build().groupName("APP接口API(V1.1)");
 	}
 
 	@Bean
 	public Docket createAdmin() {
-		return new Docket(DocumentationType.SWAGGER_2)
+		return new Docket(DocumentationType.OAS_30)
+				.enable(swaggerEnable)
 				.apiInfo(apiInfo())
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("net.dpt.toctou.app.controller.manage"))
+				.apis(RequestHandlerSelectors.basePackage("com.cto.freemarker.controller.manage"))
 				//.apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
 				.paths(PathSelectors.any())
 				.build().groupName("后台管理接口API");
@@ -45,10 +65,11 @@ public class SwaggerConfig {
 
 	@Bean
 	public Docket createRole() {
-		return new Docket(DocumentationType.SWAGGER_2)
+		return new Docket(DocumentationType.OAS_30)
+				.enable(swaggerEnable)
 				.apiInfo(apiInfo())
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("net.dpt.toctou.app.controller.web"))
+				.apis(RequestHandlerSelectors.basePackage("com.cto.freemarker.controller.web"))
 				//.apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
 				.paths(PathSelectors.any())
 				.build().groupName("官网相关接口API");
