@@ -12,6 +12,7 @@
     <modules>
         <module>cto-aop</module>
         <module>cto-api</module>
+        <module>cto-auth</module>
         <module>cto-entity</module>
         <module>cto-dao</module>
         <module>cto-redis</module>
@@ -20,7 +21,7 @@
         <module>cto-utils</module>
         <module>cto-web</module>
 		<module>cto-eureka</module>
-		<module>cto-auth</module>
+		<module>cto-elasticsearch</module>
 	</modules>
 
     <properties>
@@ -29,9 +30,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <mysql.dirver.version>5.1.30</mysql.dirver.version>
-        <alibaba.druid.version>1.1.10</alibaba.druid.version>
-        <log.4j.version>1.2.16</log.4j.version>
+        <mysql.dirver.version>8.0.28</mysql.dirver.version>
+        <alibaba.druid.version>1.2.11</alibaba.druid.version>
+        <log.4j.version>1.2.17</log.4j.version>
         <shiro.version>1.8.0</shiro.version>
         <commons.version>2.6</commons.version>
         <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
@@ -123,7 +124,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>29.0-jre</version>
+            <version>31.1-jre</version>
         </dependency>
     </dependencies>
 </project>
