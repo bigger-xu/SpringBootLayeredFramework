@@ -9,7 +9,6 @@
 
     <name>cto-auth</name>
     <description>Demo project for Spring Boot</description>
-
     <parent>
 		<groupId>com.cto.freemarker</groupId>
 		<artifactId>root</artifactId>

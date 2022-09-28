@@ -16,8 +16,7 @@
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-core</artifactId>
-            <version>1.8.0</version>
-            <scope>compile</scope>
+            <version>1.9.1</version>
         </dependency>
     </dependencies>
 </project>
