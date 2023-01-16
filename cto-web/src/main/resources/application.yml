@@ -56,7 +56,8 @@ spring:
             instanceId: AUTO
           jobStore:
             #数据保存方式为数据库持久化
-            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX  # springboot<2.5.6后使用这个。
+            #class: org.springframework.scheduling.quartz.LocalDataSourceJobStore  # springboot>2.5.6后使用这个。
             #数据库代理类，一般org.quartz.impl.jdbcjobstore.StdJDBCDelegate可以满足大部分数据库
             driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
             #表前缀
