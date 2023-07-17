@@ -3,22 +3,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cto.freemarker</groupId>
-    <artifactId>root</artifactId>
+    <artifactId>cto-solr</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <name>layeredFramework</name>
-    <description>Spring Boot基础框架</description>
-
-    <modules>
-        <module>framework</module>
-    </modules>
+    <packaging>jar</packaging>
+    <name>cto-solr</name>
+    <parent>
+        <groupId>com.cto.freemarker</groupId>
+        <artifactId>framework</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
 
     <dependencies>
-        <!--Lombok -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.20</version>
+            <groupId>com.cto.freemarker</groupId>
+            <artifactId>cto-entity</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
