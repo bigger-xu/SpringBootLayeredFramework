@@ -1,0 +1,40 @@
+server:
+  port: 8006
+
+spring:
+  messages:
+    encoding: UTF-8
+    basename: i18n/message
+  application:
+    name: e-hrs
+  main:
+    allow-bean-definition-overriding: true
+  #nacos配置、注册中心
+  cloud:
+    nacos:
+      server-addr: ${NACOS_SERVER:192.168.6.36:30001}
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
+      discovery:
+        namespace: ${NACOS_NAMESPACE:8324d6e5-79a4-41cf-95c7-1cd46f5db510}
+      config:
+        namespace: ${NACOS_NAMESPACE:8324d6e5-79a4-41cf-95c7-1cd46f5db510}
+        file-extension: yml
+        shared-configs:
+          - data-id: common.yml
+            refresh: true
+          - data-id: redis.yml
+          - data-id: open-feign.yml
+          - data-id: rocket-mq.yml
+          - data-id: file.yml
+          - data-id: xxl-job-core.yml
+          - data-id: seata-config.yml
+          - data-id: e-hrs.yml
+    sentinel:
+      transport:
+        dashboard: ${SENTINEL_SERVER:http://127.0.0.1:8080}
+      # 服务启动后URL建立心跳
+      eager: true
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
