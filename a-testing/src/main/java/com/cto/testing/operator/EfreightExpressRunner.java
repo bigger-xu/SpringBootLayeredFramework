@@ -5,6 +5,7 @@ import com.ql.util.express.instruction.op.OperatorMinMax;
 import com.ql.util.express.instruction.op.OperatorRound;
 
 /**
+ * 规则引擎自定义方法添加
  * @author 张永伟
  * @since 2023/8/15
  */
