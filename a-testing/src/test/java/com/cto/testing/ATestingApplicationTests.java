@@ -54,10 +54,10 @@ class ATestingApplicationTests {
     public void testLong() throws Exception {
         EfreightExpressRunner runner = new EfreightExpressRunner();
         DefaultContext<String, Object> expressContext = new DefaultContext<String, Object>();
-        expressContext.put("##始发港##","ABC");
+        expressContext.put("##始发港##","4");
         expressContext.put("##出发港##","ABC");
         expressContext.put("##目的港##","PPP1");
-        String express = "IF(##始发港## == 'ABC' || ##出发港## == 'ABC'){\n"
+        /*String express = "IF(##始发港## == 'ABC' || ##出发港## == 'ABC'){\n"
                 +        "    IF(SUM(1,2,3,4) >= 10 && ##目的港## == 'PPP'){\n"
                 +        "        RETURN ROUND(VERAGE(3.33,1.231,33,11,56.11), 2)\n"
                 +        "    }ELSE{\n"
@@ -68,7 +68,12 @@ class ATestingApplicationTests {
                 +        "}";
         System.out.println("需要执行的公式是===> \n" + express);
         Object result = runner.execute(express, expressContext, null, false, false);
-        System.out.println("返回的结果是===> " + result);
+        System.out.println("返回的结果是===> " + result);*/
+
+        //Object result1 = runner.execute("IF(##始发港## == 'ABC'){RETURN 2.00}ELSE{RETURN 0} + IF(##始发港## == 'ABCD'){RETURN 2.00}ELSE{RETURN 1}", expressContext, null, false, false);
+        //Object result1 = runner.execute("ROUND((##始发港## == 'ABC'?2.14:4) + (##目的港## == 'PPP'?2.18:4), 1)", expressContext, null, false, false);
+        Object result1 = runner.execute("##始发港## > 10", expressContext, null, false, false);
+        System.out.println("返回的结果是===> " + result1);
 
     }
 }

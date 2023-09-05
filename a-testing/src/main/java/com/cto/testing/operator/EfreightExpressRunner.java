@@ -12,6 +12,20 @@ import com.ql.util.express.instruction.op.OperatorRound;
 public class EfreightExpressRunner extends ExpressRunner {
 
     public EfreightExpressRunner() throws Exception {
+        super();
+        addFunction();
+    }
+
+    /**
+     * @param isPrecise 是否需要高精度计算支持
+     * @param isTrace   是否跟踪执行指令的过程
+     */
+    public EfreightExpressRunner(boolean isPrecise, boolean isTrace) throws Exception {
+        super(isPrecise, isTrace);
+        addFunction();
+    }
+
+    private void addFunction() throws Exception {
         super.addFunction("SUM", new SumOperator());
         super.addFunction("VERAGE", new AvgOperator());
         super.addFunction("DATEDIF", new DateDiffOperator());
