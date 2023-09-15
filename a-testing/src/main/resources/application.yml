@@ -1,2 +1,9 @@
 server:
   port: 8088
+
+knife4j:
+  enable: true
+  setting:
+    enableVersion: true
+    swaggerModelName: "实体类信息"
+    enableFooter: false
