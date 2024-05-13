@@ -15,6 +15,7 @@
         <module>e-common</module>
         <module>e-hrs</module>
         <module>e-order</module>
+        <module>elasticsearch</module>
     </modules>
 
     <properties>
