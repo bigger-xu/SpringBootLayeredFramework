@@ -16,7 +16,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@EnableEftFeignClients
 @SpringBootApplication
 @EnableDiscoveryClient
 public @interface EnableEFCloud {

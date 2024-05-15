@@ -1,7 +1,5 @@
 package com.cto.order.feign;
 
-import com.cto.common.constants.ServiceNameConstants;
-import com.cto.common.response.MessageInfo;
 import com.cto.order.feign.fallback.FeignTestFallback;
 
 import org.springframework.cloud.openfeign.FeignClient;
@@ -14,13 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author 张永伟
  * @since 2023/7/5
  */
-@FeignClient(contextId = "feignTestService", value = ServiceNameConstants.ORDER_SERVICE, fallback = FeignTestFallback.class)
+@FeignClient(contextId = "feignTestService", value = "order-service", fallback = FeignTestFallback.class)
 @Service
 public interface FeignTestService {
     /**
      * Test
      */
     @GetMapping("/test/time")
-    MessageInfo<Object> test();
+    void test();
 
 }

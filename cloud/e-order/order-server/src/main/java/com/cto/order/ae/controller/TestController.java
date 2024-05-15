@@ -1,12 +1,6 @@
 package com.cto.order.ae.controller;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
-import com.alibaba.fastjson.JSONObject;
 import com.cto.common.base.BaseController;
-import com.cto.common.mq.order.model.RocketTest;
-import com.cto.common.mq.order.productor.OrderMessageProducer;
 import com.cto.order.ae.service.ITestService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,8 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/test")
 public class TestController extends BaseController {
 
-    private final OrderMessageProducer orderMessageProducer;
-
     private final ITestService iTestService;
 
     @GetMapping("/time")
@@ -39,12 +31,13 @@ public class TestController extends BaseController {
     public Object time() {
         iTestService.createTest();
         //发送mq消息
-        RocketTest rocketTest = new RocketTest();
-        rocketTest.setUuid(UUID.randomUUID().toString());
-        orderMessageProducer.sendOrderCreateSubsequent(rocketTest);
-        JSONObject result = new JSONObject();
-        result.put("time", LocalDateTime.now());
-        return result;
+        //RocketTest rocketTest = new RocketTest();
+        //rocketTest.setUuid(UUID.randomUUID().toString());
+        //orderMessageProducer.sendOrderCreateSubsequent(rocketTest);
+        //JSONObject result = new JSONObject();
+        //result.put("time", LocalDateTime.now());
+        //return result;
+        return null;
     }
 
 }

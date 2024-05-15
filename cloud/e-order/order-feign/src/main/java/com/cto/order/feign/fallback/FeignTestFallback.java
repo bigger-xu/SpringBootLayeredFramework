@@ -1,7 +1,5 @@
 package com.cto.order.feign.fallback;
 
-import com.cto.common.constants.CommonResultCode;
-import com.cto.common.response.MessageInfo;
 import com.cto.order.feign.FeignTestService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,8 +16,7 @@ import org.springframework.stereotype.Component;
 public class FeignTestFallback implements FeignTestService {
 
     @Override
-    public MessageInfo<Object> test() {
+    public void test() {
         log.error("FeignTestService#test服务异常，进入熔断");
-        return MessageInfo.failed(CommonResultCode.S_DEGRADE);
     }
 }

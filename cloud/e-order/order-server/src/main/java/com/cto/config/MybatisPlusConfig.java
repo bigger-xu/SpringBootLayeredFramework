@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2023/7/3
  */
 @Configuration
-@MapperScan("com.cto.**.*.dao")
+@MapperScan("com.cto.**.dao")
 public class MybatisPlusConfig {
 
 

@@ -1,8 +1,6 @@
 package com.cto.hrs.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.cto.common.response.MessageInfo;
-import com.cto.common.utils.CheckMessageInfoUtils;
 import com.cto.hrs.dao.TestMapper;
 import com.cto.hrs.entity.Test;
 import com.cto.hrs.service.ITestService;
@@ -43,8 +41,8 @@ public class TestServiceImpl extends ServiceImpl<TestMapper, Test> implements IT
         test.setNameEn("test");
         this.save(test);
 
-        MessageInfo<Object> messageInfo = feignTestService.test();
-        CheckMessageInfoUtils.messageInfoSuccess(messageInfo);
+        feignTestService.test();
+
         //throw new CtoBizException("故意丢个异常，测试回滚");
     }
 
@@ -54,8 +52,8 @@ public class TestServiceImpl extends ServiceImpl<TestMapper, Test> implements IT
 
         tccTestService.createTestTcc(1L);
 
-        MessageInfo<Object> messageInfo = feignTestService.test();
-        CheckMessageInfoUtils.messageInfoSuccess(messageInfo);
+        feignTestService.test();
+
         //throw new CtoBizException("故意丢个异常，测试回滚");
     }
 }
