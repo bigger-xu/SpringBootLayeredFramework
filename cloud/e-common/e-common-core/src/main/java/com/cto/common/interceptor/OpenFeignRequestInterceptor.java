@@ -1,9 +1,9 @@
 package com.cto.common.interceptor;
 
-import javax.servlet.http.HttpServletRequest;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.MDC;
 
 import org.springframework.http.HttpHeaders;

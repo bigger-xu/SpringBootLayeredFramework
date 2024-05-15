@@ -2,8 +2,6 @@ package com.cto.hrs.service.tcc.impl;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.Resource;
-
 import com.alibaba.cloud.commons.lang.StringUtils;
 import com.cto.common.exception.CtoBizException;
 import com.cto.hrs.dao.TestMapper;
@@ -11,6 +9,7 @@ import com.cto.hrs.entity.Test;
 import com.cto.hrs.service.tcc.ITccTestService;
 import io.seata.core.context.RootContext;
 import io.seata.rm.tcc.api.BusinessActionContext;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Component;

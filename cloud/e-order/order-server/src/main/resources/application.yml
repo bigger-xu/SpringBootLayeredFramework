@@ -1,12 +1,12 @@
 server:
-  port: 8006
+  port: 8008
 
 spring:
   messages:
     encoding: UTF-8
     basename: i18n/message
   application:
-    name: e-hrs
+    name: e-order
   main:
     allow-bean-definition-overriding: true
   #nacos配置、注册中心
@@ -18,6 +18,8 @@ spring:
       discovery:
         namespace: ${NACOS_NAMESPACE:8324d6e5-79a4-41cf-95c7-1cd46f5db510}
       config:
+        import-check:
+          enabled: false
         namespace: ${NACOS_NAMESPACE:8324d6e5-79a4-41cf-95c7-1cd46f5db510}
         file-extension: yml
         shared-configs:
@@ -27,12 +29,12 @@ spring:
           - data-id: open-feign.yml
           - data-id: rocket-mq.yml
           - data-id: file.yml
-          - data-id: xxl-job-core.yml
           - data-id: seata-config.yml
-          - data-id: e-hrs.yml
+          - data-id: e-order.yml
     sentinel:
       transport:
         dashboard: ${SENTINEL_SERVER:http://127.0.0.1:8080}
+        heartbeat-interval-ms:
       # 服务启动后URL建立心跳
       eager: true
 

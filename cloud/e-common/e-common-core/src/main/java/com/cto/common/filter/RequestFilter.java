@@ -3,17 +3,15 @@ package com.cto.common.filter;
 import java.io.IOException;
 import java.util.UUID;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.MDC;
 
 import org.springframework.core.annotation.Order;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
@@ -26,20 +24,17 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class RequestFilter extends OncePerRequestFilter {
 
     private static final String TRACE_ID = "traceId";
-
     @Override
-    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
-            @NonNull FilterChain chain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws jakarta.servlet.ServletException, IOException {
         try {
             String traceId = request.getHeader(TRACE_ID);
             if (StringUtils.isEmpty(traceId)) {
                 traceId = UUID.randomUUID().toString();
             }
             MDC.put(TRACE_ID, traceId);
-            chain.doFilter(request, response);
+            filterChain.doFilter(request, response);
         } finally {
             MDC.clear();
         }
     }
-
 }

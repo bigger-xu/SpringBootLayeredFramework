@@ -1,8 +1,8 @@
 package com.cto.common.i18n;
 
-import javax.annotation.Resource;
 
 import com.cto.common.utils.MessageUtil;
+import jakarta.annotation.Resource;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.MessageSource;
