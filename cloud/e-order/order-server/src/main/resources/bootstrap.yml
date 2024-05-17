@@ -2,6 +2,9 @@ server:
   port: 8008
 
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   messages:
     encoding: UTF-8
     basename: i18n/message
@@ -12,15 +15,15 @@ spring:
   #nacos配置、注册中心
   cloud:
     nacos:
-      server-addr: ${NACOS_SERVER:192.168.6.36:30001}
+      server-addr: ${NACOS_SERVER:localhost:8848}
       username: ${NACOS_USERNAME:nacos}
       password: ${NACOS_PASSWORD:nacos}
       discovery:
-        namespace: ${NACOS_NAMESPACE:8324d6e5-79a4-41cf-95c7-1cd46f5db510}
+        namespace: ${NACOS_NAMESPACE:34e83e72-f25f-4540-9838-6f6fae50a9e6}
       config:
         import-check:
           enabled: false
-        namespace: ${NACOS_NAMESPACE:8324d6e5-79a4-41cf-95c7-1cd46f5db510}
+        namespace: ${NACOS_NAMESPACE:34e83e72-f25f-4540-9838-6f6fae50a9e6}
         file-extension: yml
         shared-configs:
           - data-id: common.yml
@@ -29,7 +32,7 @@ spring:
           - data-id: open-feign.yml
           - data-id: rocket-mq.yml
           - data-id: file.yml
-          - data-id: seata-config.yml
+#          - data-id: seata-config.yml
           - data-id: e-order.yml
     sentinel:
       transport:

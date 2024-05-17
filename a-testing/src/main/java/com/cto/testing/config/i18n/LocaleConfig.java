@@ -2,10 +2,9 @@ package com.cto.testing.config.i18n;
 
 import java.util.Locale;
 
-import com.sun.istack.internal.NotNull;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -36,7 +35,7 @@ public class LocaleConfig {
     public WebMvcConfigurer localeInterceptor() {
         return new WebMvcConfigurer() {
             @Override
-            public void addInterceptors(@NotNull InterceptorRegistry registry) {
+            public void addInterceptors(@NonNull InterceptorRegistry registry) {
                 CustomerLocaleChangeInterceptors localeInterceptor = new CustomerLocaleChangeInterceptors();
                 localeInterceptor.setParamName("lang");
                 registry.addInterceptor(localeInterceptor);
