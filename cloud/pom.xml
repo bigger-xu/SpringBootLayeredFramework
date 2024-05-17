@@ -18,14 +18,14 @@
     </modules>
 
     <properties>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <spring-boot.version>3.2.4</spring-boot.version>
         <spring-cloud.version>2023.0.1</spring-cloud.version>
         <spring-cloud-alibaba.version>2023.0.1.0</spring-cloud-alibaba.version>
         <spring-platform.version>Cairo-SR8</spring-platform.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <java.version>1.8</java.version>
         <hutool.version>5.8.11</hutool.version>
         <lombok.version>1.18.8</lombok.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -33,8 +33,7 @@
         <fastjson.version>1.2.83</fastjson.version>
         <sa-token.version>1.33.0</sa-token.version>
         <commons-lang3.version>3.8</commons-lang3.version>
-        <swagger.version>3.0.3</swagger.version>
-        <spring-plugin-croe.version>2.0.0.RELEASE</spring-plugin-croe.version>
+        <swagger.version>4.4.0</swagger.version>
         <xxl-job.version>2.3.1</xxl-job.version>
         <rocketmq.version>4.9.4</rocketmq.version>
         <rocketMq-start.version>2.2.2</rocketMq-start.version>
@@ -144,7 +143,7 @@
                 <version>${sa-token.version}</version>
             </dependency>
             <!--swagger 支持-->
-            <dependency>
+            <!--<dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-spring-boot-starter</artifactId>
                 <version>${swagger.version}</version>
@@ -159,6 +158,11 @@
                 <groupId>org.springframework.plugin</groupId>
                 <artifactId>spring-plugin-core</artifactId>
                 <version>${spring-plugin-croe.version}</version>
+            </dependency>-->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>${swagger.version}</version>
             </dependency>
             <!--swagger 结束-->
             <!--xxl-job-->

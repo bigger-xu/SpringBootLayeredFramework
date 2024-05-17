@@ -1,3 +1,4 @@
+/*
 package com.cto.common.config.swagger;
 
 import java.lang.reflect.Field;
@@ -28,12 +29,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping;
 
+*/
 /**
  * Swagger配置信息
  *
  * @author 张永伟
  * @since 2023/4/27
- */
+ *//*
+
 @EnableOpenApi
 @Configuration
 public class SwaggerConfig {
@@ -94,3 +97,4 @@ public class SwaggerConfig {
         };
     }
 }
+*/

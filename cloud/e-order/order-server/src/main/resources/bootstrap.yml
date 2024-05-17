@@ -1,10 +1,24 @@
 server:
   port: 8008
 
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+#    tags-sorter: alpha
+    #operations-sorter: order
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      display-name: '默认分组'
+      paths-to-match: '/**'
+      packages-to-scan: com.cto.order.ae
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+
 spring:
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
   messages:
     encoding: UTF-8
     basename: i18n/message

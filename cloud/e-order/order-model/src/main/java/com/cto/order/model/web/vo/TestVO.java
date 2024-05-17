@@ -2,10 +2,8 @@ package com.cto.order.model.web.vo;
 
 import java.io.Serializable;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
 /**
  * <p>
@@ -14,19 +12,16 @@ import lombok.Setter;
  * @author Zhang Yongwei
  * @since 2023-07-04
  */
-@Getter
-@Setter
-@ApiModel(value = "TestVO对象", description = "")
+@Data
+@Schema(title = "测试VO")
 public class TestVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty("主键ID")
+    
+    @Schema(title = "ID")
     private Long id;
-
-    @ApiModelProperty("英文名称")
+    @Schema(title = "英文名")
     private String nameEn;
-
-    @ApiModelProperty("中文名")
+    @Schema(title = "中文名")
     private String name;
 }

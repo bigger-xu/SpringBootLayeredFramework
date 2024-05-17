@@ -2,8 +2,7 @@ package com.cto.order.model.feign.dto;
 
 import java.io.Serializable;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,17 +15,17 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@ApiModel(value = "TestDTO对象", description = "")
+@Schema(title = "TestDTO对象", description = "")
 public class TestFeignDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("主键ID")
+    @Schema(title = "主键ID")
     private Long id;
 
-    @ApiModelProperty("英文名称")
+    @Schema(title = "英文名称")
     private String nameEn;
 
-    @ApiModelProperty("中文名")
+    @Schema(title = "中文名")
     private String name;
 }

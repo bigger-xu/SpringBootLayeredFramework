@@ -4,17 +4,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-
 import cn.dev33.satoken.exception.NotLoginException;
 import com.cto.common.constants.CommonResultCode;
 import com.cto.common.constants.HrsResultCode;
 import com.cto.common.exception.CtoBizException;
 import com.cto.common.exception.CtoServerException;
 import com.cto.common.response.MessageInfo;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @since 2023/4/24
  */
 @Slf4j
+@Order(100)
 @RestControllerAdvice
 public class GlobalExceptionAdviceHandler {
 
@@ -42,7 +43,7 @@ public class GlobalExceptionAdviceHandler {
      */
     @ExceptionHandler(value = Exception.class)
     public Object handleGlobalException(Exception e) {
-        log.error("全局异常拦截 Exception ===> " + e.getMessage(), e);
+        log.error("全局异常拦截 Exception ===> {}", e.getMessage(), e);
         return MessageInfo.failed(CommonResultCode.SYSTEM_ERROR);
     }
 
@@ -55,7 +56,7 @@ public class GlobalExceptionAdviceHandler {
      */
     @ExceptionHandler(value = CtoBizException.class)
     public Object handleCustomException(CtoBizException e) {
-        log.error("全局自定义异常拦截 CtoBizException ===> " + e.getMessage(), e);
+        log.error("全局自定义异常拦截 CtoBizException ===> {}", e.getMessage(), e);
         return MessageInfo.failed(e.getCode(), e.getMessage());
     }
 
@@ -69,7 +70,7 @@ public class GlobalExceptionAdviceHandler {
      */
     @ExceptionHandler(value = CtoServerException.class)
     public Object handleCustomServerException(CtoServerException e) {
-        log.error("全局微服务状态自定义异常拦截 CtoServerException ===> " + e.getMessage(), e);
+        log.error("全局微服务状态自定义异常拦截 CtoServerException ===> {}", e.getMessage(), e);
         return MessageInfo.failed(e.getCode(), e.getMessage());
     }
 
