@@ -14,7 +14,6 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -30,7 +29,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @since 2023/4/24
  */
 @Slf4j
-@Order(100)
 @RestControllerAdvice
 public class GlobalExceptionAdviceHandler {
 

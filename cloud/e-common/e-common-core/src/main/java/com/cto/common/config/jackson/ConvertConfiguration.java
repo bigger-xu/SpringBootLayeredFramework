@@ -63,6 +63,8 @@ public class ConvertConfiguration implements WebMvcConfigurer {
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         ObjectMapper objectMapper = new ObjectMapper();
+        //空对象不要抛异常
+        objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
         //取消时间的转化格式，默认是时间戳,同时需要设置要表现的时间格式
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         objectMapper.configure(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS, false);
