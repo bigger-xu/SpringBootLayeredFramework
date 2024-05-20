@@ -13,10 +13,6 @@ import com.cto.common.mq.hrs.productor.MailSendProducer;
 import com.cto.common.utils.minio.MinioUtil;
 import com.cto.hrs.entity.Test;
 import com.cto.hrs.service.ITestService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.SendResult;
@@ -36,7 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author Zhang Yongwei
  * @since 2023-07-03
  */
-@Api(tags = { "测试" })
+//@Api(tags = { "测试" })
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/test")
@@ -50,15 +46,15 @@ public class TestController extends BaseController {
     private final MinioUtil minioUtil;
 
     @PostMapping("/transactional")
-    @ApiOperation(value = "事务回滚")
+    //@ApiOperation(value = "事务回滚")
     public void transactional() {
         iTestService.createTest();
         //iTestService.createTestTcc();
     }
 
     @GetMapping("/get")
-    @ApiOperation(value = "查询")
-    @ApiImplicitParams({ @ApiImplicitParam(name = "id", value = "ID", dataTypeClass = Long.class, required = true) })
+    //@ApiOperation(value = "查询")
+    //@ApiImplicitParams({ @ApiImplicitParam(name = "id", value = "ID", dataTypeClass = Long.class, required = true) })
     public Test get(Long id) {
         if (id == 1) {
             throw new CtoBizException(HrsResultCode.HRS_NO_ORG_ERROR);
@@ -67,7 +63,7 @@ public class TestController extends BaseController {
     }
 
     @GetMapping("/time")
-    @ApiOperation(value = "测试时间时区")
+    //@ApiOperation(value = "测试时间时区")
     public Object time() {
         //发送mq消息
         MailMessageInfo messageInfo = new MailMessageInfo();
@@ -84,7 +80,7 @@ public class TestController extends BaseController {
     }
 
     @PostMapping("/upload")
-    @ApiOperation(value = "文件上传")
+    //@ApiOperation(value = "文件上传")
     public Object upload(MultipartFile file) {
         //表单提交上传 （禁止使用，由前端发起上传，否则文件需要传递两次，很耗时）
         String upload = minioUtil.uploadFile(file);
@@ -97,8 +93,8 @@ public class TestController extends BaseController {
     }
 
     @GetMapping("/removeFile")
-    @ApiOperation(value = "文件删除")
-    @ApiImplicitParams({ @ApiImplicitParam(name = "filePath", value = "filePath", dataTypeClass = String.class, required = true) })
+    //@ApiOperation(value = "文件删除")
+    //@ApiImplicitParams({ @ApiImplicitParam(name = "filePath", value = "filePath", dataTypeClass = String.class, required = true) })
     public void upload(String filePath) {
         minioUtil.removeFile(filePath);
     }
