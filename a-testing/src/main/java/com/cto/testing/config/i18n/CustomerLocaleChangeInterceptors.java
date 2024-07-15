@@ -1,3 +1,4 @@
+/*
 package com.cto.testing.config.i18n;
 
 import java.util.TimeZone;
@@ -13,12 +14,14 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+*/
 /**
  * 自定义国际语言拦截器
  *
  * @author 张永伟
  * @since 2023/7/4
- */
+ *//*
+
 public class CustomerLocaleChangeInterceptors extends LocaleChangeInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) {
@@ -71,3 +74,4 @@ public class CustomerLocaleChangeInterceptors extends LocaleChangeInterceptor {
         }
     }
 }
+*/

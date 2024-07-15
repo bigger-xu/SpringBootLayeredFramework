@@ -4,10 +4,7 @@ import java.util.Locale;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 /**
@@ -31,7 +28,7 @@ public class LocaleConfig {
     /**
      * 默认拦截器 其中lang表示切换语言的参数名
      */
-    @Bean
+/*    @Bean
     public WebMvcConfigurer localeInterceptor() {
         return new WebMvcConfigurer() {
             @Override
@@ -41,5 +38,5 @@ public class LocaleConfig {
                 registry.addInterceptor(localeInterceptor);
             }
         };
-    }
+    }*/
 }

@@ -1,3 +1,4 @@
+/*
 package com.cto.testing.config.jackson;
 
 import java.io.IOException;
@@ -40,12 +41,14 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+*/
 /**
  * 时间时区Jackson配置
  *
  * @author 张永伟
  * @since 2023/7/4
- */
+ *//*
+
 @Configuration
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class ConvertConfiguration implements WebMvcConfigurer {
@@ -59,12 +62,14 @@ public class ConvertConfiguration implements WebMvcConfigurer {
     @Autowired(required = false)
     private MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter;
     
-    /**
+    */
+/**
      * 重写object 添加时间序列化
      *
      * @return ObjectMapper
      * @since 2023/9/28
-     */
+     *//*
+
     @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -73,12 +78,14 @@ public class ConvertConfiguration implements WebMvcConfigurer {
         return objectMapper;
     }
     
-    /**
+    */
+/**
      * Local时间序列化
      *
      * @return JavaTimeModule
      * @since 2023/9/28
-     */
+     *//*
+
     @NotNull
     private static JavaTimeModule getJavaTimeModule() {
         JavaTimeModule javaTimeModule = new JavaTimeModule();
@@ -92,13 +99,15 @@ public class ConvertConfiguration implements WebMvcConfigurer {
         return javaTimeModule;
     }
     
-    /**
+    */
+/**
      * 时区转换
      *
      * @param localDateTime 转换的时间
      * @param originZoneId  源时间
      * @param targetZoneId  目标时间
-     */
+     *//*
+
     public static LocalDateTime convertLocalDateTime(LocalDateTime localDateTime, ZoneId originZoneId, ZoneId targetZoneId) {
         return localDateTime.atZone(originZoneId).withZoneSameInstant(targetZoneId).toLocalDateTime();
     }
@@ -153,59 +162,73 @@ public class ConvertConfiguration implements WebMvcConfigurer {
         TimeZoneContext.remove();
     }
     
-    /**
+    */
+/**
      * 是否是数组
-     */
+     *//*
+
     private boolean isArrayType(BeanPropertyWriter writer) {
         Class<?> clazz = writer.getType().getRawClass();
         return clazz.isArray() || Collection.class.isAssignableFrom(clazz);
     }
     
-    /**
+    */
+/**
      * 是否是string
-     */
+     *//*
+
     private boolean isStringType(BeanPropertyWriter writer) {
         Class<?> clazz = writer.getType().getRawClass();
         return CharSequence.class.isAssignableFrom(clazz) || Character.class.isAssignableFrom(clazz);
     }
     
     
-    /**
+    */
+/**
      * 是否是数字
-     */
+     *//*
+
     private boolean isNumberType(BeanPropertyWriter writer) {
         Class<?> clazz = writer.getType().getRawClass();
         return Number.class.isAssignableFrom(clazz);
     }
     
-    /**
+    */
+/**
      * 是否是boolean
-     */
+     *//*
+
     private boolean isBooleanType(BeanPropertyWriter writer) {
         Class<?> clazz = writer.getType().getRawClass();
         return clazz.equals(Boolean.class);
     }
     
-    /**
+    */
+/**
      * 是否是Map
-     */
+     *//*
+
     private boolean isMapType(BeanPropertyWriter writer) {
         Class<?> clazz = writer.getType().getRawClass();
         return clazz.equals(Map.class);
     }
     
-    /**
+    */
+/**
      * 是否是Object
-     */
+     *//*
+
     private boolean isObjectType(BeanPropertyWriter writer) {
         Class<?> clazz = writer.getType().getRawClass();
         boolean property = BeanUtils.isSimpleProperty(clazz);
         return !property;
     }
     
-    /**
+    */
+/**
      * String序列化转换，将NULL替换成空字符串''
-     */
+     *//*
+
     @NotNull
     private static JsonSerializer<Object> stringNullSerializer() {
         return new JsonSerializer<Object>() {
@@ -216,9 +239,11 @@ public class ConvertConfiguration implements WebMvcConfigurer {
         };
     }
     
-    /**
+    */
+/**
      * Map序列化转换，将NULL替换成空字符串''
-     */
+     *//*
+
     @NotNull
     private static JsonSerializer<Object> objectNullSerializer() {
         return new JsonSerializer<Object>() {
@@ -233,9 +258,11 @@ public class ConvertConfiguration implements WebMvcConfigurer {
         };
     }
     
-    /**
+    */
+/**
      * Array序列化转换，将NULL替换成空字符串''
-     */
+     *//*
+
     @NotNull
     private static JsonSerializer<Object> arrayNullSerializer() {
         return new JsonSerializer<Object>() {
@@ -250,9 +277,11 @@ public class ConvertConfiguration implements WebMvcConfigurer {
     }
     
     
-    /**
+    */
+/**
      * Boolean序列化转换，将NULL替换成空字符串''
-     */
+     *//*
+
     @NotNull
     private static JsonSerializer<Object> booleanNullSerializer() {
         return new JsonSerializer<Object>() {
@@ -263,9 +292,11 @@ public class ConvertConfiguration implements WebMvcConfigurer {
         };
     }
     
-    /**
+    */
+/**
      * LocalDateTime序列化
-     */
+     *//*
+
     public static class CustomLocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
         private final DateTimeFormatter formatter;
         
@@ -286,9 +317,11 @@ public class ConvertConfiguration implements WebMvcConfigurer {
         }
     }
     
-    /**
+    */
+/**
      * LocalDateTime反序列化
-     */
+     *//*
+
     public static class CustomLocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
         private final DateTimeFormatter formatter;
         
@@ -309,9 +342,11 @@ public class ConvertConfiguration implements WebMvcConfigurer {
         }
     }
     
-    /**
+    */
+/**
      * LocalDate序列化
-     */
+     *//*
+
     public static class CustomLocalDateSerializer extends JsonSerializer<LocalDate> {
         private final DateTimeFormatter formatter;
         
@@ -326,9 +361,11 @@ public class ConvertConfiguration implements WebMvcConfigurer {
         }
     }
     
-    /**
+    */
+/**
      * LocalDate反序列化
-     */
+     *//*
+
     public static class CustomLocalDateDeserializer extends JsonDeserializer<LocalDate> {
         private final DateTimeFormatter formatter;
         
@@ -343,9 +380,11 @@ public class ConvertConfiguration implements WebMvcConfigurer {
         }
     }
     
-    /**
+    */
+/**
      * LocalTime序列化
-     */
+     *//*
+
     public static class CustomLocalTimeSerializer extends JsonSerializer<LocalTime> {
         private final DateTimeFormatter formatter;
         
@@ -360,9 +399,11 @@ public class ConvertConfiguration implements WebMvcConfigurer {
         }
     }
     
-    /**
+    */
+/**
      * LocalTime反序列化
-     */
+     *//*
+
     public static class CustomLocalTimeDeserializer extends JsonDeserializer<LocalTime> {
         private final DateTimeFormatter formatter;
         
@@ -377,3 +418,4 @@ public class ConvertConfiguration implements WebMvcConfigurer {
         }
     }
 }
+*/
