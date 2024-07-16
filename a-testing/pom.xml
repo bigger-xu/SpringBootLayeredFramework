@@ -66,6 +66,11 @@
             <artifactId>hanlp</artifactId>
             <version>portable-1.8.4</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.opennlp</groupId>
+            <artifactId>opennlp-tools</artifactId>
+            <version>2.3.3</version>
+        </dependency>
     </dependencies>
 
     <build>
