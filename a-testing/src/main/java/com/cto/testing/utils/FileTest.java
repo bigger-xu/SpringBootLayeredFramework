@@ -1,5 +1,11 @@
 package com.cto.testing.utils;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -7,8 +13,12 @@ import java.util.Date;
 import java.util.List;
 
 import com.hankcs.hanlp.HanLP;
+import com.hankcs.hanlp.corpus.dependency.CoNll.CoNLLSentence;
 import com.hankcs.hanlp.corpus.tag.Nature;
+import com.hankcs.hanlp.mining.word.WordInfo;
 import com.hankcs.hanlp.seg.common.Term;
+import org.wltea.analyzer.core.IKSegmenter;
+import org.wltea.analyzer.core.Lexeme;
 
 /**
  * @author ZhangYongWei
@@ -16,10 +26,10 @@ import com.hankcs.hanlp.seg.common.Term;
  */
 public class FileTest {
     
-    public static void main(String[] args) {
-        /*String inputFilePath = "D:\\HanLP\\data\\dictionary\\custom\\客商语料.txt";
+    public static void main(String[] args) throws IOException {
+        String inputFilePath = "D:\\HanLP\\data\\dictionary\\custom\\客商语料.txt";
         String outputFilePath = "D:\\HanLP\\data\\dictionary\\custom\\out客户.txt";
-        
+        StringBuilder sb = new StringBuilder();
         try {
             BufferedReader br = new BufferedReader(new FileReader(inputFilePath));
             BufferedWriter bw = new BufferedWriter(new FileWriter(outputFilePath));
@@ -28,9 +38,10 @@ public class FileTest {
                 // 写入文件，包括换行符
                 line = line.replaceAll("-", "").replaceAll("（", "").replaceAll("）", "");
                 //line += " coop 1024";
-                if(line.startsWith("港中旅华贸国际")){
-                    System.out.println(line);
-                }
+                //if(line.startsWith("港中旅华贸国际")){
+                //    System.out.println(line);
+                //}
+                sb.append(line);
                 //List<Term> termList = NLPTokenizer.segment(line);
                 //for (Term term : termList) {
                 //    System.out.println(term.toString());
@@ -40,8 +51,20 @@ public class FileTest {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
-        System.out.println(convertChineseQuantityToNumber("货物重量是一千两百一十一个"));
+        }
+        //List<WordInfo> infoList = HanLP.extractWords(sb.toString(), 100, true);
+        //for (WordInfo wordInfo : infoList) {
+        //    System.out.println(wordInfo.toString());
+        //}
+        /*CoNLLSentence coNLLWords = HanLP.parseDependency(sb.toString());
+        System.out.println(coNLLWords);*/
+        //System.out.println(formatFlightDate("18日"));
+        //IKSegmenter ik = new IKSegmenter(new StringReader("港中旅华贸国际物流股份有限公司北京分公司"),true);
+        //Lexeme lex = null;
+        //while ((lex=ik.next())!=null){
+        //    System.out.println(lex.getLexemeText()+" ");
+        //}
+        System.out.println(Integer.MAX_VALUE);
     }
     
     private static String formatFlightDate(String date) {

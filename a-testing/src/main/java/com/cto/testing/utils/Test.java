@@ -6,7 +6,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.hankcs.hanlp.collection.AhoCorasick.AhoCorasickDoubleArrayTrie;
+import com.hankcs.hanlp.collection.AhoCorasick.AhoCorasickDoubleArrayTrie.IHit;
+import com.hankcs.hanlp.dictionary.CoreDictionary;
+import com.hankcs.hanlp.dictionary.CoreDictionary.Attribute;
 import com.hankcs.hanlp.dictionary.CustomDictionary;
+import com.hankcs.hanlp.dictionary.other.CharType;
 import com.hankcs.hanlp.seg.NShort.NShortSegment;
 import com.hankcs.hanlp.seg.Segment;
 import com.hankcs.hanlp.seg.common.Term;
@@ -18,13 +23,23 @@ import com.hankcs.hanlp.seg.common.Term;
 public class Test {
     
     public static void main(String[] args) {
-        CustomDictionary.reload();
+        //CustomDictionary.reload();
         String airline = "华贸北京，深圳宝安飞ORD，7个托盘，800公斤泡到1.1吨，28分，汉莎，12号，三班清，500全包";
         //String airline = "华贸北京，深圳宝安经北京大兴飞ORD，19箱，纸箱，2024年3月18日，香港快运，毛重800，体积重量1000，100*200*40，分泡比4，总价500";
         //CustomDictionary.parseLongestText(airline, (begin, end, value) -> {
         //    //System.out.println(value);
-        //    System.out.printf("[%d:%d]=%s %s\n", begin, end, new String(airline.toCharArray(), begin, end - begin), value);
+        //    //System.out.printf("[%d:%d]=%s %s\n", begin, end, new String(airline.toCharArray(), begin, end - begin), value);
+        //    System.out.println(airline.substring(begin, end));
         //});
+        CustomDictionary.add("19[0-9]{2}年[0-1]?[0-9]月[0-3]?[0-9]日", "t 1");
+        CustomDictionary.add("[0-9]{1,3}万", "m 1");
+        CustomDictionary.add("[0-9]+", "m 1");
+        CustomDictionary.parseLongestText(airline, new AhoCorasickDoubleArrayTrie.IHit<CoreDictionary.Attribute>() {
+            @Override
+            public void hit(int begin, int end, Attribute value) {
+                System.out.println(airline.substring(begin, end) + value);
+            }
+        });
         Segment segment = new NShortSegment();
         segment.enableCustomDictionary(true);
         segment.enableCustomDictionaryForcing(true);
