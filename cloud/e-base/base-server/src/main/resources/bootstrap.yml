@@ -1,0 +1,38 @@
+server:
+  port: 8083
+
+spring:
+  messages:
+    encoding: UTF-8
+    basename: i18n/message
+  application:
+    name: e-base
+  main:
+    allow-bean-definition-overriding: true
+  #nacos配置、注册中心
+  cloud:
+    nacos:
+      server-addr: ${NACOS_SERVER:192.168.6.36:30001}
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
+      discovery:
+        namespace: ${NACOS_NAMESPACE:b7fcb5cd-6e5c-4ad0-9171-59458ca86bc4}
+      config:
+        namespace: ${NACOS_NAMESPACE:b7fcb5cd-6e5c-4ad0-9171-59458ca86bc4}
+        file-extension: yml
+        shared-configs:
+          - data-id: common.yml
+            refresh: true
+          - data-id: redis.yml
+          - data-id: open-feign.yml
+          - data-id: rocket-mq.yml
+          - data-id: e-token.yml
+    sentinel:
+      transport:
+        dashboard: ${SENTINEL_SERVER:http://127.0.0.1:8080}
+        heartbeat-interval-ms:
+      # 服务启动后URL建立心跳
+      eager: true
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml

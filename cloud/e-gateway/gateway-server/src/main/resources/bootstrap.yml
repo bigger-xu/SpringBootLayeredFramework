@@ -1,0 +1,28 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: e-gateway
+  main:
+    allow-bean-definition-overriding: true
+  #nacos配置、注册中心
+  cloud:
+    loadbalancer:
+      eager-load:
+        clients:
+    nacos:
+      server-addr: ${NACOS_SERVER:192.168.6.36:30001}
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
+      discovery:
+        namespace: ${NACOS_NAMESPACE:b7fcb5cd-6e5c-4ad0-9171-59458ca86bc4}
+      config:
+        namespace: ${NACOS_NAMESPACE:b7fcb5cd-6e5c-4ad0-9171-59458ca86bc4}
+        file-extension: yml
+        shared-configs:
+          - data-id: common.yml
+            refresh: true
+          - data-id: redis.yml
+          - data-id: open-feign.yml
+          - data-id: e-token.yml

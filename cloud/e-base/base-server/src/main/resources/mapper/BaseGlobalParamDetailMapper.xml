@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.efreight.base.dao.BaseGlobalParamDetailMapper">
+    <select id="customList" resultType="com.efreight.base.model.web.vo.BaseGlobalParamDetailVO">
+        SELECT bgpd.id,
+        bgpd.category_id,
+        bgpd.order_type,
+        bgpd.param_name,
+        bgpd.view_id,
+        bgpd.field_id,
+        bgpd.remark,
+        bgpd.creator_id,
+        bgpd.creator_name,
+        bgpd.create_time,
+        bgpd.editor_id,
+        bgpd.editor_name,
+        bgpd.edit_time,
+        bgv.view_name AS viewName,
+        bgv.view_comment AS viewComment,
+        bgvf.field_code AS fieldCode,
+        bgvf.field_comment AS fieldComment
+
+        FROM base_global_param_detail bgpd
+        LEFT JOIN base_global_view bgv ON bgv.id = bgpd.view_id
+        LEFT JOIN base_global_view_field bgvf ON bgvf.id = bgpd.field_id
+        <where>
+            AND bgpd.category_id = #{categoryId}
+            <if test="keywords != null and keywords != ''">
+                AND (bgpd.param_name LIKE CONCAT('%', #{keywords}, '%')
+                OR bgv.view_comment LIKE CONCAT('%', #{keywords}, '%')
+                OR bgvf.field_comment LIKE CONCAT('%', #{keywords}, '%'))
+            </if>
+        </where>
+    </select>
+    <select id="getFieldNameJoinParamDetail" resultType="com.efreight.base.model.web.vo.GlobalParamDetailToValueVO">
+        SELECT
+        bgpd.param_name,
+        bgpd.view_id,
+        bgpd.field_id,
+        bgvf.field_code AS fieldCode,
+        bgvf.field_code_hump AS fieldCodeHump
+
+        FROM base_global_param_detail bgpd
+        LEFT JOIN base_global_view_field bgvf ON bgvf.id = bgpd.field_id
+        <where>
+            AND bgpd.param_name IN
+            <foreach collection='tagsList' item='item' open='(' separator=',' close=')'>
+                #{item}
+            </foreach>
+            <if test="orderType != null">
+                AND bgpd.order_type = #{orderType}
+            </if>
+        </where>
+    </select>
+    <select id="getViewNameListByCategoryId" resultType="java.util.Map">
+        SELECT bgvf.view_name AS viewName
+        FROM base_global_param_detail bgpd
+                 LEFT JOIN base_global_view bgvf ON bgvf.id = bgpd.view_id
+        WHERE bgpd.category_id = #{categoryId}
+        GROUP BY bgvf.view_name
+    </select>
+</mapper>

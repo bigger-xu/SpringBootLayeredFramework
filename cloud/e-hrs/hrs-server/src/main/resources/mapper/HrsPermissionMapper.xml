@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.efreight.hrs.dao.HrsPermissionMapper">
+    <select id="getUserPermission" resultType="com.efreight.hrs.entity.HrsPermission">
+        SELECT e.*
+        FROM hrs_user_role b
+        left join hrs_role a on b.role_id = a.role_id
+        LEFT JOIN hrs_role_permission d ON b.role_id = d.role_id
+        LEFT JOIN hrs_permission e ON d.permission_id = e.permission_id
+        WHERE b.org_id = #{orgId}
+        AND b.user_id = #{userId}
+        and a.is_admin = #{isAdmin}
+        <if test='isAdmin=="N"'>
+            and a.role_status='Y'
+        </if>
+        AND (e.permission_type = #{permissionType} OR e.permission_type = #{parentModule})
+        GROUP BY e.permission_id
+        ORDER BY e.sort
+    </select>
+
+
+</mapper>

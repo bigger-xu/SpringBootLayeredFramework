@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.efreight.hrs.dao.HrsUserMapper">
+    <select id="getGlobalUserPage" resultType="com.efreight.hrs.model.web.vo.HrsGlobalUserPageVO">
+
+        select a.*,
+        GROUP_CONCAT(c.org_name order by c.org_id desc SEPARATOR ',') as org_name,
+        GROUP_CONCAT(e.parent_child_name order by c.org_id desc SEPARATOR ',') as parent_child_dept_name
+        from hrs_user a
+        left join hrs_org_user b on a.user_id = b.user_id
+        left join hrs_org c on b.org_id = c.org_id and b.org_id=c.org_id
+        left join hrs_user_dept d on a.user_id=d.user_id and b.org_id=d.org_id
+        left join hrs_org_dept e on d.dept_id=e.dept_id and d.org_id=e.org_id
+        left join hrs_org_dept f on e.parent_id=f.dept_id and e.org_id=f.org_id
+        <where>
+            and user_status = 'Y'
+            <if test="query.userEmail!=null and query.userEmail!=''">
+                and UPPER(a.user_email) like CONCAT('%', UPPER(#{query.userEmail}), '%')
+            </if>
+
+            <if test="query.phoneNumber!=null and query.phoneNumber!=''">
+                and a.phone_number like CONCAT('%', #{query.phoneNumber}, '%')
+            </if>
+
+            <if test="query.userName!=null and query.userName!=''">
+                and (UPPER(a.user_name) like CONCAT('%', UPPER(#{query.userName}), '%') or UPPER(a.user_ename) like
+                CONCAT('%', UPPER(#{query.userName}),'%'))
+            </if>
+
+            <if test="query.jobNumber!=null and query.jobNumber!=''">
+                and UPPER(a.job_number) like CONCAT('%', UPPER(#{query.jobNumber}), '%')
+            </if>
+
+            <if test="query.orgId != null and query.orgId.size()>0 ">
+                and c.org_id in
+                <foreach collection="query.orgId" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="query.createIds != null and query.createIds.size()>0 ">
+                and a.creator_id in
+                <foreach collection="query.createIds" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="query.editIds != null and query.editIds.size()>0 ">
+                and a.editor_id in
+                <foreach collection="query.editIds" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="query.beginDate != null">
+                AND a.create_time <![CDATA[>=]]> CONCAT(#{query.beginDate},' 00:00:00')
+            </if>
+            <if test="query.endDate != null">
+                AND a.create_time <![CDATA[<=]]> CONCAT(#{query.endDate},' 23:59:59')
+            </if>
+            <if test="query.editIds != null and query.editIds.size()!=0 ">
+                and a.editor_id in
+                <foreach collection="query.editIds" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="query.editBeginDate != null">
+                AND a.edit_time <![CDATA[>=]]> CONCAT(#{query.editBeginDate},' 00:00:00')
+            </if>
+            <if test="query.editEndDate != null">
+                AND a.edit_time <![CDATA[<=]]> CONCAT(#{query.editEndDate},' 23:59:59')
+            </if>
+            <if test="query.deptName!=null and query.deptName!=''">
+                and (UPPER(e.dept_name) like CONCAT('%', UPPER(#{query.deptName}), '%')
+                or UPPER(e.parent_child_name) like CONCAT('%', UPPER(#{query.deptName}), '%')
+                or UPPER(f.dept_name) like CONCAT('%', UPPER(#{query.deptName}), '%'))
+            </if>
+        </where>
+        group by a.user_id
+    </select>
+    <select id="getGlobalUserOrgDeptList" resultType="com.efreight.hrs.model.web.vo.OrgDeptVO">
+        SELECT a.used,
+               a.org_id,
+               a.user_id,
+               b.dept_id,
+               b.parent_dept_id
+        FROM hrs_org_user a
+                 LEFT JOIN hrs_user_dept b ON a.user_id = b.user_id
+            AND a.org_id = b.org_id
+        WHERE a.user_id = #{userId}
+    </select>
+    <select id="getManagerUserPage" resultType="com.efreight.hrs.model.web.vo.HrsManagerUserPageVO">
+
+        select a.user_id,
+        a.user_email,
+        a.phone_number,
+        a.user_name,
+        a.user_ename,
+        d.order_permission,
+        d.order_permission_ai,
+        a.job_number,
+        a.remark,
+        a.creator_name,
+        a.create_time,
+        a.editor_name,
+        a.edit_time,
+        GROUP_CONCAT( IF(b.role_type = 'SLAVE', c.role_name,null) SEPARATOR ',') as slaveRoleNames,
+        GROUP_CONCAT( IF(b.role_type = 'MASTER', c.role_name, null)) as mastRoleName
+        from hrs_user a
+        left join hrs_org_user d on a.user_id=d.user_id
+        left join hrs_user_role b on a.user_id=b.user_id
+        left join hrs_role c on b.role_id = c.role_id and b.org_id=c.org_id
+        <where>
+            d.org_id = #{query.orgId}
+            <if test="query.roleIds != null and query.roleIds.size()!=0 ">
+                and b.role_id in
+                <foreach collection="query.roleIds" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="query.userEmail!=null and query.userEmail!=''">
+                and lower(a.user_email) like CONCAT('%', lower(#{query.userEmail}), '%')
+            </if>
+
+            <if test="query.phoneNumber!=null and query.phoneNumber!=''">
+                and lower(a.phone_number) like CONCAT('%', lower(#{query.phoneNumber}), '%')
+            </if>
+
+            <if test="query.userName!=null and query.userName!=''">
+                and (lower(a.user_name) like CONCAT('%', lower(#{query.userName}), '%') or
+                lower(a.user_ename) like CONCAT('%', lower(#{query.userName}), '%')
+                )
+            </if>
+
+            <if test="query.jobNumber!=null and query.jobNumber!=''">
+                and lower(a.job_number) like CONCAT('%', lower(#{query.jobNumber}), '%')
+            </if>
+            <if test="query.orderPermissions != null and query.orderPermissions.size()!=0 ">
+                and
+                <foreach collection="query.orderPermissions" item="item" index="index"  open="(" close=")" separator="or">
+                    instr(d.order_permission,#{item})>0
+                </foreach>
+            </if>
+
+            <if test="query.orderPermissionsAi != null and query.orderPermissionsAi.size()!=0 ">
+                and
+                <foreach collection="query.orderPermissionsAi" item="item" index="index"  open="(" close=")" separator="or">
+                    instr(d.order_permission_ai,#{item})>0
+                </foreach>
+            </if>
+
+            <if test="query.createIds != null and query.createIds.size()!=0 ">
+                and a.creator_id in
+                <foreach collection="query.createIds" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="query.beginDate != null and query.beginDate != ''">
+                AND a.create_time <![CDATA[>=]]> #{query.beginDate}
+            </if>
+            <if test="query.endDate != null and query.endDate != ''">
+                AND a.create_time <![CDATA[<=]]> CONCAT(#{query.endDate},' 23:59:59.999')
+            </if>
+            <if test="query.editIds != null and query.editIds.size()!=0 ">
+                and a.editor_id in
+                <foreach collection="query.editIds" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="query.editBeginDate != null and query.editBeginDate != ''">
+                AND a.edit_time <![CDATA[>=]]> #{query.editBeginDate}
+            </if>
+            <if test="query.editEndDate != null and query.editEndDate != ''">
+                AND a.edit_time <![CDATA[<=]]> CONCAT(#{query.editEndDate},' 23:59:59.999')
+            </if>
+        </where>
+        group by a.user_id
+        order by a.user_id
+    </select>
+</mapper>

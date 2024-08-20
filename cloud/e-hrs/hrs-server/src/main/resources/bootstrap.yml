@@ -1,5 +1,5 @@
 server:
-  port: 8006
+  port: 8081
 
 spring:
   messages:
@@ -16,9 +16,9 @@ spring:
       username: ${NACOS_USERNAME:nacos}
       password: ${NACOS_PASSWORD:nacos}
       discovery:
-        namespace: ${NACOS_NAMESPACE:8324d6e5-79a4-41cf-95c7-1cd46f5db510}
+        namespace: ${NACOS_NAMESPACE:b7fcb5cd-6e5c-4ad0-9171-59458ca86bc4}
       config:
-        namespace: ${NACOS_NAMESPACE:8324d6e5-79a4-41cf-95c7-1cd46f5db510}
+        namespace: ${NACOS_NAMESPACE:b7fcb5cd-6e5c-4ad0-9171-59458ca86bc4}
         file-extension: yml
         shared-configs:
           - data-id: common.yml
@@ -27,9 +27,7 @@ spring:
           - data-id: open-feign.yml
           - data-id: rocket-mq.yml
           - data-id: file.yml
-          - data-id: xxl-job-core.yml
-          - data-id: seata-config.yml
-          - data-id: e-hrs.yml
+          - data-id: e-token.yml
     sentinel:
       transport:
         dashboard: ${SENTINEL_SERVER:http://127.0.0.1:8080}

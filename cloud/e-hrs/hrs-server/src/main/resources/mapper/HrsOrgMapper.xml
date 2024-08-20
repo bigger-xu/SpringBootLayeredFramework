@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.efreight.hrs.dao.HrsOrgMapper">
+    <select id="getOrgPage" resultType="com.efreight.hrs.model.web.vo.HrsOrgVO">
+
+        select d.area_name,a.id,a.org_name,a.org_ename,a.short_name,a.short_name,a.bank_account_cn,a.bank_account_en,
+        a.bank_name_cn,a.bank_name_en,a.bank_tel_cn,a.bank_tel_en,a.org_address_info_cn,a.org_address_info_en,
+        a.org_code,a.create_time,a.creator_name,a.edit_time,a.editor_name
+        from hrs_org a
+        left join hrs_org_ae_order_config b on a.id=b.org_id
+        left join hrs_area_org c on a.id=c.org_id
+        left join hrs_area d on d.id=c.area_id
+
+        <where>
+            <if test="query.areaIds != null and query.areaIds.size()!=0 ">
+                and d.id in
+                <foreach collection="query.areaIds" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="query.orgName!=null and query.orgName!=''">
+                and (a.org_name like CONCAT('%', #{query.orgName}, '%')
+                or a.org_ename like CONCAT('%', #{query.orgName}, '%')
+                or a.short_name like CONCAT('%', #{query.orgName}, '%')
+                or a.short_ename like CONCAT('%', #{query.orgName}, '%')
+                )
+            </if>
+            <if test="query.bankName!=null and query.bankName!=''">
+                and (UPPER(a.bank_name_cn) like CONCAT('%', UPPER(#{query.bankName}), '%')
+                or UPPER(a.bank_name_en) like CONCAT('%', UPPER(#{query.bankName}), '%')
+                )
+            </if>
+            <if test="query.bankAccount!=null and query.bankAccount!=''">
+                and (UPPER(a.bank_account_cn) like CONCAT('%', UPPER(#{query.bankAccount}), '%')
+                or UPPER(a.bank_account_en) like CONCAT('%', UPPER(#{query.bankAccount}), '%')
+                )
+            </if>
+            <if test="query.bankTel!=null and query.bankTel!=''">
+                and (UPPER(a.bank_tel_cn) like CONCAT('%', UPPER(#{query.bankTel}), '%')
+                or UPPER(a.bank_tel_en) like CONCAT('%', UPPER(#{query.bankTel}), '%')
+                )
+            </if>
+            <if test="query.orgAddress!=null and query.orgAddress!=''">
+                and (UPPER(a.org_address_info_cn) like CONCAT('%', UPPER(#{query.orgAddress}), '%')
+                or UPPER(a.org_address_info_en) like CONCAT('%', UPPER(#{query.orgAddress}), '%')
+                )
+            </if>
+
+            <if test="query.orgCode!=null and query.orgCode!=''">
+                and UPPER(a.org_code) like CONCAT('%', UPPER(#{query.orgCode}), '%')
+            </if>
+
+            <if test="query.createIds != null and query.createIds.size()!=0 ">
+                and a.creator_id in
+                <foreach collection="query.createIds" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="query.beginDate != null and query.beginDate != ''">
+                AND a.create_time <![CDATA[>=]]> #{query.beginDate}
+            </if>
+            <if test="query.endDate != null and query.endDate != ''">
+                AND a.create_time <![CDATA[<=]]> CONCAT(#{query.endDate},' 23:59:59.999')
+            </if>
+            <if test="query.editIds != null and query.editIds.size()!=0 ">
+                and a.editor_id in
+                <foreach collection="query.editIds" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="query.editBeginDate != null and query.editBeginDate != ''">
+                AND a.edit_time <![CDATA[>=]]> #{query.editBeginDate}
+            </if>
+            <if test="query.editBeginDate != null and query.editBeginDate != ''">
+                AND a.edit_time <![CDATA[<=]]> CONCAT(#{query.editBeginDate},' 23:59:59.999')
+            </if>
+        </where>
+        order by a.create_time desc
+    </select>
+    <select id="getOrgAndOrgConfig" resultType="com.efreight.common.global.login.LoginOrgVO">
+        select ho.*,
+               ho.org_name,
+               ho.org_code,
+               ho.short_name,
+               ho.org_ename,
+               ho.short_ename,
+               ho.social_credit_code,
+               ho.bank_account_en,
+               ho.bank_account_cn,
+               ho.bank_name_cn,
+               ho.bank_name_en,
+               ho.bank_tel_cn,
+               ho.bank_tel_en,
+               ho.org_address_info_cn,
+               ho.org_address_info_en,
+               ho.org_logo,
+               ho.org_seal,
+               ho.local_currency,
+               ho.execution_port,
+               aoc.order_ae_digits_size,
+               aoc.order_ae_digits_volume,
+               aoc.order_ae_digits_weight,
+               aoc.order_ae_digits_charge_weight,
+
+               aic.order_ai_digits_size,
+               aic.order_ai_digits_volume,
+               aic.order_ai_digits_weight,
+               aic.order_ai_digits_charge_weight
+
+        from hrs_org ho
+                 left join hrs_org_ae_order_config aoc on aoc.org_id = ho.id
+                 left join hrs_org_ai_order_config aic on aic.org_id = ho.id
+        where ho.id = #{orgId}
+    </select>
+</mapper>
