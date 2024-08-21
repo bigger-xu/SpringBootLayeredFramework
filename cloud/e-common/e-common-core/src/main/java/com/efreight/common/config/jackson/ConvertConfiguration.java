@@ -53,7 +53,7 @@ public class ConvertConfiguration implements WebMvcConfigurer {
             mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
         }
         mappingJackson2HttpMessageConverter.setObjectMapper(objectMapper);
-        converters.removeIf(converter -> converter instanceof MappingJackson2HttpMessageConverter);
+        //converters.removeIf(converter -> converter instanceof MappingJackson2HttpMessageConverter);
         converters.add(mappingJackson2HttpMessageConverter);
         //清除时区Context
         TimeZoneContext.remove();

@@ -41,7 +41,7 @@
         <spring-plugin-croe.version>2.0.0.RELEASE</spring-plugin-croe.version>
         <xxl-job.version>2.3.1</xxl-job.version>
         <rocketmq.version>5.1.4</rocketmq.version>
-        <rocketmq-start.version>2.2.3</rocketmq-start.version>
+        <rocketmq-start.version>2.3.0</rocketmq-start.version>
         <mybatis-plus.version>3.5.5</mybatis-plus.version>
         <druid.version>1.2.23</druid.version>
         <redisson.version>3.26.0</redisson.version>
