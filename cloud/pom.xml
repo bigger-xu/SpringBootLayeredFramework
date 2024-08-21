@@ -156,6 +156,12 @@
                 <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
+            <!--网关swagger-->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-gateway-spring-boot-starter</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
             <!--swagger 结束-->
             <!-- xxl-job-core -->
             <dependency>
