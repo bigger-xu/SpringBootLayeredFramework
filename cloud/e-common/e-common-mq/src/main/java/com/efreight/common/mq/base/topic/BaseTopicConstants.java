@@ -1,4 +1,4 @@
-package com.efreight.common.mq.hrs.topic;
+package com.efreight.common.mq.base.topic;
 
 /**
  * RocketMq HRS主题统一管理
@@ -6,7 +6,7 @@ package com.efreight.common.mq.hrs.topic;
  * @author 张永伟
  * @since 2023/5/8
  */
-public interface HrsTopicConstants {
+public interface BaseTopicConstants {
 
     /**
      * 发邮件topic

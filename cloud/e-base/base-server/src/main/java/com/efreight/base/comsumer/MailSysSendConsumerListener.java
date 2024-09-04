@@ -1,11 +1,12 @@
-package com.efreight.hrs.mq.comsumer;
+package com.efreight.base.comsumer;
 
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.efreight.common.message.model.MailMessageInfo;
-import com.efreight.common.mq.hrs.topic.HrsTopicConstants;
+import com.efreight.common.message.MailSendService;
+import com.efreight.common.message.model.MailSystemMessageInfo;
+import com.efreight.common.mq.base.topic.BaseTopicConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
@@ -23,13 +24,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-@RocketMQMessageListener(topic = HrsTopicConstants.TOPIC_GLOBAL_MAIL_SEND, consumerGroup = HrsTopicConstants.TOPIC_GLOBAL_MAIL_SEND_CONSUMER_GROUP)
-public class MailSendConsumerListener implements RocketMQListener<MessageExt> {
+@RocketMQMessageListener(topic = BaseTopicConstants.TOPIC_SYSTEM_MAIL_SEND,
+        consumerGroup = BaseTopicConstants.TOPIC_SYSTEM_MAIL_SEND_CONSUMER_GROUP, maxReconsumeTimes = 3)
+public class MailSysSendConsumerListener implements RocketMQListener<MessageExt> {
 
-    public static final String SEND_MAIL_LOCK_KEY = "lock:mail:send:";
+    public static final String SEND_MAIL_LOCK_KEY = "lock:mail:sys:send:";
 
     @Autowired
     private RedissonClient redissonClient;
+    @Autowired
+    private MailSendService mailSendService;
 
     @Override
     public void onMessage(MessageExt message) {
@@ -41,24 +45,19 @@ public class MailSendConsumerListener implements RocketMQListener<MessageExt> {
             if (b) {
                 //mq在信息发送的时候会对obj进行json序列化，默认方式，所以直接json对象
                 String body = new String(message.getBody(), StandardCharsets.UTF_8);
-                MailMessageInfo mailMessageInfo = JSONObject.parseObject(body, MailMessageInfo.class);
-                log.info("邮件发送收到消息 --> 参数:message = {}", mailMessageInfo);
-                //根据类型发送邮件
-                log.info("发送邮件");
+                MailSystemMessageInfo mailMessageInfo = JSONObject.parseObject(body, MailSystemMessageInfo.class);
+                log.info("邮件系统发送收到消息 --> 参数:message = {}", mailMessageInfo);
+                mailSendService.sendSystemMessage(mailMessageInfo.getReceiverList(), mailMessageInfo.getSubject(),
+                                                  mailMessageInfo.getContent(), mailMessageInfo.getFileMaps(), mailMessageInfo.getImgMap(),false
+                );
             }
+        } catch (RuntimeException e) {
+            log.error("系统邮件发送异常：", e);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            log.error("系统邮件发送异常：", e);
+            Thread.currentThread().interrupt();
         } finally {
             lock.unlock();
         }
-
     }
 }
-
-//写法二
-//public class OrderCreateSubsequentConsumerListener implements RocketMQListener<AfOrderMqDTO> {
-//    @Override
-//    public void onMessage(AfOrderMqDTO message) {
-//        log.info("处理剩下的逻辑,afOrderMqDTO = {}", message);
-//    }
-//}

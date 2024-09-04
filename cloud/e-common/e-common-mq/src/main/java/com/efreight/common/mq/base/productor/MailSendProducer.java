@@ -1,8 +1,8 @@
-package com.efreight.common.mq.hrs.productor;
+package com.efreight.common.mq.base.productor;
 
 import com.efreight.common.message.model.MailMessageInfo;
 import com.efreight.common.message.model.MailSystemMessageInfo;
-import com.efreight.common.mq.hrs.topic.HrsTopicConstants;
+import com.efreight.common.mq.base.topic.BaseTopicConstants;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.SendResult;
@@ -37,7 +37,7 @@ public class MailSendProducer {
         //同步消息
         //设置keys是为了处理消息幂等性，不需要幂等的数据可以不设
         Message<MailMessageInfo> message = MessageBuilder.withPayload(mailMessageInfo).setHeader("KEYS", mailMessageInfo.getUuid()).build();
-        SendResult sendResultObj = rocketMqTemplate.syncSend(HrsTopicConstants.TOPIC_GLOBAL_MAIL_SEND, message);
+        SendResult sendResultObj = rocketMqTemplate.syncSend(BaseTopicConstants.TOPIC_GLOBAL_MAIL_SEND, message);
         log.info("RocketMq发送邮件发送处理消息-->方法名:【sendMailMessage】-->  sendResult = {}", sendResultObj);
         return sendResultObj;
 
@@ -89,8 +89,8 @@ public class MailSendProducer {
         //同步消息
         //设置keys是为了处理消息幂等性，不需要幂等的数据可以不设
         Message<MailSystemMessageInfo> message = MessageBuilder.withPayload(mailMessageInfo).setHeader("KEYS", mailMessageInfo.getUuid()).build();
-        SendResult sendResultObj = rocketMqTemplate.syncSend(HrsTopicConstants.TOPIC_SYSTEM_MAIL_SEND, message);
-        log.info("RocketMq发送邮件发送处理消息-->方法名:【sendMailMessage】-->  sendResult = {}", sendResultObj);
+        SendResult sendResultObj = rocketMqTemplate.syncSend(BaseTopicConstants.TOPIC_SYSTEM_MAIL_SEND, message);
+        log.info("RocketMq发送邮件发送处理消息-->方法名:【sendSysMailMessage】-->  sendResult = {}", sendResultObj);
         return sendResultObj;
     }
 
