@@ -28,7 +28,7 @@ public class MenuTreeUtil {
         return getRootNodes();
     }
     
-    private TreeNode MenuToNode(Menu menu){
+    private TreeNode menuToNode(Menu menu){
         if(menu == null){
             return null;
         }
@@ -49,7 +49,7 @@ public class MenuTreeUtil {
         List<TreeNode> childNodes = new ArrayList<TreeNode>();  
         for(Menu menu : childMenus){
             if(rootNode.getDataId().equals(menu.getParentId())){
-                TreeNode node = MenuToNode(menu);
+                TreeNode node = menuToNode(menu);
                 childNodes.add(node);
             }
         }
@@ -59,7 +59,7 @@ public class MenuTreeUtil {
     private List<TreeNode> getRootNodes(){
         List<TreeNode> rootNodes = new ArrayList<TreeNode>();
         for(Menu menu : rootMenus){
-            TreeNode node = MenuToNode(menu);
+            TreeNode node = menuToNode(menu);
             if(node != null){
                 addChlidNodes(node);
                 rootNodes.add(node);
@@ -76,31 +76,31 @@ public class MenuTreeUtil {
         MenuTreeUtil util = new MenuTreeUtil(rootMenus,childMenus);
         List<TreeNode> nodeList = util.getTreeNode();
         for (TreeNode node : nodeList) {
-            if (node.getName().equals("消息中心")) {
+            if ("消息中心".equals(node.getName())) {
                 node.setIcon("icon-envelope");
-            } else if (node.getName().trim().equals("日志管理")) {
+            } else if ("日志管理".equals(node.getName().trim())) {
                 node.setIcon("icon-dashboard");
-            } else if (node.getName().trim().equals("消息管理")) {
+            } else if ("消息管理".equals(node.getName().trim())) {
                 node.setIcon("icon-glass");
-            } else if (node.getName().trim().equals("公告管理")) {
+            } else if ("公告管理".equals(node.getName().trim())) {
                 node.setIcon("icon-plane");
-            } else if (node.getName().trim().equals("课程管理")) {
+            } else if ("课程管理".equals(node.getName().trim())) {
                 node.setIcon("icon-pause");
-            } else if (node.getName().trim().equals("题库管理")) {
+            } else if ("题库管理".equals(node.getName().trim())) {
                 node.setIcon("icon-print");
-            } else if (node.getName().trim().equals("教务管理")) {
+            } else if ("教务管理".equals(node.getName().trim())) {
                 node.setIcon("icon-user");
-            } else if (node.getName().trim().equals("资源管理")) {
+            } else if ("资源管理".equals(node.getName().trim())) {
                 node.setIcon("icon-align-left");
-            } else if (node.getName().trim().equals("系统管理")) {
+            } else if ("系统管理".equals(node.getName().trim())) {
                 node.setIcon("icon-wrench");
-            } else if (node.getName().trim().equals("调课中心")) {
+            } else if ("调课中心".equals(node.getName().trim())) {
                 node.setIcon("icon-shopping-cart");
-            } else if (node.getName().trim().equals("实验管理")) {
+            } else if ("实验管理".equals(node.getName().trim())) {
                 node.setIcon("icon-fire");
-            } else if (node.getName().trim().equals("下载中心")) {
+            } else if ("下载中心".equals(node.getName().trim())) {
                 node.setIcon("icon-print");
-            } else if (node.getName().trim().equals("考试中心")) {
+            } else if ("考试中心".equals(node.getName().trim())) {
                 node.setIcon("icon-print");
             } else{
                 node.setIcon("icon-envelope");
