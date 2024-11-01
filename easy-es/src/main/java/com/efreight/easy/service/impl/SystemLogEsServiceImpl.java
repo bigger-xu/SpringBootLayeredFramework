@@ -48,6 +48,6 @@ public class SystemLogEsServiceImpl implements SystemLogEsService {
     
     @Override
     public List<SearchHit<SystemLog>> findByTitleOrContent(String title, String content) {
-        return systemLogRepository.findByTitleOrContent(title,content);
+        return systemLogRepository.findByTraceIdOrContent(title,content);
     }
 }

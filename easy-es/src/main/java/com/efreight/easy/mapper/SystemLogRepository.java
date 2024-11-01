@@ -28,6 +28,6 @@ public interface SystemLogRepository extends ElasticsearchRepository<SystemLog, 
             fields = {@HighlightField(name = "title"), @HighlightField(name = "content")},
             parameters = @HighlightParameters(preTags = {"<span style='color:red'>"}, postTags = {"</span>"}, numberOfFragments = 0)
     )
-    List<SearchHit<SystemLog>> findByTitleOrContent(String title, String content);
+    List<SearchHit<SystemLog>> findByTraceIdOrContent(String title, String content);
 
 }
